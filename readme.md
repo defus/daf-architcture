@@ -1,4 +1,4 @@
-# Application SIF : Système d'Information Foncier
+# Architecture des applications du DAF
 
 
 ## Les diagrammes suivants montrent l'architecture sur laquelle l'applciation est batie
@@ -6,7 +6,9 @@
 
 ## Exécuter l'application en local
 ```
-	git clone https://github.com/defus/sif.git
+	git clone https://github.com/defus/daf-architcture.git
+	mvn install
+	cd sif
 	mvn tomcat7:run
 ```
 
@@ -28,7 +30,7 @@ If m2e is not there, just follow the install process here: http://eclipse.org/m2
 
 1) In the command line
 ```
-git clone https://github.com/defus/sif.git
+git clone https://github.com/defus/daf-architcture.git
 ```
 2) Inside Eclipse
 ```
