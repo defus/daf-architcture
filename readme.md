@@ -2,7 +2,7 @@
 
 
 ## Les diagrammes suivants montrent l'architecture sur laquelle l'applciation est batie
-<a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
+<a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">Voir la présentation ici</a>
 
 ## Exécuter l'application en local
 ```
@@ -95,21 +95,21 @@ File -> Import -> Maven -> Existing Maven project
     <td>Transactions</td>
     <td>
       <a href="/src/main/resources/spring/business-config.xml">business-config.xml</a>
-       <a href="/src/main/java/cm/gov/mindaf/sif/service/ClinicServiceImpl.java">ClinicServiceImpl.java</a>
+       <a href="/src/main/java/cm/gov/daf/sif/service/ClinicServiceImpl.java">ClinicServiceImpl.java</a>
     </td>
   </tr>
   <tr>
     <td>Cache</td>
       <td>
       <a href="/src/main/resources/spring/tools-config.xml">tools-config.xml</a>
-       <a href="/src/main/java/cm/gov/mindaf/sif/service/ClinicServiceImpl.java">ClinicServiceImpl.java</a>
+       <a href="/src/main/java/cm/gov/daf/sif/service/ClinicServiceImpl.java">ClinicServiceImpl.java</a>
     </td>
   </tr>
   <tr>
     <td>Bean Profiles</td>
       <td>
       <a href="/src/main/resources/spring/business-config.xml">business-config.xml</a>
-       <a href="/src/test/java/cm/gov/mindaf/sif/service/ClinicServiceJdbcTests.java">ClinicServiceJdbcTests.java</a>
+       <a href="/src/test/java/cm/gov/daf/sif/service/ClinicServiceJdbcTests.java">ClinicServiceJdbcTests.java</a>
        <a href="/src/main/webapp/WEB-INF/web.xml">web.xml</a>
     </td>
   </tr>
@@ -117,19 +117,19 @@ File -> Import -> Maven -> Existing Maven project
     <td>JdbcTemplate</td>
     <td>
       <a href="/src/main/resources/spring/business-config.xml">business-config.xml</a>
-      <a href="/src/main/java/cm/gov/mindaf/sif/repository/jdbc">jdbc folder</a></td>
+      <a href="/src/main/java/cm/gov/daf/sif/repository/jdbc">jdbc folder</a></td>
   </tr>
   <tr>
     <td>JPA</td>
     <td>
       <a href="/src/main/resources/spring/business-config.xml">business-config.xml</a>
-      <a href="/src/main/java/cm/gov/mindaf/sif/repository/jpa">jpa folder</a></td>
+      <a href="/src/main/java/cm/gov/daf/sif/repository/jpa">jpa folder</a></td>
   </tr>
   <tr>
     <td>Spring Data JPA</td>
     <td>
       <a href="/src/main/resources/spring/business-config.xml">business-config.xml</a>
-      <a href="/src/main/java/cm/gov/mindaf/sif/repository/springdatajpa">springdatajpa folder</a></td>
+      <a href="/src/main/java/cm/gov/daf/sif/repository/springdatajpa">springdatajpa folder</a></td>
   </tr>
 </table>
 

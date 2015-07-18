@@ -16,7 +16,7 @@
     <import resource="datasource-config.xml"/>
 
     <context:component-scan
-            base-package="cm.gov.mindaf.sif.service"/>
+            base-package="cm.gov.daf.sif.service"/>
 
     <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
     <!-- (in this case, JDBC-related settings for the JPA EntityManager definition below) -->
@@ -47,7 +47,7 @@
             </property>
             <!-- gDickens: BOTH Persistence Unit and Packages to Scan are NOT compatible, persistenceUnit will win -->
             <property name="persistenceUnitName" value="sif"/>
-            <property name="packagesToScan" value="cm.gov.mindaf.sif"/>
+            <property name="packagesToScan" value="cm.gov.daf.sif"/>
         </bean>
 
         <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
@@ -77,7 +77,7 @@
             <constructor-arg ref="dataSource"/>
         </bean>
 
-        <context:component-scan base-package="cm.gov.mindaf.sif.repository.jdbc"/>
+        <context:component-scan base-package="cm.gov.daf.sif.repository.jdbc"/>
     </beans>
 
     <beans profile="jpa">
@@ -87,10 +87,10 @@
             EntityManager will be auto-injected due to @PersistenceContext.
             PersistenceExceptions will be auto-translated due to @Repository.
         -->
-        <context:component-scan base-package="cm.gov.mindaf.sif.repository.jpa"/>
+        <context:component-scan base-package="cm.gov.daf.sif.repository.jpa"/>
     </beans>
 
     <beans profile="spring-data-jpa">
-        <jpa:repositories base-package="cm.gov.mindaf.sif.repository.springdatajpa"/>
+        <jpa:repositories base-package="cm.gov.daf.sif.repository.springdatajpa"/>
     </beans>
 </beans>

@@ -26,7 +26,7 @@
     </aop:aspectj-autoproxy>
 
     <!-- Call monitoring aspect that monitors call count and call invocation time -->
-    <bean id="callMonitor" class="cm.gov.mindaf.sif.util.CallMonitoringAspect"/>
+    <bean id="callMonitor" class="cm.gov.daf.sif.util.CallMonitoringAspect"/>
 
     <!--
         Exporter that exposes the CallMonitoringAspect via JMX,

@@ -16,7 +16,7 @@
    the db/mysql directory. Alternatively, uncomment the mysql-connector from the
    sif pom.
 
-3) Create the mindaf database and user by executing the "db/mysql/createDB.txt"
+3) Create the daf database and user by executing the "db/mysql/createDB.txt"
    script.
 
 4) Open "src/main/resources/spring/data-access.properties"; comment out all properties in the

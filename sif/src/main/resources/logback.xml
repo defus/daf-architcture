@@ -17,7 +17,7 @@
     </appender>
 
 	<!--<logger name="org.hibernate" level="debug"/> -->
-    <logger name="cm.gov.mindaf.sif" level="debug"/>
+    <logger name="cm.gov.daf.sif" level="debug"/>
          
     <root level="info">
         <appender-ref ref="console"/>

@@ -6,7 +6,7 @@
 	<name>sif</name>
 	<packaging>war</packaging>
 	<parent>
-		<groupId>cm.gov.mindaf</groupId>
+		<groupId>cm.gov.daf</groupId>
 		<artifactId>home</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>

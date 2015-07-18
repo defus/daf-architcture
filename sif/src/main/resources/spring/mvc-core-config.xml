@@ -20,7 +20,7 @@
         - POJOs labeled with the @Controller and @Service annotations are auto-detected.
     -->
     <context:component-scan
-            base-package="cm.gov.mindaf.sif.web"/>
+            base-package="cm.gov.daf.sif.web"/>
 
     <mvc:annotation-driven conversion-service="conversionService"/>
 
@@ -40,7 +40,7 @@
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="formatters">
             <set>
-                <bean class="cm.gov.mindaf.sif.web.PetTypeFormatter"/>
+                <bean class="cm.gov.daf.sif.web.PetTypeFormatter"/>
             </set>
         </property>
     </bean>
