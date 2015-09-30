@@ -5,7 +5,14 @@ DROP TABLE visits IF EXISTS;
 DROP TABLE pets IF EXISTS;
 DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
+DROP TABLE professions IF EXISTS;
 
+CREATE TABLE professions (
+  id         INTEGER IDENTITY PRIMARY KEY,
+  libelle VARCHAR(30),
+  description  VARCHAR(100)
+);
+CREATE INDEX professions_libelle ON professions (libelle);
 
 CREATE TABLE vets (
   id         INTEGER IDENTITY PRIMARY KEY,

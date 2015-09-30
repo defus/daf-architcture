@@ -21,6 +21,7 @@ import org.springframework.dao.DataAccessException;
 import cm.gov.daf.sif.model.Owner;
 import cm.gov.daf.sif.model.Pet;
 import cm.gov.daf.sif.model.PetType;
+import cm.gov.daf.sif.model.Profession;
 import cm.gov.daf.sif.model.Vet;
 import cm.gov.daf.sif.model.Visit;
 
@@ -47,5 +48,11 @@ public interface ClinicService {
     void saveOwner(Owner owner) throws DataAccessException;
 
     Collection<Owner> findOwnerByLastName(String lastName) throws DataAccessException;
+    
+    Profession findProfessionById(int id) throws DataAccessException;
+    
+    void saveProfession(Profession profession) throws DataAccessException;
+    
+    Collection<Profession> findProfessionByLibelle(String libelle) throws DataAccessException;
 
 }

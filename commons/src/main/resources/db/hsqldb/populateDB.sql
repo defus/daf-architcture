@@ -51,3 +51,10 @@ INSERT INTO visits VALUES (1, 7, '2013-01-01', 'rabies shot');
 INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot');
 INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed');
+
+INSERT INTO professions VALUES (1, 'agriculteur', 'agriculteur');
+INSERT INTO professions VALUES (2, 'cultivatuer', 'cultivatuer');
+INSERT INTO professions VALUES (3, 'eleveur', 'eleveur');
+INSERT INTO professions VALUES (4, 'commercant', 'commercant');
+INSERT INTO professions VALUES (5, 'informaticien', 'informaticien');
+INSERT INTO professions VALUES (6, 'medecin', 'medecin');

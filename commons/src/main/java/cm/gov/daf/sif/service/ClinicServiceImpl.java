@@ -23,10 +23,12 @@ import org.springframework.dao.DataAccessException;
 import cm.gov.daf.sif.model.Owner;
 import cm.gov.daf.sif.model.Pet;
 import cm.gov.daf.sif.model.PetType;
+import cm.gov.daf.sif.model.Profession;
 import cm.gov.daf.sif.model.Vet;
 import cm.gov.daf.sif.model.Visit;
 import cm.gov.daf.sif.repository.OwnerRepository;
 import cm.gov.daf.sif.repository.PetRepository;
+import cm.gov.daf.sif.repository.ProfessionRepository;
 import cm.gov.daf.sif.repository.VetRepository;
 import cm.gov.daf.sif.repository.VisitRepository;
 import org.springframework.stereotype.Service;
@@ -45,13 +47,15 @@ public class ClinicServiceImpl implements ClinicService {
     private VetRepository vetRepository;
     private OwnerRepository ownerRepository;
     private VisitRepository visitRepository;
+    private ProfessionRepository professionRepository;
 
     @Autowired
-    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository) {
+    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, ProfessionRepository professionRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
+        this.professionRepository = professionRepository;
     }
 
     @Override
@@ -105,5 +109,21 @@ public class ClinicServiceImpl implements ClinicService {
         return vetRepository.findAll();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Profession findProfessionById(int id) throws DataAccessException {
+        return professionRepository.findById(id);
+    }
 
+    @Override
+    @Transactional
+    public void saveProfession(Profession profession) throws DataAccessException {
+        professionRepository.save(profession);
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Collection<Profession> findProfessionByLibelle(String libelle) throws DataAccessException {
+        return professionRepository.findByLibelle(libelle);
+    }
 }
