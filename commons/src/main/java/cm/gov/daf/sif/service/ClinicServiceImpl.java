@@ -109,21 +109,4 @@ public class ClinicServiceImpl implements ClinicService {
         return vetRepository.findAll();
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Profession findProfessionById(int id) throws DataAccessException {
-        return professionRepository.findById(id);
-    }
-
-    @Override
-    @Transactional
-    public void saveProfession(Profession profession) throws DataAccessException {
-        professionRepository.save(profession);
-    }
-    
-    @Override
-    @Transactional(readOnly = true)
-    public Collection<Profession> findProfessionByLibelle(String libelle) throws DataAccessException {
-        return professionRepository.findByLibelle(libelle);
-    }
 }

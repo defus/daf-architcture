@@ -40,7 +40,7 @@ public class JpaProfessionRepositoryImpl implements ProfessionRepository {
 
     @Override
     public Profession findById(int id) {
-        Query query = this.em.createQuery("SELECT profession FROM Profession profession WHERE profession.id =:id");
+        Query query = this.em.createQuery("FROM Profession profession WHERE profession.id =:id");
         query.setParameter("id", id);
         return (Profession) query.getSingleResult();
     }

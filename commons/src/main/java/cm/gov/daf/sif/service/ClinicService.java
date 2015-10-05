@@ -48,11 +48,5 @@ public interface ClinicService {
     void saveOwner(Owner owner) throws DataAccessException;
 
     Collection<Owner> findOwnerByLastName(String lastName) throws DataAccessException;
-    
-    Profession findProfessionById(int id) throws DataAccessException;
-    
-    void saveProfession(Profession profession) throws DataAccessException;
-    
-    Collection<Profession> findProfessionByLibelle(String libelle) throws DataAccessException;
 
 }

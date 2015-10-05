@@ -23,6 +23,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import cm.gov.daf.sif.model.Profession;
 import cm.gov.daf.sif.service.ClinicService;
+import cm.gov.daf.sif.service.ProfessionService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,21 +38,18 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * @author Juergen Hoeller
- * @author Ken Krebs
- * @author Arjen Poutsma
- * @author Michael Isvy
+ * @author Albert
  */
 @Controller
 @SessionAttributes(types = Profession.class)
 public class ProfessionController {
 
-    private final ClinicService clinicService;
+    private final ProfessionService professionService;
 
 
     @Autowired
-    public ProfessionController(ClinicService clinicService) {
-        this.clinicService = clinicService;
+    public ProfessionController(ProfessionService professionService) {
+        this.professionService = professionService;
     }
 
     @InitBinder
@@ -70,7 +69,7 @@ public class ProfessionController {
         if (result.hasErrors()) {
             return "professions/createOrUpdateProfessionForm";
         } else {
-            this.clinicService.saveProfession(profession);
+            this.professionService.saveProfession(profession);
             status.setComplete();
             return "redirect:/professions/" + profession.getId();
         }
@@ -91,7 +90,7 @@ public class ProfessionController {
         }
 
         // find professions by libelle
-        Collection<Profession> results = this.clinicService.findProfessionByLibelle(profession.getLibelle());
+        Collection<Profession> results = this.professionService.findProfessionByLibelle(profession.getLibelle());
         if (results.isEmpty()) {
             // no owners found
             result.rejectValue("libelle", "notFound", "not found");
@@ -111,7 +110,7 @@ public class ProfessionController {
         
     @RequestMapping(value = "/professions/{professionId}/edit", method = RequestMethod.GET)
     public String initUpdateOwnerForm(@PathVariable("professionId") int professionId, Model model) {
-    	Profession profession = this.clinicService.findProfessionById(professionId);
+    	Profession profession = this.professionService.findProfessionById(professionId);
         model.addAttribute(profession);
         return "professions/createOrUpdateProfessionForm";
     }
@@ -121,7 +120,7 @@ public class ProfessionController {
         if (result.hasErrors()) {
             return "professions/createOrUpdateProfessionForm";
         } else {
-            this.clinicService.saveProfession(profession);
+            this.professionService.saveProfession(profession);
             status.setComplete();
             return "redirect:/professions/{professionId}";
         }
@@ -136,7 +135,7 @@ public class ProfessionController {
     @RequestMapping("/professions/{professionId}")
     public ModelAndView showProfession(@PathVariable("professionId") int professionId) {
         ModelAndView mav = new ModelAndView("professions/professionDetails");
-        mav.addObject(this.clinicService.findProfessionById(professionId));
+        mav.addObject(this.professionService.findProfessionById(professionId));
         return mav;
     }
 
