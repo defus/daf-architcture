@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/defus/daf-architcture.svg?branch=Landry)](https://travis-ci.org/defus/daf-architcture)
 # Architecture des applications du DAF
 
 
