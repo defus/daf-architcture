@@ -52,9 +52,15 @@ INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot');
 INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed');
 
-INSERT INTO professions VALUES (1, 'agriculteur', 'agriculteur');
-INSERT INTO professions VALUES (2, 'cultivatuer', 'cultivatuer');
-INSERT INTO professions VALUES (3, 'eleveur', 'eleveur');
-INSERT INTO professions VALUES (4, 'commercant', 'commercant');
-INSERT INTO professions VALUES (5, 'informaticien', 'informaticien');
-INSERT INTO professions VALUES (6, 'medecin', 'medecin');
+INSERT INTO professions VALUES (1, 'agriculteur', 'agriculteur','2015-10-07', 9000.67, 1);
+INSERT INTO professions VALUES (2, 'cultivatuer', 'cultivatuer','2015-10-07', 9000.67, 1);
+INSERT INTO professions VALUES (3, 'eleveur', 'eleveur','2015-10-07', 9000.67, 2);
+INSERT INTO professions VALUES (4, 'commercant', 'commercant','2015-10-07', 9000.67, 3);
+INSERT INTO professions VALUES (5, 'informaticien', 'informaticien','2015-10-07', 9000.67, 3);
+INSERT INTO professions VALUES (6, 'medecin', 'medecin','2015-10-07', 9000.67, 4);
+
+
+INSERT INTO type_professions VALUES (1, 'ingenieur', 'ingenieur');
+INSERT INTO type_professions VALUES (2, 'technicien', 'technicien');
+INSERT INTO type_professions VALUES (3, 'consultant', 'consultant');
+INSERT INTO type_professions VALUES (4, 'directeur', 'directeur');

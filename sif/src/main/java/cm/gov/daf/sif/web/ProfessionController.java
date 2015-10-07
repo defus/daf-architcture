@@ -22,8 +22,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import cm.gov.daf.sif.model.Profession;
-import cm.gov.daf.sif.service.ClinicService;
+import cm.gov.daf.sif.model.Professions;
 import cm.gov.daf.sif.service.ProfessionService;
+import cm.gov.daf.sif.service.TypeProfessionService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,11 +47,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProfessionController {
 
     private final ProfessionService professionService;
+    private final TypeProfessionService typeProfessionService;
 
 
     @Autowired
-    public ProfessionController(ProfessionService professionService) {
+    public ProfessionController(ProfessionService professionService, TypeProfessionService typeProfessionService) {
         this.professionService = professionService;
+        this.typeProfessionService = typeProfessionService;
     }
 
     @InitBinder
@@ -61,6 +65,7 @@ public class ProfessionController {
     public String initCreationForm(Map<String, Object> model) {
         Profession profession = new Profession();
         model.put("profession", profession);
+        model.put("typeProfessions", typeProfessionService.findAll());
         return "professions/createOrUpdateProfessionForm";
     }
 
@@ -78,12 +83,12 @@ public class ProfessionController {
     @RequestMapping(value = "/professions/find", method = RequestMethod.GET)
     public String initFindForm(Map<String, Object> model) {
         model.put("profession", new Profession());
+        model.put("typeProfessions", typeProfessionService.findAll());
         return "professions/findProfessions";
     }
 
     @RequestMapping(value = "/professions", method = RequestMethod.GET)
     public String processFindForm(Profession profession, BindingResult result, Map<String, Object> model) {
-
         // allow parameterless GET request for /owners to return all records
         if (profession.getLibelle() == null) {
         	profession.setLibelle(""); // empty string signifies broadest possible search
@@ -112,6 +117,7 @@ public class ProfessionController {
     public String initUpdateOwnerForm(@PathVariable("professionId") int professionId, Model model) {
     	Profession profession = this.professionService.findProfessionById(professionId);
         model.addAttribute(profession);
+        model.addAttribute("typeProfessions", typeProfessionService.findAll());
         return "professions/createOrUpdateProfessionForm";
     }
 
@@ -129,14 +135,30 @@ public class ProfessionController {
     /**
      * Custom handler for displaying an owner.
      *
-     * @param ownerId the ID of the owner to display
+     * @param professionId the ID of the profession to display
      * @return a ModelMap with the model attributes for the view
      */
     @RequestMapping("/professions/{professionId}")
     public ModelAndView showProfession(@PathVariable("professionId") int professionId) {
         ModelAndView mav = new ModelAndView("professions/professionDetails");
         mav.addObject(this.professionService.findProfessionById(professionId));
+        mav.addObject("typeProfessions", typeProfessionService.findAll());
         return mav;
+    }
+    
+    @RequestMapping(value={"/professions.xml","/professions.html"})
+    public String showProfessionList(Map<String, Object> model) {
+        Professions professions = new Professions();
+        professions.getProfessionList().addAll(this.professionService.findAll());
+        model.put("professions", professions);
+        return "professions/professionsList";
+    }
+    
+    @RequestMapping("/professions.json")
+    public @ResponseBody Professions showResourcesProfessionList() {
+    	Professions professions = new Professions();
+    	professions.getProfessionList().addAll(this.professionService.findAll());
+        return professions;
     }
 
 }

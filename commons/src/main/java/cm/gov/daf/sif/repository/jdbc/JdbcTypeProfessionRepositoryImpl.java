@@ -36,24 +36,26 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import cm.gov.daf.sif.model.Profession;
 import cm.gov.daf.sif.model.Specialty;
+import cm.gov.daf.sif.model.TypeProfession;
 import cm.gov.daf.sif.model.Vet;
 import cm.gov.daf.sif.repository.ProfessionRepository;
+import cm.gov.daf.sif.repository.TypeProfessionRepository;
 import cm.gov.daf.sif.util.EntityUtils;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class JdbcProfessionRepositoryImpl implements ProfessionRepository {
+public class JdbcTypeProfessionRepositoryImpl implements TypeProfessionRepository {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private SimpleJdbcInsert insertProfession;
+    private SimpleJdbcInsert insertTypeProfession;
 
     @Autowired
-    public JdbcProfessionRepositoryImpl(DataSource dataSource, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public JdbcTypeProfessionRepositoryImpl(DataSource dataSource, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 
-        this.insertProfession = new SimpleJdbcInsert(dataSource)
-                .withTableName("professions")
+        this.insertTypeProfession = new SimpleJdbcInsert(dataSource)
+                .withTableName("type_professions")
                 .usingGeneratedKeyColumns("id");
 
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -61,57 +63,57 @@ public class JdbcProfessionRepositoryImpl implements ProfessionRepository {
     }
 
     @Override
-    public Collection<Profession> findByLibelle(String libelle) throws DataAccessException {
+    public Collection<TypeProfession> findByLibelle(String libelle) throws DataAccessException {
         Map<String, Object> params = new HashMap<>();
         params.put("libelle", libelle + "%");
-        List<Profession> professions = this.namedParameterJdbcTemplate.query(
-                "SELECT id, libelle, description FROM professions WHERE libelle like :libelle",
+        List<TypeProfession> typeProfessions = this.namedParameterJdbcTemplate.query(
+                "SELECT id, libelle, description, date_craetion, salaire_min FROM type_professions WHERE libelle like :libelle",
                 params,
-                BeanPropertyRowMapper.newInstance(Profession.class)
+                BeanPropertyRowMapper.newInstance(TypeProfession.class)
         );
-        return professions;
+        return typeProfessions;
     }
 
     @Override
-    public Profession findById(int id) throws DataAccessException {
-        Profession profession;
+    public TypeProfession findById(int id) throws DataAccessException {
+    	TypeProfession typeProfession;
         try {
             Map<String, Object> params = new HashMap<>();
             params.put("id", id);
-            profession = this.namedParameterJdbcTemplate.queryForObject(
-                    "SELECT id, libelle, description FROM professions WHERE id= :id",
+            typeProfession = this.namedParameterJdbcTemplate.queryForObject(
+                    "SELECT id, libelle, description, date_craetion, salaire_min  FROM type_professions WHERE id= :id",
                     params,
-                    BeanPropertyRowMapper.newInstance(Profession.class)
+                    BeanPropertyRowMapper.newInstance(TypeProfession.class)
             );
         } catch (EmptyResultDataAccessException ex) {
-            throw new ObjectRetrievalFailureException(Profession.class, id);
+            throw new ObjectRetrievalFailureException(TypeProfession.class, id);
         }
-        return profession;
+        return typeProfession;
     }
 
 
     @Override
-    public void save(Profession profession) throws DataAccessException {
-        BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(profession);
-        if (profession.isNew()) {
-            Number newKey = this.insertProfession.executeAndReturnKey(parameterSource);
-            profession.setId(newKey.intValue());
+    public void save(TypeProfession typeProfession) throws DataAccessException {
+        BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(typeProfession);
+        if (typeProfession.isNew()) {
+            Number newKey = this.insertTypeProfession.executeAndReturnKey(parameterSource);
+            typeProfession.setId(newKey.intValue());
         } else {
             this.namedParameterJdbcTemplate.update(
-                    "UPDATE professions SET libelle=:libelle, description=:description WHERE id=:id",
+                    "UPDATE type_professions SET libelle=:libelle, description=:description, date_creation=:dateCreation, salaire_min=:salaireMin WHERE id=:id",
                     parameterSource);
         }
     }
     
     @Override
-    public Collection<Profession> findAll() throws DataAccessException {
-        List<Profession> professions = new ArrayList<>();
+    public Collection<TypeProfession> findAll() throws DataAccessException {
+        List<TypeProfession> typeProfessions = new ArrayList<>();
         
-        professions.addAll(this.namedParameterJdbcTemplate.query(
-                "SELECT id, libelle FROM professions ORDER BY libelle",
-                BeanPropertyRowMapper.newInstance(Profession.class)));
+        typeProfessions.addAll(this.namedParameterJdbcTemplate.query(
+                "SELECT id, libelle, description, date_craetion, salaire_min  FROM type_professions ORDER BY libelle",
+                BeanPropertyRowMapper.newInstance(TypeProfession.class)));
 
-        return professions;
+        return typeProfessions;
     }
 
 }

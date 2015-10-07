@@ -17,16 +17,10 @@ package cm.gov.daf.sif.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 import org.springframework.core.style.ToStringCreator;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Simple JavaBean domain object representing an person.
@@ -34,8 +28,8 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Albert
  */
 @Entity
-@Table(name = "professions")
-public class Profession extends BaseEntity {
+@Table(name = "type_professions")
+public class TypeProfession extends BaseEntity {
 
     @Column(name = "libelle")
     @NotEmpty
@@ -44,19 +38,6 @@ public class Profession extends BaseEntity {
     @Column(name = "description")
     @NotEmpty
     protected String description;
-    
-    @Column(name = "date_creation")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
-    private DateTime dateCreation;
-    
-    @Column(name = "salaire_min")
-    @NotNull
-    protected Double salaireMin;
-    
-    @ManyToOne
-	@JoinColumn(name = "type_profession_id")
-	private TypeProfession typeProfession;
 
 	public String getLibelle() {
 		return libelle;
@@ -74,31 +55,7 @@ public class Profession extends BaseEntity {
 		this.description = description;
 	}
 
-	 public DateTime getDateCreation() {
-		return dateCreation;
-	}
-
-	public void setDateCreation(DateTime dateCreation) {
-		this.dateCreation = dateCreation;
-	}
-
-	public Double getSalaireMin() {
-		return salaireMin;
-	}
-
-	public void setSalaireMin(Double salaireMin) {
-		this.salaireMin = salaireMin;
-	}
-
-	public TypeProfession getTypeProfession() {
-		return typeProfession;
-	}
-
-	public void setTypeProfession(TypeProfession typeProfession) {
-		this.typeProfession = typeProfession;
-	}
-
-	@Override
+	 @Override
 	    public String toString() {
 	        return new ToStringCreator(this)
 
@@ -106,8 +63,6 @@ public class Profession extends BaseEntity {
 	                .append("new", this.isNew())
 	                .append("libelle", this.getLibelle())
 	                .append("description", this.getDescription())
-	                .append("dateCreation", this.getDateCreation())
-	                .append("salaireMin", this.getSalaireMin())
 	                .toString();
 	    }
 }

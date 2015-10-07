@@ -6,13 +6,24 @@ DROP TABLE pets IF EXISTS;
 DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
 DROP TABLE professions IF EXISTS;
+DROP TABLE type_professions IF EXISTS;
 
 CREATE TABLE professions (
   id         INTEGER IDENTITY PRIMARY KEY,
   libelle VARCHAR(30),
-  description  VARCHAR(100)
+  description  VARCHAR(100),
+  date_creation DATE,
+  salaire_min DECIMAL(10,2) NOT NULL,
+  type_profession_id INTEGER
 );
 CREATE INDEX professions_libelle ON professions (libelle);
+
+CREATE TABLE type_professions (
+  id         INTEGER IDENTITY PRIMARY KEY,
+  libelle VARCHAR(30),
+  description  VARCHAR(100)
+);
+CREATE INDEX type_professions_libelle ON type_professions (libelle);
 
 CREATE TABLE vets (
   id         INTEGER IDENTITY PRIMARY KEY,

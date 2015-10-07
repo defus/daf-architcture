@@ -33,16 +33,16 @@ package cm.gov.daf.sif.repository;
 import java.util.Collection;
 
 import org.springframework.dao.DataAccessException;
-import cm.gov.daf.sif.model.Profession;
+import cm.gov.daf.sif.model.TypeProfession;
 
-public interface ProfessionRepository {
+public interface TypeProfessionRepository {
 
-    Collection<Profession> findByLibelle(String libelle) throws DataAccessException;
+    Collection<TypeProfession> findByLibelle(String libelle) throws DataAccessException;
 
-    Profession findById(int id) throws DataAccessException;
+    TypeProfession findById(int id) throws DataAccessException;
 
-    void save(Profession profession) throws DataAccessException;
+    void save(TypeProfession t) throws DataAccessException;
 
-    Collection<Profession> findAll() throws DataAccessException;
+    Collection<TypeProfession> findAll() throws DataAccessException;
 
 }

@@ -34,6 +34,7 @@
                 <ul class="nav">
                     <li style="width: 100px;"><a href="../welcome.html" th:href="@{/}"><i class="icon-home"></i>Home</a></li>
                     <li style="width: 130px;"><a href="./professions/findProfessions.html" th:href="@{/professions/find.html}"><i class="icon-search"></i>Find professions</a></li>
+                    <li style="width: 130px;"><a href="./type_professions/findTypeProfessions.html" th:href="@{/typeProfessions/find.html}"><i class="icon-search"></i>Find Type profession</a></li>
                     <li style="width: 130px;"><a href="../owners/findOwners.html" th:href="@{/owners/find.html}"><i class="icon-search"></i>Find owners</a></li>
                     <li style="width: 140px;"><a href="../vets/vetList.html" th:href="@{/vets.html}"><i class="icon-th-list"></i>Veterinarians</a></li>
                     <li style="width: 90px;"><a href="../exception.html" th:href="@{/oups.html}" title="trigger a RuntimeException to see how it is handled"><i class="icon-warning-sign"></i>Error</a></li>
@@ -66,6 +67,35 @@
                 <span class="help-inline" th:errors="*{description}">[error]</span>
             </div>
         </div>
+        
+        <div class="control-group" th:classappend="${#fields.hasErrors('dateCreation')} ? 'error'">
+	        <label class="control-label">Date création</label>
+	
+	        <div class="controls">
+	            <input th:field="*{dateCreation}" type="text" id="salaireMin"/>
+	            <span class="help-inline" th:errors="*{dateCreation}">[error]</span>
+	        </div>
+	    </div>
+	    
+	    <div class="control-group" th:classappend="${#fields.hasErrors('salaireMin')} ? 'error'">
+	        <label class="control-label">Salaire minimum</label>
+	
+	        <div class="controls">
+	            <input th:field="*{salaireMin}" type="text" id="salaireMin"/>
+	            <span class="help-inline" th:errors="*{salaireMin}">[error]</span>
+	        </div>
+	    </div>
+	    
+	    <div class="control-group" th:classappend="${#fields.hasErrors('typeProfession')} ? 'error'">
+	        <label class="control-label">Type Profession</label>
+	        <div class="controls">
+			    <select th:field="*{typeProfession.id}">
+				  <option th:each="type : ${typeProfessions}" 
+				          th:value="${type.id}" 
+				          th:text="${type.libelle}">Wireframe</option>
+				</select>
+			</div>
+	    </div>
     
         <div class="form-actions">
             <button th:if="${profession['new']}" type="submit">Add Profession</button>

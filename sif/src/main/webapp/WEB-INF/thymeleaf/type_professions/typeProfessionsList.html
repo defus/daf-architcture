@@ -44,7 +44,7 @@
         <img th:src="@{/resources/images/banner-graphic.png}" 
              src="../../../resources/images/banner-graphic.png"/>
         
-        <div class="navbar" style="width: 601px;">
+        <div class="navbar" style="width: 801px;">
             <div class="navbar-inner">
                 <ul class="nav">
                     <li style="width: 100px;"><a 
@@ -53,7 +53,7 @@
                     <li style="width: 130px;"><a 
                         href="../professions/findProfessions.html" th:href="@{/professions/find.html}"><i
                         class="icon-search"></i>Find professions</a></li>
-                        <li style="width: 130px;"><a href="./type_professions/findTypeProfessions.html" th:href="@{/typeProfessions/find.html}"><i class="icon-search"></i>Find Type profession</a></li>
+                   <li style="width: 130px;"><a href="./type_professions/findTypeProfessions.html" th:href="@{/typeProfessions/find.html}"><i class="icon-search"></i>Find Type profession</a></li>
                     <li style="width: 130px;"><a 
                         href="../owners/findOwners.html" th:href="@{/owners/find.html}"><i
                         class="icon-search"></i>Find owners</a></li>
@@ -74,29 +74,23 @@
     </div>
     
 
-    <h2>Professions</h2>
+    <h2>Types Professions</h2>
 
     <table class="table table-striped">
         <thead>
             <tr>
                 <th style="width: 150px;">Libelle</th>
                 <th style="width: 200px;">Descritpion</th>
-                <th style="width: 200px;">Date création</th>
-                <th style="width: 200px;">Salaire min.</th>
-                <th style="width: 200px;">Type profession.</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="profession : ${selections}">
+            <tr th:each="typeProfession : ${selections}">
                 <td>
-                    <a href="professionDetails.html"
-                       th:href="@{|/professions/${profession.id}|}"
-                       th:text="${profession.libelle}">Mary Smith</a>
+                    <a href="typeProfessionDetails.html"
+                       th:href="@{|/typeProfessions/${typeProfession.id}|}"
+                       th:text="${typeProfession.libelle}">Mary Smith</a>
                 </td>
-                <td th:text="${profession.description}">45, Oxford Street</td>
-                <td th:text="${profession.dateCreation}">45, Oxford Street</td>
-                <td th:text="${profession.salaireMin}">45, Oxford Street</td>
-                <td th:text="${profession.typeProfession.libelle}">45, Oxford Street</td>
+                <td th:text="${typeProfession.description}">45, Oxford Street</td>
             </tr>
         </tbody>
     </table>    

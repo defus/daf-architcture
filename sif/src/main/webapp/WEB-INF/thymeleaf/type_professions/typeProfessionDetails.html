@@ -28,7 +28,7 @@
         <img th:src="@{/resources/images/banner-graphic.png}" 
              src="../../../resources/images/banner-graphic.png"/>
         
-        <div class="navbar" style="width: 601px;">
+        <div class="navbar" style="width: 801px;">
             <div class="navbar-inner">
                 <ul class="nav">
                     <li style="width: 100px;"><a href="../welcome.html" th:href="@{/}"><i class="icon-home"></i>Home</a></li>
@@ -50,27 +50,15 @@
     <table class="table table-striped" style="width:600px;">
         <tr>
             <th>Libelle</th>
-            <td><b th:text="${profession.libelle}">[libelle]</b></td>
+            <td><b th:text="${typeProfession.libelle}">[libelle]</b></td>
         </tr>
         <tr>
             <th>Description</th>
-            <td th:text="${profession.description}">[description]</td>
-        </tr>
-        <tr>
-            <th>Date création</th>
-            <td th:text="${profession.dateCreation}">[dateCreation]</td>
-        </tr>
-        <tr>
-            <th>Salaire min.</th>
-            <td th:text="${profession.salaireMin}">[salaireMin]</td>
-        </tr>
-        <tr>
-            <th>Type profession</th>
-            <td th:text="${profession.typeProfession.libelle}">[typeProfession]</td>
+            <td th:text="${typeProfession.description}">[description]</td>
         </tr>
         <tr>
             <td> 
-            	<a th:href="@{|${profession.id}/edit.html|}" href="./createOrUpdateProfessionForm.html" class="btn btn-info">Edit Profession</a></td>
+            	<a th:href="@{|${typeProfession.id}/edit.html|}" href="./createOrUpdateTypeProfessionForm.html" class="btn btn-info">Edit Type Profession</a></td>
         </tr>
     </table>
     

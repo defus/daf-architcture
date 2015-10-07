@@ -20,50 +20,49 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import cm.gov.daf.sif.model.Profession;
-import cm.gov.daf.sif.model.Vet;
-import cm.gov.daf.sif.repository.ProfessionRepository;
+import cm.gov.daf.sif.model.TypeProfession;
+import cm.gov.daf.sif.repository.TypeProfessionRepository;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class JpaProfessionRepositoryImpl implements ProfessionRepository {
+public class JpaTypeProfessionRepositoryImpl implements TypeProfessionRepository {
 
     @PersistenceContext
     private EntityManager em;
 
     @SuppressWarnings("unchecked")
-    public Collection<Profession> findByLibelle(String libelle) {
-        Query query = this.em.createQuery("SELECT DISTINCT profession FROM Profession profession WHERE profession.libelle LIKE :libelle");
+    public Collection<TypeProfession> findByLibelle(String libelle) {
+        Query query = this.em.createQuery("SELECT DISTINCT typeProfession FROM TypeProfession typeProfession WHERE typeProfession.libelle LIKE :libelle");
         query.setParameter("libelle", libelle + "%");
         return query.getResultList();
     }
 
     @Override
-    public Profession findById(int id) {
-        Query query = this.em.createQuery("FROM Profession profession WHERE profession.id =:id");
+    public TypeProfession findById(int id) {
+        Query query = this.em.createQuery("FROM TypeProfession typeProfession WHERE typeProfession.id =:id");
         query.setParameter("id", id);
-        return (Profession) query.getSingleResult();
+        return (TypeProfession) query.getSingleResult();
     }
 
 
     @Override
-    public void save(Profession profession) {
-    	if (profession.getId() == null) {
-    		this.em.persist(profession);     		
+    public void save(TypeProfession t) {
+    	if (t.getId() == null) {
+    		this.em.persist(t);     		
     	}
     	else {
-    		this.em.merge(profession);    
+    		this.em.merge(t);    
     	}
 
     }
     
     @Override
-    @Cacheable(value = "professions")
+    @Cacheable(value = "typeProfessions")
     @SuppressWarnings("unchecked")
-    public Collection<Profession> findAll() {
-    	Query query = this.em.createQuery("SELECT distinct profession FROM Profession profession ORDER BY profession.libelle");
+    public Collection<TypeProfession> findAll() {
+    	Query query = this.em.createQuery("SELECT distinct typeProfession FROM TypeProfession typeProfession ORDER BY typeProfession.libelle");
     	return query.getResultList();
     }
 

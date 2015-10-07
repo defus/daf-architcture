@@ -28,7 +28,7 @@
         <img th:src="@{/resources/images/banner-graphic.png}" 
              src="../../../resources/images/banner-graphic.png"/>
         
-        <div class="navbar" style="width: 601px;">
+        <div class="navbar" style="width: 801px;">
             <div class="navbar-inner">
                 <ul class="nav">
                     <li style="width: 100px;"><a href="../welcome.html" th:href="@{/}"><i class="icon-home"></i>Home</a></li>
@@ -44,46 +44,36 @@
             
             
     </div>
+    
+    <h2>Find Professions</h2>
 
-    <h2>Profession Information</h2>
+    <form th:object="${typeProfession}" action="typeProfessionsList.html" th:action="@{/typeProfessions}" method="get" class="form-horizontal"
+               id="search-owner-form">
+        <fieldset>
+            <div class="control-group" id="libelle">
+                <label class="control-label">libelle </label>
+                <input type="text" th:field="*{libelle}" size="30" maxlength="80"/>
+                <span class="help-inline" th:errors="*{libelle}">[Errors]</span>
+            </div>
+            <div class="form-actions">
+                <button type="submit">Find Type Profession</button>
+            </div>
+        </fieldset>
+    </form>
 
-    <table class="table table-striped" style="width:600px;">
+    <br/>
+    <a th:href="@{'/typeProfessions/new'}" href="createOrUpdateTypeProfessionForm.html">Add Type Profession</a>
+
+    <table th:replace="fragments/footer :: footer" class="footer">
         <tr>
-            <th>Libelle</th>
-            <td><b th:text="${profession.libelle}">[libelle]</b></td>
-        </tr>
-        <tr>
-            <th>Description</th>
-            <td th:text="${profession.description}">[description]</td>
-        </tr>
-        <tr>
-            <th>Date création</th>
-            <td th:text="${profession.dateCreation}">[dateCreation]</td>
-        </tr>
-        <tr>
-            <th>Salaire min.</th>
-            <td th:text="${profession.salaireMin}">[salaireMin]</td>
-        </tr>
-        <tr>
-            <th>Type profession</th>
-            <td th:text="${profession.typeProfession.libelle}">[typeProfession]</td>
-        </tr>
-        <tr>
-            <td> 
-            	<a th:href="@{|${profession.id}/edit.html|}" href="./createOrUpdateProfessionForm.html" class="btn btn-info">Edit Profession</a></td>
+            <td></td>
+            <td align="right">
+               <img src="../../../resources/images/springsource-logo.png"
+                    th:src="@{/resources/images/springsource-logo.png}"
+                    alt="Sponsored by SpringSource" />
+            </td>
         </tr>
     </table>
-    
-        <table th:replace="fragments/footer :: footer" class="footer">
-            <tr>
-                <td></td>
-                <td align="right">
-                   <img src="../../../resources/images/springsource-logo.png"
-                        th:src="@{/resources/images/springsource-logo.png}"
-                        alt="Sponsored by SpringSource" />
-                </td>
-            </tr>
-        </table>
 
 </div>
 </body>

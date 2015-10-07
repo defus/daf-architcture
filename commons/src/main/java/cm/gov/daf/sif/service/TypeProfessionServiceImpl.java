@@ -19,8 +19,9 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import cm.gov.daf.sif.model.Profession;
-import cm.gov.daf.sif.repository.ProfessionRepository;
+import cm.gov.daf.sif.model.TypeProfession;
+import cm.gov.daf.sif.repository.TypeProfessionRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,35 +31,35 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Albert
  */
 @Service
-public class ProfessionServiceImpl implements ProfessionService {
+public class TypeProfessionServiceImpl implements TypeProfessionService {
 
-    private ProfessionRepository professionRepository;
+    private TypeProfessionRepository typeProfessionRepository;
 
     @Autowired
-    public ProfessionServiceImpl(ProfessionRepository professionRepository) {
-        this.professionRepository = professionRepository;
+    public TypeProfessionServiceImpl(TypeProfessionRepository typeProfessionRepository) {
+        this.typeProfessionRepository = typeProfessionRepository;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Profession findProfessionById(int id) throws DataAccessException {
-        return professionRepository.findById(id);
+    public TypeProfession findTypeProfessionById(int id) throws DataAccessException {
+        return typeProfessionRepository.findById(id);
     }
 
     @Override
     @Transactional
-    public void saveProfession(Profession profession) throws DataAccessException {
-        professionRepository.save(profession);
+    public void saveTypeProfession(TypeProfession typeProfession) throws DataAccessException {
+        typeProfessionRepository.save(typeProfession);
     }
     
     @Override
     @Transactional(readOnly = true)
-    public Collection<Profession> findProfessionByLibelle(String libelle) throws DataAccessException {
-        return professionRepository.findByLibelle(libelle);
+    public Collection<TypeProfession> findTypeProfessionByLibelle(String libelle) throws DataAccessException {
+        return typeProfessionRepository.findByLibelle(libelle);
     }
 
 	@Override
-	public Collection<Profession> findAll() throws DataAccessException {
-		return professionRepository.findAll();
+	public Collection<TypeProfession> findAll() throws DataAccessException {
+		return typeProfessionRepository.findAll();
 	}
 }

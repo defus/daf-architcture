@@ -89,5 +89,17 @@
 		<oxm:class-to-be-bound
 			name="cm.gov.daf.sif.model.Vets" />
 	</oxm:jaxb2-marshaller>
+	
+	<!-- Renders an XML view. Used by the BeanNameViewResolver -->
+	<bean name="vets/professionList.xml"
+		class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<property name="marshaller" ref="marshaller" />
+	</bean>
+	
+	<oxm:jaxb2-marshaller id="marshaller">
+		<!-- Object-XML mapping declared using annotations inside 'Vets' -->
+		<oxm:class-to-be-bound
+			name="cm.gov.daf.sif.model.Professions" />
+	</oxm:jaxb2-marshaller>
 
 </beans>

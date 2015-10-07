@@ -1,4 +1,5 @@
 /*
+/*
  * Copyright 2002-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,27 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cm.gov.daf.sif.service;
+package cm.gov.daf.sif.model;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.springframework.dao.DataAccessException;
-import cm.gov.daf.sif.model.Profession;
-
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Interface Service Profession
  *
- * @author albert
+ *
+ * @author Albert
  */
-public interface ProfessionService {
-    
-    Profession findProfessionById(int id) throws DataAccessException;
-    
-    void saveProfession(Profession profession) throws DataAccessException;
-    
-    Collection<Profession> findProfessionByLibelle(String libelle) throws DataAccessException;
-    
-    Collection<Profession> findAll() throws DataAccessException;
+@XmlRootElement
+public class Professions {
+
+    private List<Profession> professions;
+
+    @XmlElement
+    public List<Profession> getProfessionList() {
+        if (professions == null) {
+        	professions = new ArrayList<>();
+        }
+        return professions;
+    }
 
 }

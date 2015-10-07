@@ -12,13 +12,14 @@
     <link href="../../../resources/css/petclinic.css"
           th:href="@{/resources/css/petclinic.css}" rel="stylesheet" />
     
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.3/jquery.min.js"
-            th:src="@{/webjars/jquery/1.10.3/jquery.js}"></script>
+    <script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.3/jquery.min.js"
+        th:src="@{/webjars/jquery/1.10.3/jquery.js}"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"
-            th:src="@{/webjars/jquery-ui/1.9.2/js/jquery-ui-1.9.2.custom.js}"></script>
-    
+        th:src="@{/webjars/jquery-ui/1.9.2/js/jquery-ui-1.9.2.custom.js}"></script>
+
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/smoothness/jquery-ui.css"
           th:href="@{/webjars/jquery-ui/1.9.2/css/smoothness/jquery-ui-1.9.2.custom.css}" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -28,7 +29,7 @@
         <img th:src="@{/resources/images/banner-graphic.png}" 
              src="../../../resources/images/banner-graphic.png"/>
         
-        <div class="navbar" style="width: 601px;">
+        <div class="navbar" style="width: 801px;">
             <div class="navbar-inner">
                 <ul class="nav">
                     <li style="width: 100px;"><a href="../welcome.html" th:href="@{/}"><i class="icon-home"></i>Home</a></li>
@@ -45,47 +46,46 @@
             
     </div>
 
-    <h2>Profession Information</h2>
 
-    <table class="table table-striped" style="width:600px;">
-        <tr>
-            <th>Libelle</th>
-            <td><b th:text="${profession.libelle}">[libelle]</b></td>
-        </tr>
-        <tr>
-            <th>Description</th>
-            <td th:text="${profession.description}">[description]</td>
-        </tr>
-        <tr>
-            <th>Date création</th>
-            <td th:text="${profession.dateCreation}">[dateCreation]</td>
-        </tr>
-        <tr>
-            <th>Salaire min.</th>
-            <td th:text="${profession.salaireMin}">[salaireMin]</td>
-        </tr>
-        <tr>
-            <th>Type profession</th>
-            <td th:text="${profession.typeProfession.libelle}">[typeProfession]</td>
-        </tr>
-        <tr>
-            <td> 
-            	<a th:href="@{|${profession.id}/edit.html|}" href="./createOrUpdateProfessionForm.html" class="btn btn-info">Edit Profession</a></td>
-        </tr>
-    </table>
+    <h2>
+        <span th::if="${typeProfession['new']}" th:remove="tag">New </span> Type Profession
+    </h2>
+    <form th:object="${typeProfession}" th:method="${typeProfession['new']} ? post : put" action="./typeProfessionDetails.html"
+        th:action="@{${#httpServletRequest.servletPath}}" class="form-horizontal" id="add-typeProfession-form">
+        <div class="control-group" th:classappend="${#fields.hasErrors('libelle')} ? error">
+            <label class="control-label">Libelle</label>
+            <div class="controls">
+                <input type="text" th:field="*{libelle}" />
+                <span class="help-inline" th:errors="*{libelle}">[error]</span>
+            </div>
+        </div>
     
-        <table th:replace="fragments/footer :: footer" class="footer">
-            <tr>
-                <td></td>
-                <td align="right">
-                   <img src="../../../resources/images/springsource-logo.png"
-                        th:src="@{/resources/images/springsource-logo.png}"
-                        alt="Sponsored by SpringSource" />
-                </td>
-            </tr>
-        </table>
-
+        <div class="control-group" th:classappend="${#fields.hasErrors('description')} ? error">
+            <label class="control-label">Description</label>
+            <div class="controls">
+                <input type="text" th:field="*{description}" />
+                <span class="help-inline" th:errors="*{description}">[error]</span>
+            </div>
+        </div>
+    
+        <div class="form-actions">
+            <button th:if="${typeProfession['new']}" type="submit">Add Type Profession</button>
+            <button th:unless="${typeProfession['new']}" type="submit">Update Type Profession</button>
+        </div>
+    </form>
 </div>
+
+<table th:replace="fragments/footer :: footer" class="footer">
+    <tr>
+        <td></td>
+        <td align="right">
+           <img src="../../../resources/images/springsource-logo.png"
+                th:src="@{/resources/images/springsource-logo.png}"
+                alt="Sponsored by SpringSource" />
+        </td>
+    </tr>
+</table>
+
 </body>
 
 </html>

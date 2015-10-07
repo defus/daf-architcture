@@ -15,25 +15,21 @@
  */
 package cm.gov.daf.sif.service;
 
-import java.util.Collection;
-
-import org.springframework.dao.DataAccessException;
-import cm.gov.daf.sif.model.Profession;
-
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Interface Service Profession
+ * <p> Integration test using the jdbc profile. 
+ * @see AbstractProfessionServiceTests AbstractProfessionServiceTests for more details. </p>
  *
- * @author albert
+ * @author Albert
  */
-public interface ProfessionService {
-    
-    Profession findProfessionById(int id) throws DataAccessException;
-    
-    void saveProfession(Profession profession) throws DataAccessException;
-    
-    Collection<Profession> findProfessionByLibelle(String libelle) throws DataAccessException;
-    
-    Collection<Profession> findAll() throws DataAccessException;
+@ContextConfiguration(locations = {"classpath:spring/business-config.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles("jdbc")
+public class ProfessionServiceJdbcTests extends AbstractClinicServiceTests {
+
 
 }
