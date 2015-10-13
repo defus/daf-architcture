@@ -15,11 +15,15 @@
  */
 package cm.gov.daf.sif.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
@@ -46,9 +50,9 @@ public class Profession extends BaseEntity {
     protected String description;
     
     @Column(name = "date_creation")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd")
-    private DateTime dateCreation;
+    private Date dateCreation;
     
     @Column(name = "salaire_min")
     @NotNull
@@ -74,11 +78,11 @@ public class Profession extends BaseEntity {
 		this.description = description;
 	}
 
-	 public DateTime getDateCreation() {
+	 public Date getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 

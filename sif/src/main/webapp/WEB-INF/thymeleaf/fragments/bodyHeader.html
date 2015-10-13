@@ -23,7 +23,58 @@ SIF :: a Spring Framework demonstration
     
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css"
           th:href="@{/webjars/jquery-ui/1.10.3/css/smoothness/jquery-ui-1.10.3.custom.css}" rel="stylesheet" />
+          
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+  	<script src="../../../resources/js/jquery-1.10.2.js" 
+  				th:src="@{/resources/js/jquery-1.10.2.js}"></script>
+ 	<script src="../../../resources/js/jquery-ui.1.11.4.js" 
+ 	 			th:src="@{/resources/js/jquery-ui.1.11.4.js}"></script>
+ 	 
+ 	 <link href="http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+	 <script src="../../../resources/js/select2.min.js" 
+	 			th:src="@{/resources/js/select2.min.js}"></script>
     
+    <script src="../../../resources/js/jquery.mask.js"
+            th:src="@{/resources/js/jquery.mask.js}"></script>
+            
+    <script>
+  	
+    $(document).ready(function(){
+    	  $('.date').mask('0000/00/00');
+    	  $('.time').mask('00:00:00');
+    	  $('.date_time').mask('0000/00/00 00:00:00');
+    	  $('.cep').mask('00000-000');
+    	  $('.phone').mask('0000-0000');
+    	  $('.phone_with_ddd').mask('(00) 0000-0000');
+    	  $('.phone_us').mask('(000) 000-0000');
+    	  $('.mixed').mask('AAA 000-S0S');
+    	  $('.cpf').mask('000.000.000-00', {reverse: true});
+    	  $('.money').mask('000 000 000 000 000.00', {reverse: true});
+    	  $('.money2').mask("#.##0,00", {reverse: true});
+    	  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
+    	    translation: {
+    	      'Z': {
+    	        pattern: /[0-9]/, optional: true
+    	      }
+    	    }
+    	  });
+    	  $('.ip_address').mask('099.099.099.099');
+    	  $('.percent').mask('##0,00%', {reverse: true});
+    	  $('.clear-if-not-match').mask("0000/00/00", {clearIfNotMatch: true});
+    	  $('.placeholder').mask("0000/00/00", {placeholder: "____/__/__"});
+    	  $('.fallback').mask("0000r00r00", {
+    	      translation: {
+    	        'r': {
+    	          pattern: /[\/]/, 
+    	          fallback: '/'
+    	        }, 
+    	        placeholder: "____/__/__"
+    	      }
+    	    });
+    	  $('.selectonfocus').mask("0000/00/00", {selectOnFocus: true});
+    });
+
+  	</script>
 </head>
 
 <body th:fragment="bodyHeader">
