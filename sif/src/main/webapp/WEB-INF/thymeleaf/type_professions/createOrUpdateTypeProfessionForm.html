@@ -56,7 +56,7 @@
             <label class="control-label">Libelle</label>
             <div class="controls">
                 <input type="text" th:field="*{libelle}" />
-                <span class="help-inline" th:errors="*{libelle}">[error]</span>
+                <span class="help-inline" th:errors="*{libelle}" th:text="#{NotEmpty.message}">[error]</span>
             </div>
         </div>
     
@@ -64,7 +64,7 @@
             <label class="control-label">Description</label>
             <div class="controls">
                 <input type="text" th:field="*{description}" />
-                <span class="help-inline" th:errors="*{description}">[error]</span>
+                <span class="help-inline" th:errors="*{description}"  th:text="#{NotEmpty.message}">[error]</span>
             </div>
         </div>
     
