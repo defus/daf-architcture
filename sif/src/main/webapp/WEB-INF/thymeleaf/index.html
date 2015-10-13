@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!--<link rel="shortcut icon" href="../images/favicon.png" type="image/png">-->
+
+<title>SIF :: Application type</title>
+
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.0.2/css/hover.css"
+	th:href="@{/webjars/Hover/2.0.2/css/hover.css}" rel="stylesheet" />
+
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+	th:href="@{/webjars/font-awesome/4.3.0/css/font-awesome.css}"
+	rel="stylesheet" />
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.css"
+	th:href="@{/webjars/weather-icons/1.3.2/css/weather-icons.css}" />
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.css"
+	th:href="@{/webjars/ionicons/2.0.1/css/ionicons.css}" />
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toggles/2.0.4/toggles.css"
+	th:href="@{/webjars/jquery-toggles/3.1.5/css/toggles-full.css}" />
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"
+	th:href="@{/webjars/morrisjs/0.5.1/morris.css}" />
+
+<link href="../../resources/css/sif.css"
+	th:href="@{/resources/css/sif.css}" rel="stylesheet" />
+
+<script
+	src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"
+	th:src="@{/webjars/modernizr/2.8.3/modernizr.js}"></script>
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"
+	th:src="@{/webjars/html5shiv/3.7.2/html5shiv.js}"></script>
+	<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"
+	th:src="@{/webjars/respond/1.4.2/dest/respond.src.js}"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+	<header>
+		<div class="headerpanel">
+
+			<div class="logopanel">
+				<h2>
+					<a href="index.html" th:href="@{/}">SIF</a>
+				</h2>
+			</div>
+			<!-- logopanel -->
+
+			<div class="headerbar">
+
+				<a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+
+				<div class="searchpanel">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Rechercher..." /> <span class="input-group-btn">
+							<button class="btn btn-default" type="button">
+								<i class="fa fa-search"></i>
+							</button>
+						</span>
+					</div>
+					<!-- input-group -->
+				</div>
+
+				<div class="header-right">
+					<ul class="headermenu">
+						<li>
+							<div id="noticePanel" class="btn-group">
+								<button class="btn btn-notice alert-notice"
+									data-toggle="dropdown">
+									<i class="fa fa-globe"></i>
+								</button>
+								<div id="noticeDropdown"
+									class="dropdown-menu dm-notice pull-right">
+									<div role="tabpanel">
+										<!-- Nav tabs -->
+										<ul class="nav nav-tabs nav-justified" role="tablist">
+											<li class="active"><a data-target="#notification"
+												data-toggle="tab">Notifications (2)</a></li>
+										</ul>
+
+										<!-- Tab panes -->
+										<div class="tab-content">
+											<div role="tabpanel" class="tab-pane active"
+												id="notification">
+												<ul class="list-group notice-list">
+													<li class="list-group-item unread">
+														<div class="row">
+															<div class="col-xs-2">
+																<i class="fa fa-envelope"></i>
+															</div>
+															<div class="col-xs-10">
+																<h5>
+																	<a href="">Nouveau message de Onana Jacque</a>
+																</h5>
+																<small>20 Juin 2015</small> <span>Solution unique
+																	de gestion SIF...</span>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item unread">
+														<div class="row">
+															<div class="col-xs-2">
+																<i class="fa fa-user"></i>
+															</div>
+															<div class="col-xs-10">
+																<h5>
+																	<a href="">Toto vous suit maintenant !</a>
+																</h5>
+																<small>18 Juin 2015</small>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="row">
+															<div class="col-xs-2">
+																<i class="fa fa-user"></i>
+															</div>
+															<div class="col-xs-10">
+																<h5>
+																	<a href="">Zaham Sindil vous suit maintenant !</a>
+																</h5>
+																<small>17 Juin 2015</small>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="row">
+															<div class="col-xs-2">
+																<i class="fa fa-thumbs-up"></i>
+															</div>
+															<div class="col-xs-10">
+																<h5>
+																	<a href="">Rey Reslaba aime votre post !</a>
+																</h5>
+																<small>16 Juin 2015</small> <span>La gestion du
+																	patrimoine</span>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="row">
+															<div class="col-xs-2">
+																<i class="fa fa-comment"></i>
+															</div>
+															<div class="col-xs-10">
+																<h5>
+																	<a href="">Socrates a commenté votre post!</a>
+																</h5>
+																<small>16 Juin 2015</small> <span>La vie est
+																	formidable...</span>
+															</div>
+														</div>
+													</li>
+												</ul>
+												<a class="btn-more" href="">Voir plus de notifications <i
+													class="fa fa-long-arrow-right"></i></a>
+											</div>
+											<!-- tab-pane -->
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="btn-group">
+								<button type="button" class="btn btn-logged"
+									data-toggle="dropdown">
+									<img src="../../resources/images/photos/loggeduser.png"
+										th:src="@{/resources/images/photos/loggeduser.png}" alt="" />
+									Annie Anzouer <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu pull-right">
+									<li><a href="profile.html"><i
+											class="glyphicon glyphicon-user"></i> Mon profile</a></li>
+									<li><a href="#"><i
+											class="glyphicon glyphicon-question-sign"></i> Aide</a></li>
+									<li><a href="signin.html"><i
+											class="glyphicon glyphicon-log-out"></i> Déconnection</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- header-right -->
+			</div>
+			<!-- headerbar -->
+		</div>
+		<!-- header-->
+	</header>
+
+	<section>
+
+		<div class="leftpanel">
+			<div class="leftpanelinner">
+
+				<!-- ################## LEFT PANEL PROFILE ################## -->
+
+				<div class="media leftpanel-profile">
+					<div class="media-left">
+						<a href="#"> <img
+							src="../../resources/images/photos/loggeduser.png" alt=""
+							th:src="@{/resources/images/photos/loggeduser.png}"
+							class="media-object img-circle" />
+						</a>
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">
+							Annie Anzouer <a data-toggle="collapse"
+								data-target="#loguserinfo" class="pull-right"><i
+								class="fa fa-angle-down"></i></a>
+						</h4>
+						<span>Topographe</span>
+					</div>
+				</div>
+				<!-- leftpanel-profile -->
+
+				<div class="leftpanel-userinfo collapse" id="loguserinfo">
+					<h5 class="sidebar-title">Adresse</h5>
+					<address>Quartier beau chateau, Yaoundé</address>
+					<h5 class="sidebar-title">Contact</h5>
+					<ul class="list-group">
+						<li class="list-group-item"><label class="pull-left">Email</label>
+							<span class="pull-right">annie.anzouer@yahoo.fr</span></li>
+						<li class="list-group-item"><label class="pull-left">Fixe</label>
+							<span class="pull-right">(0237) 8765 564</span></li>
+						<li class="list-group-item"><label class="pull-left">Mobile</label>
+							<span class="pull-right">+237 1237 789</span></li>
+					</ul>
+				</div>
+				<!-- leftpanel-userinfo -->
+
+				<ul class="nav nav-tabs nav-justified nav-sidebar">
+					<li class="tooltips active" data-toggle="tooltip"
+						title="Menu principal"><a data-toggle="tab"
+						data-target="#mainmenu"><i class="tooltips fa fa-ellipsis-h"></i></a></li>
+					<li class="tooltips" data-toggle="tooltip" title="Paramètres"><a
+						data-toggle="tab" data-target="#settings"><i class="fa fa-cog"></i></a></li>
+					<li class="tooltips" data-toggle="tooltip" title="Déconnection"><a
+						href="signin.html"><i class="fa fa-sign-out"></i></a></li>
+				</ul>
+
+				<div class="tab-content">
+
+					<!-- ################# MAIN MENU ################### -->
+
+					<div class="tab-pane active" id="mainmenu">
+						<h5 class="sidebar-title">Favoris</h5>
+						<ul class="nav nav-pills nav-stacked nav-quirk">
+							<li class="active"><a href="index.html"><i
+									class="fa fa-home"></i> <span>Tableau de bord</span></a></li>
+							<li><a href="widgets.html"><span
+									class="badge pull-right">New</span><i class="fa fa-cube"></i> <span>SIG</span></a></li>
+							<li><a href="maps.html"><i class="fa fa-map-marker"></i>
+									<span>SIC</span></a></li>
+						</ul>
+
+						<h5 class="sidebar-title">Menu principal</h5>
+						<ul class="nav nav-pills nav-stacked nav-quirk">
+							<li class="nav-parent"><a href=""><i
+									class="fa fa-check-square"></i> <span>Professions</span></a>
+								<ul class="children">
+									<li><a href="general-forms.html">Professions</a></li>
+									<li><a href="form-validation.html">Type de professions</a></li>
+								</ul></li>
+							<li class="nav-parent"><a href=""><i
+									class="fa fa-suitcase"></i> <span>Module 2</span></a>
+								<ul class="children">
+									<li><a href="buttons.html">Fonction 2.1</a></li>
+									<li><a href="icons.html">Fonction 2.2</a></li>
+								</ul></li>
+						</ul>
+					</div>
+					<!-- tab-pane -->
+					
+					<!-- #################### SETTINGS ################### -->
+
+					<div class="tab-pane" id="settings">
+						<h5 class="sidebar-title">Paramètres généraux</h5>
+						<ul class="list-group list-group-settings">
+							<li class="list-group-item">
+								<h5>Newsletter Journalière</h5> <small>Recevoir un
+									recapitulatif des évènements qui se sont produits sur la
+									plateforme durant la journée.</small>
+								<div class="toggle-wrapper">
+									<div class="leftpanel-toggle toggle-light success"></div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<h5>Appels téléphoniques</h5> <small>Appellez vos amis
+									et famille directement à partir de votre compte.</small>
+								<div class="toggle-wrapper">
+									<div class="leftpanel-toggle-off toggle-light success"></div>
+								</div>
+							</li>
+						</ul>
+						<h5 class="sidebar-title">Paramètres de sécurité</h5>
+						<ul class="list-group list-group-settings">
+							<li class="list-group-item">
+								<h5>Notification de connections</h5> <small>Soyez
+									notifié lorsque quelqu'un essaie d'utiliser votre compte.</small>
+								<div class="toggle-wrapper">
+									<div class="leftpanel-toggle toggle-light success"></div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<h5>Approbation téléphonique</h5> <small>Utiliser votre
+									tépéhone lors des connections comm couche supplémentaire de
+									sécurité.</small>
+								<div class="toggle-wrapper">
+									<div class="leftpanel-toggle toggle-light success"></div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!-- tab-pane -->
+
+
+				</div>
+				<!-- tab-content -->
+
+			</div>
+			<!-- leftpanelinner -->
+		</div>
+		<!-- leftpanel -->
+
+		<div class="mainpanel">
+
+			<!--<div class="pageheader">
+      <h2><i class="fa fa-home"></i> Tableau de bord</h2>
+    </div>-->
+
+			<div class="contentpanel">
+
+				<div class="row">
+					<div class="col-md-9 col-lg-8 dash-left">
+						<div class="panel panel-announcement">
+							<ul class="panel-options">
+								<li><a><i class="fa fa-refresh"></i></a></li>
+								<li><a class="panel-remove"><i class="fa fa-remove"></i></a></li>
+							</ul>
+							<div class="panel-heading">
+								<h4 class="panel-title">Denière annonce</h4>
+							</div>
+							<div class="panel-body">
+								<h2>
+									Une nouvelle aplication réalisée par la société <span
+										class="text-primary">XXYYZZ</span> et nommée <span
+										class="text-success">SIC</span> est disponible !
+								</h2>
+								<h4>
+									Exporez cette nouvelle application et découvrez comment elle
+									peut vous facilité vos tâches quotidiennes ! <a href="">Voir
+										l'application !</a>
+								</h4>
+							</div>
+						</div>
+						<!-- panel -->
+
+						<div class="panel panel-site-traffic">
+							<div class="panel-heading">
+								<ul class="panel-options">
+									<li><a><i class="fa fa-refresh"></i></a></li>
+								</ul>
+								<h4 class="panel-title text-success">Fréquentation de
+									l'application par les utilisateurs</h4>
+								<p class="nomargin">Derniers 30 jours — Dernière mise à jour
+									le 14 juillet 2015</p>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-6 col-sm-4">
+										<div class="pull-left">
+											<div class="icon icon ion-stats-bars"></div>
+										</div>
+										<div class="pull-left">
+											<h4 class="panel-title">Taux de rebond</h4>
+											<h3>23.30%</h3>
+											<h5 class="text-success">2.00% d'augmentation</h5>
+										</div>
+									</div>
+									<div class="col-xs-6 col-sm-4">
+										<div class="pull-left">
+											<div class="icon icon ion-eye"></div>
+										</div>
+										<h4 class="panel-title">Pages vues / Visiteurs</h4>
+										<h3>38.10</h3>
+										<h5 class="text-danger">5.70% diminution</h5>
+									</div>
+									<div class="col-xs-6 col-sm-4">
+										<div class="pull-left">
+											<div class="icon icon ion-clock"></div>
+										</div>
+										<h4 class="panel-title">Temps sur le site</h4>
+										<h3>4:45</h3>
+										<h5 class="text-success">5.00% augmentation</h5>
+									</div>
+								</div>
+								<!-- row -->
+
+								<div class="mb20"></div>
+
+								<div id="basicflot" style="height: 263px"></div>
+
+							</div>
+							<!-- panel-body -->
+
+							<div class="table-responsive">
+								<table
+									class="table table-bordered table-default table-striped nomargin">
+									<thead class="success">
+										<tr>
+											<th>Pays</th>
+											<th class="text-right">% de visiteurs</th>
+											<th class="text-right">Taux de rebond</th>
+											<th class="text-right">Page vue</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Cameroun</td>
+											<td class="text-right">61%</td>
+											<td class="text-right">25.87%</td>
+											<td class="text-right">55.23</td>
+										</tr>
+										<tr>
+											<td>Gabon</td>
+											<td class="text-right">13%</td>
+											<td class="text-right">23.12%</td>
+											<td class="text-right">65.00</td>
+										</tr>
+										<tr>
+											<td>Congo Démocratique</td>
+											<td class="text-right">10%</td>
+											<td class="text-right">20.43%</td>
+											<td class="text-right">67.99</td>
+										</tr>
+										<tr>
+											<td>Congo Kinchassa</td>
+											<td class="text-right">7%</td>
+											<td class="text-right">18.17%</td>
+											<td class="text-right">55.13</td>
+										</tr>
+										<tr>
+											<td>Tchad</td>
+											<td class="text-right">6.03%</td>
+											<td class="text-right">17.67%</td>
+											<td class="text-right">67.05</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- table-responsive -->
+
+						</div>
+						<!-- panel -->
+
+						<div class="row panel-statistics">
+							<div class="col-sm-6">
+								<div class="panel panel-updates">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-xs-7 col-lg-8">
+												<h4 class="panel-title text-success">Professions
+													ajoutées</h4>
+												<h3>75.7%</h3>
+												<div class="progress">
+													<div style="width: 75.7%" aria-valuemax="100"
+														aria-valuemin="0" aria-valuenow="75.7" role="progressbar"
+														class="progress-bar progress-bar-success">
+														<span class="sr-only">75.7% Complete (success)</span>
+													</div>
+												</div>
+												<p>Professions ajoutées ce mois : 75</p>
+											</div>
+											<div class="col-xs-5 col-lg-4 text-right">
+												<input type="text" value="75" class="dial-success" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- panel -->
+							</div>
+							<!-- col-sm-6 -->
+
+							<div class="col-sm-6">
+								<div class="panel panel-danger-full panel-updates">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-xs-7 col-lg-8">
+												<h4 class="panel-title text-warning">Mot de passe
+													incorrect</h4>
+												<h3>39.9%</h3>
+												<div class="progress">
+													<div style="width: 39.9%" aria-valuemax="100"
+														aria-valuemin="0" aria-valuenow="39.9" role="progressbar"
+														class="progress-bar progress-bar-warning">
+														<span class="sr-only">39.9% Complete (success)</span>
+													</div>
+												</div>
+												<p>Mot de passe incorrect ce mois: 45</p>
+											</div>
+											<div class="col-xs-5 col-lg-4 text-right">
+												<input type="text" value="45" class="dial-warning" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- panel -->
+							</div>
+							<!-- col-sm-6 -->
+
+							<div class="col-sm-6">
+								<div class="panel panel-success-full panel-updates">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-xs-7 col-lg-8">
+												<h4 class="panel-title text-success">Utilisateurs
+													Bloqués</h4>
+												<h3>55.4%</h3>
+												<div class="progress">
+													<div style="width: 55.4%" aria-valuemax="100"
+														aria-valuemin="0" aria-valuenow="55.4" role="progressbar"
+														class="progress-bar progress-bar-info">
+														<span class="sr-only">55.4% Complete (success)</span>
+													</div>
+												</div>
+												<p>Utilisateurs Bloqué ce mois : 1,203</p>
+											</div>
+											<div class="col-xs-5 col-lg-4 text-right">
+												<input type="text" value="55" class="dial-info" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- panel -->
+							</div>
+							<!-- col-sm-6 -->
+
+							<div class="col-sm-6">
+								<div class="panel panel-updates">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-xs-7 col-lg-8">
+												<h4 class="panel-title text-danger">Professions créées</h4>
+												<h3>22.1%</h3>
+												<div class="progress">
+													<div style="width: 22.1%" aria-valuemax="100"
+														aria-valuemin="0" aria-valuenow="22.1" role="progressbar"
+														class="progress-bar progress-bar-danger">
+														<span class="sr-only">22.1% Complete (success)</span>
+													</div>
+												</div>
+												<p>Professions créées ce mois : 22</p>
+											</div>
+											<div class="col-xs-5 col-lg-4 text-right">
+												<input type="text" value="22" class="dial-danger" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- panel -->
+							</div>
+							<!-- col-sm-6 -->
+
+						</div>
+						<!-- row -->
+
+						<div class="row row-col-join panel-earnings">
+							<div class="col-xs-3 col-sm-4 col-lg-3">
+								<div class="panel">
+									<ul class="panel-options">
+										<li><a><i class="glyphicon glyphicon-option-vertical"></i></a></li>
+									</ul>
+									<div class="panel-heading">
+										<h4 class="panel-title">Revenus générés</h4>
+									</div>
+									<div class="panel-body">
+										<h3 class="earning-amount">XOF 1,543.03</h3>
+										<h4 class="earning-today">Revenus d'aujourd'hui</h4>
+
+										<ul class="list-group">
+											<li class="list-group-item">Cette semaine <span
+												class="pull-right">XOF 12,320.34</span></li>
+											<li class="list-group-item">Ce mois <span
+												class="pull-right">XOF 37,520.34</span></li>
+										</ul>
+										<hr class="invisible" />
+										<p>Items vendus ce moi : 325</p>
+									</div>
+								</div>
+								<!-- panel -->
+							</div>
+							<div class="col-xs-9 col-sm-8 col-lg-9">
+								<div class="panel">
+									<div class="panel-heading">
+										<h4 class="panel-title">Graphe des revenus</h4>
+									</div>
+									<div class="panel-body">
+										<div id="line-chart" class="body-chart"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row panel-quick-page">
+							<div class="col-xs-4 col-sm-5 col-md-4 page-user">
+								<div class="panel">
+									<div class="panel-heading">
+										<h4 class="panel-title">Gérer les utilisateurs</h4>
+									</div>
+									<div class="panel-body">
+										<div class="page-icon">
+											<i class="icon ion-person-stalker"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-4 page-products">
+								<div class="panel">
+									<div class="panel-heading">
+										<h4 class="panel-title">Gérer les Professions</h4>
+									</div>
+									<div class="panel-body">
+										<div class="page-icon">
+											<i class="fa fa-shopping-cart"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-3 col-md-2 page-events">
+								<div class="panel">
+									<div class="panel-heading">
+										<h4 class="panel-title">Evènements</h4>
+									</div>
+									<div class="panel-body">
+										<div class="page-icon">
+											<i class="icon ion-ios-calendar-outline"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-3 col-md-2 page-messages">
+								<div class="panel">
+									<div class="panel-heading">
+										<h4 class="panel-title">Messages</h4>
+									</div>
+									<div class="panel-body">
+										<div class="page-icon">
+											<i class="icon ion-email"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-5 col-md-2 page-reports">
+								<div class="panel">
+									<div class="panel-heading">
+										<h4 class="panel-title">Rapports</h4>
+									</div>
+									<div class="panel-body">
+										<div class="page-icon">
+											<i class="icon ion-arrow-graph-up-right"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-2 page-statistics">
+								<div class="panel">
+									<div class="panel-heading">
+										<h4 class="panel-title">Statistiques</h4>
+									</div>
+									<div class="panel-body">
+										<div class="page-icon">
+											<i class="icon ion-ios-pulse-strong"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-4 page-support">
+								<div class="panel">
+									<div class="panel-heading">
+										<h4 class="panel-title">Gérer le Support</h4>
+									</div>
+									<div class="panel-body">
+										<div class="page-icon">
+											<i class="icon ion-help-buoy"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-2 page-privacy">
+								<div class="panel">
+									<div class="panel-heading">
+										<h4 class="panel-title">Privée</h4>
+									</div>
+									<div class="panel-body">
+										<div class="page-icon">
+											<i class="icon ion-android-lock"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-2 page-settings">
+								<div class="panel">
+									<div class="panel-heading">
+										<h4 class="panel-title">Paramètres</h4>
+									</div>
+									<div class="panel-body">
+										<div class="page-icon">
+											<i class="icon ion-gear-a"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- row -->
+
+					</div>
+					<!-- col-md-9 -->
+					<div class="col-md-3 col-lg-4 dash-right">
+						<div class="row">
+							<div class="col-sm-5 col-md-12 col-lg-6">
+								<div class="panel panel-danger panel-weather">
+									<div class="panel-heading">
+										<h4 class="panel-title">Prévisions Météo</h4>
+									</div>
+									<div class="panel-body inverse">
+										<div class="row mb10">
+											<div class="col-xs-6">
+												<h2 class="today-day">Lundi</h2>
+												<h3 class="today-date">13 Juillet 2015</h3>
+											</div>
+											<div class="col-xs-6">
+												<i class="wi wi-hail today-cloud"></i>
+											</div>
+										</div>
+										<p class="nomargin">Thunderstorm in the area of
+											responsibility this afternoon through this evening.</p>
+										<div class="row mt10">
+											<div class="col-xs-7">
+												<strong>Température :</strong> (Celcius) 19
+											</div>
+											<div class="col-xs-5">
+												<strong>Vent :</strong> 30+ mph
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- col-md-12 -->
+							<div class="col-sm-5 col-md-12 col-lg-6">
+								<div class="panel panel-primary list-announcement">
+									<div class="panel-heading">
+										<h4 class="panel-title">Annonces précédentes</h4>
+									</div>
+									<div class="panel-body">
+										<ul class="list-unstyled mb20">
+											<li><a href="">Maladie difficile à soigner...</a> <small>30
+													Juin 2015 <a href="">7 vues</a>
+											</small></li>
+											<li><a href="">Nouveaux terrains à vendre...</a> <small>15
+													Juin 2015 &nbsp; <a href="">11 vues</a>
+											</small></li>
+											<li><a href="">Nouveaux véhicules à vendre...</a> <small>15
+													Juin 2015 &nbsp; <a href="">2 vues</a>
+											</small></li>
+										</ul>
+									</div>
+									<div class="panel-footer">
+										<button class="btn btn-primary btn-block">
+											Voir plus d'annonces <i class="fa fa-arrow-right"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<!-- col-md-12 -->
+						</div>
+						<!-- row -->
+
+
+					</div>
+					<!-- col-md-3 -->
+				</div>
+				<!-- row -->
+
+			</div>
+			<!-- contentpanel -->
+
+		</div>
+		<!-- mainpanel -->
+
+	</section>
+
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"
+		th:src="@{/webjars/jquery/2.1.4/jquery.js}"></script>
+
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.js"
+		th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.js}"></script>
+
+	<script src="../../resources/js/toggles.js"
+		th:src="@{/resources/js/toggles.js}"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.js"
+		th:src="@{/webjars/morrisjs/0.5.1/morris.js}"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"
+		th:src="@{/webjars/raphaeljs/2.1.4/raphael-min.js}"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.js"
+		th:src="@{/webjars/flot/0.8.3/jquery.flot.js}"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.resize.js"
+		th:src="@{/webjars/flot/0.8.3/jquery.flot.resize.js}"></script>
+
+	<script src="../../resources/js/jquery.flot.spline.js"
+		th:src="@{/resources/js/jquery.flot.spline.js}"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.11/jquery.knob.min.js"
+		th:src="@{/webjars/jquery-knob/1.2.11/jquery.knob.js}"></script>
+
+	<script src="../../resources/js/sif.js"
+		th:src="@{/resources/js/sif.js}"></script>
+
+	<script src="../../resources/js/index.js"
+		th:src="@{/resources/js/index.js}"></script>
+
+</body>
+</html>

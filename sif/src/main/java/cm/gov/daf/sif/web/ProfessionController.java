@@ -16,6 +16,7 @@
 package cm.gov.daf.sif.web;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -155,10 +156,8 @@ public class ProfessionController {
     }
     
     @RequestMapping("/professions.json")
-    public @ResponseBody Professions showResourcesProfessionList() {
-    	Professions professions = new Professions();
-    	professions.getProfessionList().addAll(this.professionService.findAll());
-        return professions;
+    public @ResponseBody Collection<Profession> showResourcesProfessionList() {
+    	return this.professionService.findAll();
     }
 
 }

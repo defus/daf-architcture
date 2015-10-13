@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="description" content="sif"/>
+<meta name="author" content="" />
+<!--<link rel="shortcut icon" href="../images/favicon.png" type="image/png">-->
+
+<title>Sif : Architecture</title>
+
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+	th:href="@{/webjars/font-awesome/4.3.0/css/font-awesome.css}"
+	rel="stylesheet" />
+
+<link href="../../resources/css/sif.css"
+	th:href="@{/resources/css/sif.css}" rel="stylesheet" />
+
+<script
+	src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"
+	th:src="@{/webjars/modernizr/2.8.3/modernizr.js}"></script>
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"
+	th:src="@{/webjars/html5shiv/3.7.2/html5shiv.js}"></script>
+	<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"
+	th:src="@{/webjars/respond/1.4.2/dest/respond.src.js}"></script>
+  <![endif]-->
+</head>
+
+<body class="signwrapper">
+
+	<div class="sign-overlay"></div>
+	<div class="signpanel"></div>
+
+	<div class="panel signin">
+		<div class="panel-heading">
+			<h1>SIF</h1>
+			<h4 class="panel-title">Bienvenue ! Veuillez vous authentifier.</h4>
+		</div>
+		<div class="panel-body">
+			<form action="index.html">
+				<div class="form-group mb10">
+					<div class="input-group">
+						<span class="input-group-addon"><i
+							class="glyphicon glyphicon-user"></i></span> <input type="text"
+							class="form-control" placeholder="Entrez votre login">
+					</div>
+				</div>
+				<div class="form-group nomargin">
+					<div class="input-group">
+						<span class="input-group-addon"><i
+							class="glyphicon glyphicon-lock"></i></span> <input type="text"
+							class="form-control" placeholder="Entrez votre mot de passe">
+					</div>
+				</div>
+				<div>
+					<a href="" class="forgot">Mot de passe oublié ?</a>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-success btn-quirk btn-block">Connection</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- panel -->
+
+</body>
+</html>

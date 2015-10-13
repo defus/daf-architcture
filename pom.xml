@@ -36,16 +36,29 @@
 		<jadira-usertype-core.version>3.2.0.GA</jadira-usertype-core.version>
 
 		<!-- Web dependencies -->
-		<webjars-bootstrap.version>2.3.0</webjars-bootstrap.version>
-		<webjars-jquery-ui.version>1.10.3</webjars-jquery-ui.version>
-		<webjars-jquery.version>2.0.3-1</webjars-jquery.version>
-		<dandelion.version>0.10.1</dandelion.version>
+		<webjars-bootstrap.version>3.3.5</webjars-bootstrap.version>
+		<webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
+		<webjars-jquery.version>2.1.4</webjars-jquery.version>
+		<webjars-font-awesome.version>4.3.0</webjars-font-awesome.version>
+		<webjars-modernizr.version>2.8.3</webjars-modernizr.version>
+		<webjars-html5shiv.version>3.7.2</webjars-html5shiv.version>
+		<webjars-respond.version>1.4.2</webjars-respond.version>
+		<webjars-Hover.version>2.0.2</webjars-Hover.version>
+		<webjars-weather-icons.version>1.3.2</webjars-weather-icons.version>
+		<webjars-ionicons.version>2.0.1</webjars-ionicons.version>
+		<webjars-jquery-toggles.version>3.1.5</webjars-jquery-toggles.version>
+		<webjars-morrisjs.version>0.5.1</webjars-morrisjs.version>
+		<webjars-flot.version>0.8.3</webjars-flot.version>
+		<webjars-jquery-knob.version>1.2.11</webjars-jquery-knob.version>
+		<webjars-raphaeljs.version>2.1.4</webjars-raphaeljs.version>
+		<jackson-jaxrs-base.version>2.6.2</jackson-jaxrs-base.version>
 
 		<!-- RSS -->
-        <rome.version>1.0</rome.version>
-        
+		<rome.version>1.0</rome.version>
+
 		<cobertura.version>2.7</cobertura.version>
 
+		<thymeleaf.version>2.1.4.RELEASE</thymeleaf.version>
 	</properties>
 
 	<dependencyManagement>
@@ -179,7 +192,7 @@
 			<artifactId>joda-time-hibernate</artifactId>
 			<version>${jodatime-hibernate.version}</version>
 		</dependency>
-		
+
 		<!-- Databases - Uses HSQL by default -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
@@ -214,6 +227,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
 		<!-- Webjars (static dependencies distributed as JAR files) -->
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -229,6 +243,66 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
 			<version>${webjars-jquery.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>font-awesome</artifactId>
+			<version>${webjars-font-awesome.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>modernizr</artifactId>
+			<version>${webjars-modernizr.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>html5shiv</artifactId>
+			<version>${webjars-html5shiv.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>respond</artifactId>
+			<version>${webjars-respond.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>Hover</artifactId>
+			<version>${webjars-Hover.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>weather-icons</artifactId>
+			<version>${webjars-weather-icons.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>ionicons</artifactId>
+			<version>${webjars-ionicons.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>jquery-toggles</artifactId>
+			<version>${webjars-jquery-toggles.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>morrisjs</artifactId>
+			<version>${webjars-morrisjs.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>raphaeljs</artifactId>
+			<version>${webjars-raphaeljs.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>flot</artifactId>
+			<version>${webjars-flot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery-knob</artifactId>
+			<version>${webjars-jquery-knob.version}</version>
 		</dependency>
 
 		<!-- Test Artifacts -->
@@ -251,15 +325,11 @@
 
 		<!-- Dandelion -->
 		<dependency>
-			<groupId>com.github.dandelion</groupId>
-			<artifactId>datatables-export-itext</artifactId>
-			<version>${dandelion.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf-spring3</artifactId>
-			<version>2.1.3.RELEASE</version>
+			<artifactId>thymeleaf-spring4</artifactId>
+			<version>${thymeleaf.version}</version>
 		</dependency>
+
 
 		<!-- used for Atom -->
 		<dependency>
@@ -268,6 +338,13 @@
 			<version>${rome.version}</version>
 		</dependency>
 
+		<!-- jackson pour serialization json -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-base</artifactId>
+			<version>${jackson-jaxrs-base.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 	<!-- Maven plugin versions are mentioned in order to guarantee the build 

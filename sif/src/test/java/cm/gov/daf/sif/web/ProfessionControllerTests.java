@@ -42,6 +42,6 @@ public class ProfessionControllerTests {
     	ResultActions actions = mockMvc.perform(get("/professions.json").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     	actions.andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.professionList[0].id").value(1));
+                .andExpect(jsonPath("$[0].id").value(1));
     }
 }

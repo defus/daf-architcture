@@ -1,37 +1,38 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 
 <!--
-PetClinic :: a Spring Framework demonstration
+ddl:bundle-includes="sif" : ajouter dans l'entete pour ajouter toutes les ressoruces statiques 
+dans l'entete a partir du fichier de bundle sif.json qui decrit le bundle qu'on utilise  
 -->
 
-<head th:fragment="headTag">
+<head th:fragment="headTag" >
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>SIF :: Application de gestion foncière</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>SIF :: Application de gestion foncière</title>
 
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/2.3.0/css/bootstrap.min.css}" rel="stylesheet" />
-    <link href="../../../resources/css/sif.css"
-          th:href="@{/resources/css/sif.css}" rel="stylesheet" />
-    
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"
-            th:src="@{/webjars/jquery/2.0.3/jquery.js}"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"
-            th:src="@{/webjars/jquery-ui/1.10.3/js/jquery-ui-1.10.3.custom.js}"></script>
-    
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css"
-          th:href="@{/webjars/jquery-ui/1.10.3/css/smoothness/jquery-ui-1.10.3.custom.css}" rel="stylesheet" />
-    
+<link
+	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/2.3.0/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<link href="../../../resources/css/sif.css"
+	th:href="@{/resources/css/sif.css}" rel="stylesheet" />
+
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"
+	th:src="@{/webjars/jquery/2.0.3/jquery.js}"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"
+	th:src="@{/webjars/jquery-ui/1.10.3/js/jquery-ui.min.js}"></script>
+
+<link
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css"
+	th:href="@{/webjars/jquery-ui/1.10.3/css/smoothness/jquery-ui-1.10.3.custom.css}"
+	rel="stylesheet" />
 </head>
 
 <body>
 </body>
 
 </html>
-
-
-
-
