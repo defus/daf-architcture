@@ -65,10 +65,10 @@
     <form th:object="${profession}" th:method="${profession['new']} ? post : put" action="./professionDetails.html"
         th:action="@{${#httpServletRequest.servletPath}}" class="form-horizontal" id="add-profession-form">
         <div class="control-group" th:classappend="${#fields.hasErrors('libelle')} ? error">
-            <label class="control-label">Libelle</label>
+            <label class="control-label" th:text="#{prof.libelle}">[libelle]</label>
             <div class="controls">
                 <input type="text" th:field="*{libelle}" />
-                <span class="help-inline" th:errors="*{libelle}">[error]</span>
+                <span class="help-inline" th:errors="*{libelle}" th:text="#{NotEmpty.message}">[error]</span>
             </div>
         </div>
     
@@ -76,7 +76,7 @@
             <label class="control-label">Description</label>
             <div class="controls">
                 <input type="text" th:field="*{description}" />
-                <span class="help-inline" th:errors="*{description}">[error]</span>
+                <span class="help-inline" th:errors="*{description}"  th:text="#{NotEmpty.message}">[error]</span>
             </div>
         </div>
         
@@ -85,7 +85,7 @@
 	
 	        <div class="controls">
 	            <input th:field="*{dateCreation}" type="text" id="dateCreation"/>
-	            <span class="help-inline" th:errors="*{dateCreation}">[error]</span>
+	            <span class="help-inline" th:errors="*{dateCreation}" th:text="#{NotEmpty.message}">[error]</span>
 	        </div>
 	    </div>
 	    
@@ -94,7 +94,7 @@
 	
 	        <div class="controls">
 	            <input th:field="*{salaireMin}" type="text" id="salaireMin" class="money"/>
-	            <span class="help-inline" th:errors="*{salaireMin}">[error]</span>
+	            <span class="help-inline" th:errors="*{salaireMin}"  th:text="#{NotEmpty.message}">[error]</span>
 	        </div>
 	    </div>
 	    

@@ -12,6 +12,7 @@
 		<property name="prefix" value="/WEB-INF/thymeleaf/" />
 		<property name="suffix" value=".html" />
 		<property name="templateMode" value="HTML5" />
+		<property name="characterEncoding" value="UTF-8" />
 		<!-- Template cache is set to false (default is true). -->
 		<property name="cacheable" value="false" />
 	</bean>
