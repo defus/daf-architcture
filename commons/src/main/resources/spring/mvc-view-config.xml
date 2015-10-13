@@ -15,9 +15,13 @@
 		<property name="characterEncoding" value="UTF-8" />
 		<!-- Template cache is set to false (default is true). -->
 		<property name="cacheable" value="false" />
+		<!-- In TemplateResolver you set the character encoding in which your files 
+			ARE in disk, this is, the one that should be used for reading them and converting 
+			their bytes into chars (characters are encoding-independent). -->
+		<property name="characterEncoding" value="UTF-8" />
 	</bean>
 
-	<bean id="templateEngine" class="org.thymeleaf.spring3.SpringTemplateEngine">
+	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
 		<property name="templateResolver" ref="templateResolver" />
 	</bean>
 
@@ -30,16 +34,14 @@
 	<bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="contentNegotiationManager" ref="cnManager" />
-
 		<property name="viewResolvers">
 			<list>
-
 				<!-- Used here for 'xml' views -->
 				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 					<property name="order" value="1" />
 				</bean>
 
-				<bean class="org.thymeleaf.spring3.view.ThymeleafViewResolver">
+				<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
 					<property name="templateEngine" ref="templateEngine" />
 					<property name="order" value="2" />
 					<!-- We need to set exclusions because Content Negotiation tries to 
@@ -50,6 +52,12 @@
 						have a -->
 					<!-- 'marshaller' property). -->
 					<property name="excludedViewNames" value="*.xml" />
+					<!-- In ThymeleafViewResolver you set the character encoding in which 
+						your processed pages should be written into the HTTP response's output stream, 
+						this is, the one that should be used for converting your characters back 
+						into bytes for transferring them over the network. -->
+					<property name="characterEncoding" value="UTF-8" />
+					<property name="contentType" value="text/html; charset=UTF-8" />
 				</bean>
 
 				<!-- Default viewClass: JSTL view (JSP with html output) -->
@@ -87,20 +95,18 @@
 
 	<oxm:jaxb2-marshaller id="marshaller">
 		<!-- Object-XML mapping declared using annotations inside 'Vets' -->
-		<oxm:class-to-be-bound
-			name="cm.gov.daf.sif.model.Vets" />
+		<oxm:class-to-be-bound name="cm.gov.daf.sif.model.Vets" />
 	</oxm:jaxb2-marshaller>
-	
+
 	<!-- Renders an XML view. Used by the BeanNameViewResolver -->
 	<bean name="vets/professionList.xml"
 		class="org.springframework.web.servlet.view.xml.MarshallingView">
 		<property name="marshaller" ref="marshaller" />
 	</bean>
-	
+
 	<oxm:jaxb2-marshaller id="marshaller">
 		<!-- Object-XML mapping declared using annotations inside 'Vets' -->
-		<oxm:class-to-be-bound
-			name="cm.gov.daf.sif.model.Professions" />
+		<oxm:class-to-be-bound name="cm.gov.daf.sif.model.Professions" />
 	</oxm:jaxb2-marshaller>
 
 </beans>

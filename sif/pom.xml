@@ -13,11 +13,13 @@
 	</parent>
 
 	<dependencies>
+	
 		<dependency>
 			<groupId>cm.gov.daf</groupId>
 			<artifactId>commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
 	</dependencies>
 
 	<!-- Maven plugin versions are mentioned in order to guarantee the build 
