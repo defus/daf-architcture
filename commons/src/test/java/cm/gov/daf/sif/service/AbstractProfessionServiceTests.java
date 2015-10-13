@@ -18,6 +18,7 @@ package cm.gov.daf.sif.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -54,7 +55,7 @@ public abstract class AbstractProfessionServiceTests {
         Profession profession = new Profession();
         profession.setLibelle("commercant");
         profession.setDescription("commercant");
-        profession.setDateCreation(new DateTime());
+        profession.setDateCreation(new Date());
         profession.setSalaireMin(9000.67D);
         this.professionService.saveProfession(profession);
         assertThat(profession.getId().longValue()).isNotEqualTo(0);

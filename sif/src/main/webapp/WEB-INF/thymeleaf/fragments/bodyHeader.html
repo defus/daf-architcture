@@ -1,65 +1,105 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
+
+<!--
+SIF :: a Spring Framework demonstration
+-->
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>SIF :: Application de gestion Foncière</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>SIF :: Application de gestion Foncière</title>
 
-<link
-	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap.min.css"
-	th:href="@{/webjars/bootstrap/2.3.0/css/bootstrap.min.css}"
-	rel="stylesheet" />
-<link href="../../../resources/css/sif.css"
-	th:href="@{/resources/css/sif.css}" rel="stylesheet" />
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/2.3.0/css/bootstrap.min.css}" rel="stylesheet" />
+    <link href="../../../resources/css/sif.css"
+          th:href="@{/resources/css/sif.css}" rel="stylesheet" />
+    
+    <script  src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"
+             th:src="@{/webjars/jquery/2.1.4/jquery.js}"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"
+            th:src="@{/webjars/jquery-ui/1.11.4/js/jquery-ui.min.js}"></script>
+    
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css"
+          th:href="@{/webjars/jquery-ui/1.10.3/css/smoothness/jquery-ui-1.10.3.custom.css}" rel="stylesheet" />
+          
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+  	<script src="../../../resources/js/jquery-1.10.2.js" 
+  				th:src="@{/resources/js/jquery-1.10.2.js}"></script>
+ 	<script src="../../../resources/js/jquery-ui.1.11.4.js" 
+ 	 			th:src="@{/resources/js/jquery-ui.1.11.4.js}"></script>
+ 	 
+ 	 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.css" 
+ 	 	th:href="@{/webjars/select2/3.5.2/select2.css}"
+ 	 rel="stylesheet" />
+ 	 
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.js" 
+	 			th:src="@{/webjars/select2/3.5.2/select2.js}"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.js"
+            th:src="@{/resources/js/jquery.mask.js}"></script>
+            
+    <script>
+  	
+    $(document).ready(function(){
+    	  $('.date').mask('0000/00/00');
+    	  $('.time').mask('00:00:00');
+    	  $('.date_time').mask('0000/00/00 00:00:00');
+    	  $('.cep').mask('00000-000');
+    	  $('.phone').mask('0000-0000');
+    	  $('.phone_with_ddd').mask('(00) 0000-0000');
+    	  $('.phone_us').mask('(000) 000-0000');
+    	  $('.mixed').mask('AAA 000-S0S');
+    	  $('.cpf').mask('000.000.000-00', {reverse: true});
+    	  $('.money').mask('000 000 000 000 000.00', {reverse: true});
+    	  $('.money2').mask("#.##0,00", {reverse: true});
+    	  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
+    	    translation: {
+    	      'Z': {
+    	        pattern: /[0-9]/, optional: true
+    	      }
+    	    }
+    	  });
+    	  $('.ip_address').mask('099.099.099.099');
+    	  $('.percent').mask('##0,00%', {reverse: true});
+    	  $('.clear-if-not-match').mask("0000/00/00", {clearIfNotMatch: true});
+    	  $('.placeholder').mask("0000/00/00", {placeholder: "____/__/__"});
+    	  $('.fallback').mask("0000r00r00", {
+    	      translation: {
+    	        'r': {
+    	          pattern: /[\/]/, 
+    	          fallback: '/'
+    	        }, 
+    	        placeholder: "____/__/__"
+    	      }
+    	    });
+    	  $('.selectonfocus').mask("0000/00/00", {selectOnFocus: true});
+    });
 
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"
-	th:src="@{/webjars/jquery/2.0.3/jquery.js}"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"
-	th:src="@{/webjars/jquery-ui/1.10.3/js/jquery-ui.min.js}"></script>
-
-<link
-	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css"
-	th:href="@{/webjars/jquery-ui/1.10.3/css/smoothness/jquery-ui-1.10.3.custom.css}"
-	rel="stylesheet" />
-
+  	</script>
 </head>
 
 <body th:fragment="bodyHeader">
 
 
-	<img th:src="@{/resources/images/banner-graphic.png}"
-		src="../../../resources/images/banner-graphic.png" />
+<img th:src="@{/resources/images/banner-graphic.png}" 
+     src="../../../resources/images/banner-graphic.png" />
 
-	<div class="navbar">
-		<div class="navbar-inner">
-			<ul class="nav">
-				<li style="width: 100px;"><a href="../welcome.html"
-					th:href="@{/}"><i class="icon-home"></i>Home</a></li>
-				<li style="width: 130px;"><a
-					href="./professions/findProfessions.html"
-					th:href="@{/professions/find.html}"><i class="icon-search"></i>Find
-						professions</a></li>
-				<li style="width: 130px;"><a
-					href="./type_professions/findTypeProfessions.html"
-					th:href="@{/typeProfessions/find.html}"><i class="icon-search"></i>Find
-						Type profession</a></li>
-				<li style="width: 130px;"><a href="../owners/findOwners.html"
-					th:href="@{/owners/find.html}"><i class="icon-search"></i>Find
-						owners</a></li>
-				<li style="width: 140px;"><a href="../vets/vetList.html"
-					th:href="@{/vets.html}"><i class="icon-th-list"></i>Veterinarians</a></li>
-				<li style="width: 90px;"><a href="../exception.html"
-					th:href="@{/oups.html}"
-					title="trigger a RuntimeException to see how it is handled"><i
-						class="icon-warning-sign"></i>Error</a></li>
-				<li style="width: 80px;"><a href="#"
-					title="not available yet. Work in progress!!"><i
-						class=" icon-question-sign"></i>Help</a></li>
-			</ul>
-		</div>
-	</div>
-
+<div class="navbar" style="width: 601px;">
+    <div class="navbar-inner">
+        <ul class="nav">
+            <li style="width: 100px;"><a href="../welcome.html" th:href="@{/}"><i class="icon-home"></i>Home</a></li>
+            <li style="width: 130px;"><a href="./professions/findProfessions.html" th:href="@{/professions/find.html}"><i class="icon-search"></i>Find professions</a></li>
+            <li style="width: 130px;"><a href="./type_professions/findTypeProfessions.html" th:href="@{/typeProfessions/find.html}"><i class="icon-search"></i>Find Type profession</a></li>
+            <li style="width: 130px;"><a href="../owners/findOwners.html" th:href="@{/owners/find.html}"><i class="icon-search"></i>Find owners</a></li>
+            <li style="width: 140px;"><a href="../vets/vetList.html" th:href="@{/vets.html}"><i class="icon-th-list"></i>Veterinarians</a></li>
+            <li style="width: 90px;"><a href="../exception.html" th:href="@{/oups.html}" title="trigger a RuntimeException to see how it is handled"><i class="icon-warning-sign"></i>Error</a></li>
+            <li style="width: 80px;"><a href="#" title="not available yet. Work in progress!!"><i class=" icon-question-sign"></i>Help</a></li>
+        </ul>
+    </div>
+</div>
+	
 </body>
 
 </html>

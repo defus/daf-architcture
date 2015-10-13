@@ -20,9 +20,21 @@
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/smoothness/jquery-ui.css"
           th:href="@{/webjars/jquery-ui/1.9.2/css/smoothness/jquery-ui-1.9.2.custom.css}" rel="stylesheet" />
 
+  
 </head>
 
 <body>
+<script>
+  $(function() {
+    $( "#dateCreation" ).datepicker({
+    	dateFormat: 'yy/mm/dd' ,
+    	  appendText: "(yyyy/MM/dd)"
+    });
+  });
+  
+
+  $('typeProfession').select();
+  </script>
 <div class="container">
     <div th:include="fragments/bodyHeader" th:remove="tag">
     
@@ -72,7 +84,7 @@
 	        <label class="control-label">Date création</label>
 	
 	        <div class="controls">
-	            <input th:field="*{dateCreation}" type="text" id="salaireMin"/>
+	            <input th:field="*{dateCreation}" type="text" id="dateCreation"/>
 	            <span class="help-inline" th:errors="*{dateCreation}">[error]</span>
 	        </div>
 	    </div>
@@ -81,7 +93,7 @@
 	        <label class="control-label">Salaire minimum</label>
 	
 	        <div class="controls">
-	            <input th:field="*{salaireMin}" type="text" id="salaireMin"/>
+	            <input th:field="*{salaireMin}" type="text" id="salaireMin" class="money"/>
 	            <span class="help-inline" th:errors="*{salaireMin}">[error]</span>
 	        </div>
 	    </div>
@@ -89,7 +101,7 @@
 	    <div class="control-group" th:classappend="${#fields.hasErrors('typeProfession')} ? 'error'">
 	        <label class="control-label">Type Profession</label>
 	        <div class="controls">
-			    <select th:field="*{typeProfession.id}">
+			    <select th:field="*{typeProfession.id}" id="typeProfession">
 				  <option th:each="type : ${typeProfessions}" 
 				          th:value="${type.id}" 
 				          th:text="${type.libelle}">Wireframe</option>
