@@ -15,11 +15,11 @@
  */
 package cm.gov.daf.sif.service;
 
-import java.util.Collection;
-
 import org.springframework.dao.DataAccessException;
-import cm.gov.daf.sif.model.Profession;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
+import cm.gov.daf.sif.model.Profession;
 
 /**
  * Interface Service Profession
@@ -27,13 +27,11 @@ import cm.gov.daf.sif.model.Profession;
  * @author albert
  */
 public interface ProfessionService {
-    
-    Profession findProfessionById(int id) throws DataAccessException;
-    
-    void saveProfession(Profession profession) throws DataAccessException;
-    
-    Collection<Profession> findProfessionByLibelle(String libelle) throws DataAccessException;
-    
-    Collection<Profession> findAll() throws DataAccessException;
+
+	Profession findById(Integer id) throws DataAccessException;
+
+	void saveProfession(Profession profession) throws DataAccessException;
+
+	Page<Profession> find(String search, Pageable pageable) throws DataAccessException;
 
 }

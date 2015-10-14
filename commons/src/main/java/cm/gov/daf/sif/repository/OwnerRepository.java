@@ -65,7 +65,7 @@ public interface OwnerRepository {
      * @throws org.springframework.dao.DataRetrievalFailureException
      *          if not found
      */
-    Owner findById(int id) throws DataAccessException;
+    Owner findById(Integer id) throws DataAccessException;
 
 
     /**

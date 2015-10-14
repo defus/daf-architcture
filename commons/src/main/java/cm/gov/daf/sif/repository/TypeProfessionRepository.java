@@ -39,7 +39,7 @@ public interface TypeProfessionRepository {
 
     Collection<TypeProfession> findByLibelle(String libelle) throws DataAccessException;
 
-    TypeProfession findById(int id) throws DataAccessException;
+    TypeProfession findById(Integer id) throws DataAccessException;
 
     void save(TypeProfession t) throws DataAccessException;
 

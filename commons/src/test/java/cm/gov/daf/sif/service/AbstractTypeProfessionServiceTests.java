@@ -20,7 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Collection;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import cm.gov.daf.sif.model.Profession;
 import cm.gov.daf.sif.model.TypeProfession;
 
 import org.springframework.transaction.annotation.Transactional;
