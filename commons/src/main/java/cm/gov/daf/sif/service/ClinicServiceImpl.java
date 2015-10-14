@@ -23,7 +23,6 @@ import org.springframework.dao.DataAccessException;
 import cm.gov.daf.sif.model.Owner;
 import cm.gov.daf.sif.model.Pet;
 import cm.gov.daf.sif.model.PetType;
-import cm.gov.daf.sif.model.Profession;
 import cm.gov.daf.sif.model.Vet;
 import cm.gov.daf.sif.model.Visit;
 import cm.gov.daf.sif.repository.OwnerRepository;
@@ -47,15 +46,13 @@ public class ClinicServiceImpl implements ClinicService {
     private VetRepository vetRepository;
     private OwnerRepository ownerRepository;
     private VisitRepository visitRepository;
-    private ProfessionRepository professionRepository;
-
+    
     @Autowired
     public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, ProfessionRepository professionRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
-        this.professionRepository = professionRepository;
     }
 
     @Override

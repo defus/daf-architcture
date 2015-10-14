@@ -21,7 +21,6 @@ import org.springframework.dao.DataAccessException;
 import cm.gov.daf.sif.model.Owner;
 import cm.gov.daf.sif.model.Pet;
 import cm.gov.daf.sif.model.PetType;
-import cm.gov.daf.sif.model.Profession;
 import cm.gov.daf.sif.model.Vet;
 import cm.gov.daf.sif.model.Visit;
 

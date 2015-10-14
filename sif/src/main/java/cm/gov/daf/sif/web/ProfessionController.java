@@ -15,13 +15,16 @@
  */
 package cm.gov.daf.sif.web;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import cm.gov.daf.sif.model.Profession;
 import cm.gov.daf.sif.model.Professions;
 import cm.gov.daf.sif.service.ProfessionService;
@@ -35,6 +38,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -47,117 +51,104 @@ import org.springframework.web.servlet.ModelAndView;
 @SessionAttributes(types = Profession.class)
 public class ProfessionController {
 
-    private final ProfessionService professionService;
-    private final TypeProfessionService typeProfessionService;
+	private final ProfessionService professionService;
+	private final TypeProfessionService typeProfessionService;
 
+	@Autowired
+	public ProfessionController(ProfessionService professionService, TypeProfessionService typeProfessionService) {
+		this.professionService = professionService;
+		this.typeProfessionService = typeProfessionService;
+	}
 
-    @Autowired
-    public ProfessionController(ProfessionService professionService, TypeProfessionService typeProfessionService) {
-        this.professionService = professionService;
-        this.typeProfessionService = typeProfessionService;
-    }
+	@InitBinder
+	public void setAllowedFields(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields("id");
+	}
 
-    @InitBinder
-    public void setAllowedFields(WebDataBinder dataBinder) {
-        dataBinder.setDisallowedFields("id");
-    }
+	@RequestMapping(value = "/professions", method = RequestMethod.GET)
+	public String search() {
+		return "professions/list";
+	}
 
-    @RequestMapping(value = "/professions/new", method = RequestMethod.GET)
-    public String initCreationForm(Map<String, Object> model) {
-        Profession profession = new Profession();
-        model.put("profession", profession);
-        model.put("typeProfessions", typeProfessionService.findAll());
-        return "professions/createOrUpdateProfessionForm";
-    }
+	@RequestMapping(value = "/professions/data", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> searchJson(@RequestParam(value = "start", defaultValue = "0") Integer page,
+			@RequestParam(value = "draw", defaultValue = "0") Integer draw,
+			@RequestParam(value = "search[value]", defaultValue = "") String search) {
 
-    @RequestMapping(value = "/professions/new", method = RequestMethod.POST)
-    public String processCreationForm(@Valid Profession profession, BindingResult result, SessionStatus status) {
-        if (result.hasErrors()) {
-            return "professions/createOrUpdateProfessionForm";
-        } else {
-            this.professionService.saveProfession(profession);
-            status.setComplete();
-            return "redirect:/professions/" + profession.getId();
-        }
-    }
+		Map<String, Object> data = new HashMap<String, Object>();
 
-    @RequestMapping(value = "/professions/find", method = RequestMethod.GET)
-    public String initFindForm(Map<String, Object> model) {
-        model.put("profession", new Profession());
-        model.put("typeProfessions", typeProfessionService.findAll());
-        return "professions/findProfessions";
-    }
+		Pageable pageable = new PageRequest(page, 10);
 
-    @RequestMapping(value = "/professions", method = RequestMethod.GET)
-    public String processFindForm(Profession profession, BindingResult result, Map<String, Object> model) {
-        // allow parameterless GET request for /owners to return all records
-        if (profession.getLibelle() == null) {
-        	profession.setLibelle(""); // empty string signifies broadest possible search
-        }
+		Page<Profession> results = this.professionService.find(search, pageable);
 
-        // find professions by libelle
-        Collection<Profession> results = this.professionService.findProfessionByLibelle(profession.getLibelle());
-        if (results.isEmpty()) {
-            // no owners found
-            result.rejectValue("libelle", "notFound", "not found");
-            return "professions/findProfessions";
-        }
-        else if (results.size() == 1) {
-    	// 1 owner found
-        profession = results.iterator().next();
-    	return "redirect:/professions/" + profession.getId();
-        }
-        else {
-            // multiple owners found
-            model.put("selections", results);
-            return "professions/professionsList";
-        }
-    }
-        
-    @RequestMapping(value = "/professions/{professionId}/edit", method = RequestMethod.GET)
-    public String initUpdateOwnerForm(@PathVariable("professionId") int professionId, Model model) {
-    	Profession profession = this.professionService.findProfessionById(professionId);
-        model.addAttribute(profession);
-        model.addAttribute("typeProfessions", typeProfessionService.findAll());
-        return "professions/createOrUpdateProfessionForm";
-    }
+		data.put("data", results.getContent());
+		data.put("draw", draw);
+		data.put("recordsTotal", results.getTotalElements());
+		data.put("recordsFiltered", results.getNumberOfElements());
 
-    @RequestMapping(value = "/professions/{professionId}/edit", method = RequestMethod.PUT)
-    public String processUpdateProfessionForm(@Valid Profession profession, BindingResult result, SessionStatus status) {
-        if (result.hasErrors()) {
-            return "professions/createOrUpdateProfessionForm";
-        } else {
-            this.professionService.saveProfession(profession);
-            status.setComplete();
-            return "redirect:/professions/{professionId}";
-        }
-    }
+		return data;
+	}
 
-    /**
-     * Custom handler for displaying an owner.
-     *
-     * @param professionId the ID of the profession to display
-     * @return a ModelMap with the model attributes for the view
-     */
-    @RequestMapping("/professions/{professionId}")
-    public ModelAndView showProfession(@PathVariable("professionId") int professionId) {
-        ModelAndView mav = new ModelAndView("professions/professionDetails");
-        mav.addObject(this.professionService.findProfessionById(professionId));
-        mav.addObject("typeProfessions", typeProfessionService.findAll());
-        return mav;
-    }
-    
-    @RequestMapping(value={"/professions.xml","/professions.html"})
-    public String showProfessionList(Map<String, Object> model) {
-        Professions professions = new Professions();
-        professions.getProfessionList().addAll(this.professionService.findAll());
-        model.put("professions", professions);
-        return "professions/professionsList";
-    }
-    
-    @RequestMapping("/professions.json")
-    public @ResponseBody Collection<Profession> showResourcesProfessionList() {
-    	return this.professionService.findAll();
-    }
+	@RequestMapping(value = "/professions/new", method = RequestMethod.GET)
+	public String initCreationForm(Map<String, Object> model) {
+		Profession profession = new Profession();
+		model.put("profession", profession);
+		model.put("typeProfessions", typeProfessionService.findAll());
+		return "professions/createOrUpdateProfessionForm";
+	}
+
+	@RequestMapping(value = "/professions/new", method = RequestMethod.POST)
+	public String processCreationForm(@Valid Profession profession, BindingResult result, SessionStatus status) {
+		if (result.hasErrors()) {
+			return "professions/createOrUpdateProfessionForm";
+		} else {
+			this.professionService.saveProfession(profession);
+			status.setComplete();
+			return "redirect:/professions/" + profession.getId();
+		}
+	}
+
+	@RequestMapping(value = "/professions/{professionId}/edit", method = RequestMethod.GET)
+	public String initUpdateOwnerForm(@PathVariable("professionId") int professionId, Model model) {
+		Profession profession = this.professionService.findById(professionId);
+		model.addAttribute(profession);
+		model.addAttribute("typeProfessions", typeProfessionService.findAll());
+		return "professions/createOrUpdateProfessionForm";
+	}
+
+	@RequestMapping(value = "/professions/{professionId}/edit", method = RequestMethod.PUT)
+	public String processUpdateProfessionForm(@Valid Profession profession, BindingResult result,
+			SessionStatus status) {
+		if (result.hasErrors()) {
+			return "professions/createOrUpdateProfessionForm";
+		} else {
+			this.professionService.saveProfession(profession);
+			status.setComplete();
+			return "redirect:/professions/{professionId}";
+		}
+	}
+
+	/**
+	 * Custom handler for displaying an owner.
+	 *
+	 * @param professionId
+	 *            the ID of the profession to display
+	 * @return a ModelMap with the model attributes for the view
+	 */
+	@RequestMapping("/professions/{professionId}")
+	public ModelAndView showProfession(@PathVariable("professionId") int professionId) {
+		ModelAndView mav = new ModelAndView("professions/professionDetails");
+		mav.addObject(this.professionService.findById(professionId));
+		mav.addObject("typeProfessions", typeProfessionService.findAll());
+		return mav;
+	}
+
+	@RequestMapping(value = { "/professions.xml", "/professions.html" })
+	public String showProfessionList(Map<String, Object> model) {
+		Professions professions = new Professions();
+		// professions.getProfessionList().addAll(this.professionService.findAll());
+		model.put("professions", professions);
+		return "professions/professionsList";
+	}
 
 }
