@@ -1,18 +1,3 @@
-/*
- * Copyright 2002-2013 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package cm.gov.daf.sif.web;
 
 import java.util.HashMap;
@@ -29,6 +14,7 @@ import cm.gov.daf.sif.model.Profession;
 import cm.gov.daf.sif.model.Professions;
 import cm.gov.daf.sif.service.ProfessionService;
 import cm.gov.daf.sif.service.TypeProfessionService;
+import cm.gov.daf.sif.web.utils.WebConstants;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,7 +63,7 @@ public class ProfessionController {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 
-		Pageable pageable = new PageRequest(page, 10);
+		Pageable pageable = new PageRequest(page, WebConstants.PAGE_SIZE);
 
 		Page<Profession> results = this.professionService.find(search, pageable);
 
@@ -90,17 +76,18 @@ public class ProfessionController {
 	}
 
 	@RequestMapping(value = "/professions/new", method = RequestMethod.GET)
-	public String initCreationForm(Map<String, Object> model) {
+	public String initCreationForm(Model model) {
 		Profession profession = new Profession();
-		model.put("profession", profession);
-		model.put("typeProfessions", typeProfessionService.findAll());
-		return "professions/createOrUpdateProfessionForm";
+		model.addAttribute(profession);
+		model.addAttribute("typeProfessions", typeProfessionService.findAll());
+		return "professions/createOrUpdate";
 	}
 
 	@RequestMapping(value = "/professions/new", method = RequestMethod.POST)
-	public String processCreationForm(@Valid Profession profession, BindingResult result, SessionStatus status) {
+	public String processCreationForm(Model model, @Valid Profession profession, BindingResult result, SessionStatus status) {
 		if (result.hasErrors()) {
-			return "professions/createOrUpdateProfessionForm";
+			model.addAttribute("typeProfessions", typeProfessionService.findAll());
+			return "professions/createOrUpdate";
 		} else {
 			this.professionService.saveProfession(profession);
 			status.setComplete();
@@ -113,14 +100,14 @@ public class ProfessionController {
 		Profession profession = this.professionService.findById(professionId);
 		model.addAttribute(profession);
 		model.addAttribute("typeProfessions", typeProfessionService.findAll());
-		return "professions/createOrUpdateProfessionForm";
+		return "professions/createOrUpdate";
 	}
 
 	@RequestMapping(value = "/professions/{professionId}/edit", method = RequestMethod.PUT)
 	public String processUpdateProfessionForm(@Valid Profession profession, BindingResult result,
 			SessionStatus status) {
 		if (result.hasErrors()) {
-			return "professions/createOrUpdateProfessionForm";
+			return "professions/createOrUpdate";
 		} else {
 			this.professionService.saveProfession(profession);
 			status.setComplete();

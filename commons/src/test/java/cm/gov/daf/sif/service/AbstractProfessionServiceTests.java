@@ -17,6 +17,7 @@ package cm.gov.daf.sif.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.junit.Test;
@@ -67,7 +68,7 @@ public abstract class AbstractProfessionServiceTests {
 		profession.setLibelle("commercant");
 		profession.setDescription("commercant");
 		profession.setDateCreation(new Date());
-		profession.setSalaireMin(9000.67D);
+		profession.setSalaireMin(BigDecimal.valueOf(9000.67));
 		this.professionService.saveProfession(profession);
 		assertThat(profession.getId()).isNotEqualTo(0);
 

@@ -8466,7 +8466,7 @@ a.text-danger:focus {
   -o-transition: all 0.2s ease-out 0s;
   transition: all 0.2s ease-out 0s;
   padding: 5px 8px;
-  background-color: #f6f7f8;
+  /*background-color: #f6f7f8;*/
   color: #696c74;
   padding: 6px 10px;
   display: block;
@@ -8496,6 +8496,13 @@ a.text-danger:focus {
 .ui-datepicker-inline {
   max-width: 300px;
   border-color: #bdc3d1;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    border: 1px solid #003eff;
+    background: #007fff;
+    font-weight: normal;
+    color: #ffffff;
 }
 /***** TIME PICKER *****/
 .ui-timepicker-wrapper {

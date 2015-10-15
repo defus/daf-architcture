@@ -7,9 +7,12 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<!--<link rel="shortcut icon" href="../images/favicon.png" type="image/png">-->
+<!--<link rel="shortcut icon" href="../images/favicon.png" type="image/png" />-->
 
-<title>SIF :: Liste des professions</title>
+<title>SIF :: Application type</title>
+
+<link href="../../../resources/css/jquery-ui.css"
+	th:href="@{/resources/css/jquery-ui.css}" rel="stylesheet" />
 
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
@@ -23,10 +26,6 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toggles/2.0.4/toggles.css"
 	th:href="@{/webjars/jquery-toggles/3.1.5/css/toggles-full.css}" />
-
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.9/css/dataTables.bootstrap.css"
-	th:href="@{/webjars/datatables/1.10.9/media/css/dataTables.bootstrap.css}" />
 
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.css"
@@ -49,6 +48,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"
 	th:src="@{/webjars/respond/1.4.2/dest/respond.src.js}"></script>
   <![endif]-->
+
 </head>
 
 <body>
@@ -349,39 +349,124 @@
 				<ol class="breadcrumb breadcrumb-quirk">
 					<li><a href="index.html"><i class="fa fa-home mr5"></i>
 							Accueil</a></li>
-					<li><a href="basic-tables.html">Professions</a></li>
-					<li class="active">Liste des professions</li>
+					<li><a href="general-forms.html">Professions</a></li>
+					<li class="active">Nouveau</li>
 				</ol>
 
-				<div class="panel">
-					<div class="panel-heading">
-						<h4 class="panel-title">Professions</h4>
-						<p>Affiche la liste des professiosn créées dans la plateforme.</p>
-					</div>
-					<div class="panel-body">
-						<div class="table-responsive">
-							<table id="exRowTable"
-								class="table table-bordered table-striped-col">
-								<thead>
-									<tr>
-										<th></th>
-										<th>Libelé</th>
-										<th>Date de création</th>
-										<th>Salaire Minimum</th>
-										<th>Type de profession</th>
-									</tr>
-								</thead>
-							</table>
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="panel">
+							<div class="panel-heading nopaddingbottom">
+								<h4 class="panel-title">Nouvelle Profession</h4>
+								<p>Veuillez saisir les informations de la nouvelle
+									profession.</p>
+							</div>
+							<div class="panel-body">
+								<hr />
+
+								<form id="basicForm"
+									th:action="@{${#httpServletRequest.servletPath}}" method="get"
+									class="form-horizontal" th:object="${profession}"
+									th:method="${profession['new']} ? post : put"
+									action="./view.html">
+
+									<div class="form-group"
+										th:classappend="${#fields.hasErrors('libelle')} ? error">
+										<label class="col-sm-3 control-label">Libelé <span
+											class="text-danger">*</span></label>
+										<div class="col-sm-8">
+											<input type="text" name="libelle" th:field="*{libelle}"
+												class="form-control"
+												placeholder="Veuillez saisir le libelé..."
+												title="Le libelé est obligatoire" required="true" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Date de création
+											<span class="text-danger">*</span>
+										</label>
+										<div class="col-sm-8">
+											<div class="input-group">
+												<input type="text" class="form-control"
+													placeholder="Date au format dd/mm/yyyy" id="dateCreation"
+													name="dateCreation" th:field="*{dateCreation}"
+													title="La date de création est obligatoire" required="true" />
+												<span class="input-group-addon"><i
+													class="glyphicon glyphicon-calendar"></i></span>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Salaire minimum
+										</label>
+										<div class="col-sm-8">
+											<input type="text" name="salaireMin" th:field="*{salaireMin}"
+												id="salaireMin" class="form-control"
+												placeholder="Nombre avec deux chiffres après la virgule..." />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Type de
+											profession <span class="text-danger">*</span>
+										</label>
+										<div class="col-sm-8">
+											<select id="typeProfession" class="select2"
+												name="typeProfession" th:field="*{typeProfession.id}"
+												style="width: 100%"
+												data-placeholder="Veuillez saisir un type de profession..."
+												title="Le type de profession est obligatoire"
+												required="true">
+												<option value="">&nbsp;</option>
+												<option th:each="type : ${typeProfessions}"
+													th:value="${type.id}" th:text="${type.libelle}">Service</option>
+											</select> <label class="error" for="typeProfession"></label>
+										</div>
+									</div>
+									<!-- form-group -->
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Description <span
+											class="text-danger">*</span></label>
+										<div class="col-sm-8">
+											<textarea rows="5" class="form-control"
+												placeholder="Veuillez saisir la description..."
+												name="description" th:field="*{description}"
+												id="description" title="La description est obligatoire"
+												required="true"></textarea>
+										</div>
+									</div>
+
+									<hr />
+
+									<div class="row">
+										<div class="col-sm-9 col-sm-offset-3">
+											<button class="btn btn-success btn-quirk btn-wide mr5">Enregistrer</button>
+											<button type="reset"
+												class="btn btn-quirk btn-wide btn-default">Annuler</button>
+										</div>
+									</div>
+
+								</form>
+							</div>
+							<!-- panel-body -->
 						</div>
+						<!-- panel -->
+
 					</div>
+					<!-- col-md-6 -->
+
 				</div>
-				<!-- panel -->
+				<!--row -->
 
 			</div>
 			<!-- contentpanel -->
+
 		</div>
 		<!-- mainpanel -->
-
 	</section>
 
 	<script
@@ -392,105 +477,76 @@
 		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"
 		th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
 
+	<script src="../../../resources/js/datepicker-fr.js"
+		th:src="@{/resources/js/datepicker-fr.js}"></script>
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.js"
 		th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.js}"></script>
 
-	<script src="../../../resources/js/toggles.js"
-		th:src="@{/resources/js/toggles.js}"></script>
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.9/js/jquery.dataTables.js"
-		th:src="@{/webjars/datatables/1.10.9/media/js/jquery.dataTables.js}"></script>
-
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.9/js/dataTables.bootstrap.js"
-		th:src="@{/webjars//datatables/1.10.9/media/js/dataTables.bootstrap.js}"></script>
+	<script src="../../../resources/js/autosize.js"
+		th:src="@{/resources/js/autosize.js}"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.js"
 		th:src="@{/webjars/select2/4.0.0/dist/js/select2.js}"></script>
 
+	<script src="../../../resources/js/toggles.js"
+		th:src="@{/resources/js/toggles.js}"></script>
+
+	<script src="../../../resources/js/jquery.mask.js"
+		th:src="@{/resources/js/jquery.mask.js}"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.js"
+		th:src="@{/webjars/jquery-validation/1.13.1/jquery.validate.js}"></script>
+
 	<script src="../../../resources/js/sif.js"
 		th:src="@{/resources/js/sif.js}"></script>
 
 	<script th:inline="javascript">
-		$(document).ready(function() {
-			'use strict';
-			
-			var exRowTable = $('#exRowTable').DataTable(
-				{
-					responsive : true,
-					"processing": true,
-			        "serverSide": true,
-					'fnDrawCallback' : function(oSettings) {
-						$('#exRowTable_paginate ul').addClass('pagination-active-success');
-					},
-					/*[- */
-					data : [{"libelle": "Informaticien", "dateCreation":"10/02/2015", "salaireMin": "15000", "typeProfession" : {"libelle" : "Service"}},
-					        {"libelle": "Topographe", "dateCreation":"10/10/2015", "salaireMin": "12000", "typeProfession" : {"libelle" : "Dessin"}}],
-					/* -]*/
-					/*[+
-					'ajax' : {
-						"url": /*[[@{/professions/data}]]*/, 
-						"dataSrc" : "data",
-					},
-					+]*/
-					'columns' : [
-							{
-								'class' : 'details-control',
-								'orderable' : false,
-								'data' : null,
-								'defaultContent' : ''
-							},
-							{
-								'data' : 'libelle'
-							},
-							{
-								'data' : 'dateCreation'
-							},
-							{
-								'data' : 'salaireMin'
-							},
-							{
-								'data' : 'typeProfession.libelle'
-							} ],
-					'order' : [ [ 1, 'asc' ] ]
-				});
-
-			// Add event listener for opening and closing details
-			$('#exRowTable tbody').on(
-				'click',
-				'td.details-control',
+		$(document).ready(
 				function() {
-					var tr = $(this).closest('tr');
-					var row = exRowTable.row(tr);
-	
-					if (row.child.isShown()) {
-						// This row is already open - close it
-						row.child.hide();
-						tr.removeClass('shown');
-					} else {
-						// Open this row
-						row.child(format(row.data()))
-								.show();
-						tr.addClass('shown');
-					}
+					'use strict';
+
+					$.datepicker.setDefaults($.datepicker.regional["fr"]);
+					$.datepicker.setDefaults({});
+
+					// Basic Form
+					$('#basicForm').validate(
+							{
+								highlight : function(element) {
+									$(element).closest('.form-group')
+											.removeClass('has-success')
+											.addClass('has-error');
+								},
+								success : function(element) {
+									$(element).closest('.form-group')
+											.removeClass('has-error');
+								}
+							});
+
+					// Date Picker
+					$('#dateCreation').datepicker(
+							{
+								beforeShow : function(picker, inst) {
+									$('#dateCreation').datepicker("setDate",
+											$(dateCreation).val());
+								}
+							});
+
+					$('.select2').select2();
+
+					// Textarea Auto Resize
+					autosize($('#description'));
+
+					// Input Masks
+					$("#salaireMin").mask("##0.00", {
+						reverse : true
+					});
+
 				});
-
-			function format(d) {
-				// `d` is the original data object for the row
-				return '<h4>' + d.libelle + '<small>' + d.typeProfession.libelle + '</small></h4>'
-						+ '<p class="nomargin">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>';
-			}
-
-			// Select2
-			$('select').select2({
-				minimumResultsForSearch : Infinity
-			});
-
-		});
 	</script>
+	-->
 </body>
 </html>
