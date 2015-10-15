@@ -15,6 +15,7 @@
  */
 package cm.gov.daf.sif.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -48,12 +49,12 @@ public class Profession extends BaseEntity {
     
     @Column(name = "date_creation")
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateCreation;
     
     @Column(name = "salaire_min")
     @NotNull
-    protected Double salaireMin;
+    protected BigDecimal salaireMin;
     
     @ManyToOne
 	@JoinColumn(name = "type_profession_id")
@@ -83,11 +84,11 @@ public class Profession extends BaseEntity {
 		this.dateCreation = dateCreation;
 	}
 
-	public Double getSalaireMin() {
+	public BigDecimal getSalaireMin() {
 		return salaireMin;
 	}
 
-	public void setSalaireMin(Double salaireMin) {
+	public void setSalaireMin(BigDecimal salaireMin) {
 		this.salaireMin = salaireMin;
 	}
 

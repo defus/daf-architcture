@@ -76,15 +76,18 @@ public class ProfessionController {
 	}
 
 	@RequestMapping(value = "/professions/new", method = RequestMethod.GET)
-	public String initCreationForm(Map<String, Object> model) {
-		model.put("typeProfessions", typeProfessionService.findAll());
-		return "professions/create";
+	public String initCreationForm(Model model) {
+		Profession profession = new Profession();
+		model.addAttribute(profession);
+		model.addAttribute("typeProfessions", typeProfessionService.findAll());
+		return "professions/createOrUpdate";
 	}
 
 	@RequestMapping(value = "/professions/new", method = RequestMethod.POST)
-	public String processCreationForm(@Valid Profession profession, BindingResult result, SessionStatus status) {
+	public String processCreationForm(Model model, @Valid Profession profession, BindingResult result, SessionStatus status) {
 		if (result.hasErrors()) {
-			return "professions/createOrUpdateProfessionForm";
+			model.addAttribute("typeProfessions", typeProfessionService.findAll());
+			return "professions/createOrUpdate";
 		} else {
 			this.professionService.saveProfession(profession);
 			status.setComplete();
@@ -97,14 +100,14 @@ public class ProfessionController {
 		Profession profession = this.professionService.findById(professionId);
 		model.addAttribute(profession);
 		model.addAttribute("typeProfessions", typeProfessionService.findAll());
-		return "professions/createOrUpdateProfessionForm";
+		return "professions/createOrUpdate";
 	}
 
 	@RequestMapping(value = "/professions/{professionId}/edit", method = RequestMethod.PUT)
 	public String processUpdateProfessionForm(@Valid Profession profession, BindingResult result,
 			SessionStatus status) {
 		if (result.hasErrors()) {
-			return "professions/createOrUpdateProfessionForm";
+			return "professions/createOrUpdate";
 		} else {
 			this.professionService.saveProfession(profession);
 			status.setComplete();

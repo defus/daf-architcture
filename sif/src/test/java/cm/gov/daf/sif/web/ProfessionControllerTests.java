@@ -1,6 +1,7 @@
 package cm.gov.daf.sif.web;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -69,9 +70,22 @@ public class ProfessionControllerTests {
 
 	@Test
 	public void testFindProfession() throws Exception {
-		ResultActions actions = mockMvc.perform(get("/professions").accept(MediaType.TEXT_HTML))
-				.andExpect(status().isOk());
-		actions.andExpect(view().name("professions/list"));
+		mockMvc.perform(get("/professions").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
+				.andExpect(view().name("professions/list"));
+	}
+
+	@Test
+	public void testCreateProfessionShow() throws Exception {
+		mockMvc.perform(get("/professions/new").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
+				.andExpect(view().name("professions/createOrUpdate"));
+	}
+
+	@Test
+	public void testCreateProfessionWithSuccess() throws Exception {
+		mockMvc.perform(post("/professions/new").accept(MediaType.TEXT_HTML).param("libelle", "Mitoumba")
+				.param("description", "Nana").param("typeProfession.id", "1").param("dateCreation", "23/09/2015")
+				.param("salaireMin", "2390.90")).andExpect(status().is(302))
+				.andExpect(view().name("redirect:/professions/7"));
 	}
 
 }

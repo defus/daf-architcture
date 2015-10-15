@@ -1,4 +1,4 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -363,16 +363,23 @@
 									profession.</p>
 							</div>
 							<div class="panel-body">
-								<hr>
-								<form id="basicForm" action="form-validation.html"
-									class="form-horizontal">
-									<div class="form-group">
+								<hr />
+
+								<form id="basicForm"
+									th:action="@{${#httpServletRequest.servletPath}}" method="get"
+									class="form-horizontal" th:object="${profession}"
+									th:method="${profession['new']} ? post : put"
+									action="./view.html">
+
+									<div class="form-group"
+										th:classappend="${#fields.hasErrors('libelle')} ? error">
 										<label class="col-sm-3 control-label">Libelé <span
 											class="text-danger">*</span></label>
 										<div class="col-sm-8">
-											<input type="text" name="libelle" class="form-control"
+											<input type="text" name="libelle" th:field="*{libelle}"
+												class="form-control"
 												placeholder="Veuillez saisir le libelé..."
-												title="Le libelé est obligatoire" required />
+												title="Le libelé est obligatoire" required="true" />
 										</div>
 									</div>
 
@@ -384,7 +391,8 @@
 											<div class="input-group">
 												<input type="text" class="form-control"
 													placeholder="Date au format dd/mm/yyyy" id="dateCreation"
-													title="La date de création est obligatoire" required>
+													name="dateCreation" th:field="*{dateCreation}"
+													title="La date de création est obligatoire" required="true" />
 												<span class="input-group-addon"><i
 													class="glyphicon glyphicon-calendar"></i></span>
 											</div>
@@ -395,8 +403,8 @@
 										<label class="col-sm-3 control-label">Salaire minimum
 										</label>
 										<div class="col-sm-8">
-											<input type="text" name="salaireMin" id="salaireMin"
-												class="form-control"
+											<input type="text" name="salaireMin" th:field="*{salaireMin}"
+												id="salaireMin" class="form-control"
 												placeholder="Nombre avec deux chiffres après la virgule..." />
 										</div>
 									</div>
@@ -407,12 +415,14 @@
 										</label>
 										<div class="col-sm-8">
 											<select id="typeProfession" class="select2"
-												name="typeProfession" style="width: 100%"
+												name="typeProfession" th:field="*{typeProfession.id}"
+												style="width: 100%"
 												data-placeholder="Veuillez saisir un type de profession..."
-												title="Le type de profession est obligatoire" required>
+												title="Le type de profession est obligatoire"
+												required="true">
 												<option value="">&nbsp;</option>
-												<option value="Service publique">Service publique</option>
-												<option value="Service">Service</option>
+												<option th:each="type : ${typeProfessions}"
+													th:value="${type.id}" th:text="${type.libelle}">Service</option>
 											</select> <label class="error" for="typeProfession"></label>
 										</div>
 									</div>
@@ -424,12 +434,13 @@
 										<div class="col-sm-8">
 											<textarea rows="5" class="form-control"
 												placeholder="Veuillez saisir la description..."
-												name="description" id="description"
-												title="La description est obligatoire" required></textarea>
+												name="description" th:field="*{description}"
+												id="description" title="La description est obligatoire"
+												required="true"></textarea>
 										</div>
 									</div>
 
-									<hr>
+									<hr />
 
 									<div class="row">
 										<div class="col-sm-9 col-sm-offset-3">
@@ -499,6 +510,7 @@
 					'use strict';
 
 					$.datepicker.setDefaults($.datepicker.regional["fr"]);
+					$.datepicker.setDefaults({});
 
 					// Basic Form
 					$('#basicForm').validate(
@@ -515,7 +527,13 @@
 							});
 
 					// Date Picker
-					$('#dateCreation').datepicker();
+					$('#dateCreation').datepicker(
+							{
+								beforeShow : function(picker, inst) {
+									$('#dateCreation').datepicker("setDate",
+											$(dateCreation).val());
+								}
+							});
 
 					$('.select2').select2();
 
@@ -523,7 +541,7 @@
 					autosize($('#description'));
 
 					// Input Masks
-					$("#salaireMin").mask("#.##0,00", {
+					$("#salaireMin").mask("##0.00", {
 						reverse : true
 					});
 
