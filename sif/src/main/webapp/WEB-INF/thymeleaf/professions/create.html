@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport"
@@ -9,6 +10,9 @@
 <!--<link rel="shortcut icon" href="../images/favicon.png" type="image/png" />-->
 
 <title>SIF :: Application type</title>
+
+<link href="../../../resources/css/jquery-ui.css"
+	th:href="@{/resources/css/jquery-ui.css}" rel="stylesheet" />
 
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
@@ -367,7 +371,8 @@
 											class="text-danger">*</span></label>
 										<div class="col-sm-8">
 											<input type="text" name="libelle" class="form-control"
-												placeholder="Veuillez saisir le libelé..." required />
+												placeholder="Veuillez saisir le libelé..."
+												title="Le libelé est obligatoire" required />
 										</div>
 									</div>
 
@@ -376,9 +381,13 @@
 											<span class="text-danger">*</span>
 										</label>
 										<div class="col-sm-8">
-											<input type="date" name="date_creation" class="form-control"
-												placeholder="Veuillez saisir la date de création..."
-												required />
+											<div class="input-group">
+												<input type="text" class="form-control"
+													placeholder="Date au format dd/mm/yyyy" id="dateCreation"
+													title="La date de création est obligatoire" required>
+												<span class="input-group-addon"><i
+													class="glyphicon glyphicon-calendar"></i></span>
+											</div>
 										</div>
 									</div>
 
@@ -386,7 +395,9 @@
 										<label class="col-sm-3 control-label">Salaire minimum
 										</label>
 										<div class="col-sm-8">
-											<input type="number" name="salaire_min" class="form-control" />
+											<input type="text" name="salaireMin" id="salaireMin"
+												class="form-control"
+												placeholder="Nombre avec deux chiffres après la virgule..." />
 										</div>
 									</div>
 
@@ -397,10 +408,9 @@
 										<div class="col-sm-8">
 											<select id="typeProfession" class="select2"
 												name="typeProfession" style="width: 100%"
-												data-placeholder="Sélectionner une valeur"
-												title="Veuillez saisir un type de profession..." required>
-												<option value="">&nbsp;
-												</option>
+												data-placeholder="Veuillez saisir un type de profession..."
+												title="Le type de profession est obligatoire" required>
+												<option value="">&nbsp;</option>
 												<option value="Service publique">Service publique</option>
 												<option value="Service">Service</option>
 											</select> <label class="error" for="typeProfession"></label>
@@ -413,7 +423,9 @@
 											class="text-danger">*</span></label>
 										<div class="col-sm-8">
 											<textarea rows="5" class="form-control"
-												placeholder="Veuillez saisir la description..." required></textarea>
+												placeholder="Veuillez saisir la description..."
+												name="description" id="description"
+												title="La description est obligatoire" required></textarea>
 										</div>
 									</div>
 
@@ -451,15 +463,28 @@
 		th:src="@{/webjars/jquery/2.1.4/jquery.js}"></script>
 
 	<script
+		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"
+		th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
+
+	<script src="../../../resources/js/datepicker-fr.js"
+		th:src="@{/resources/js/datepicker-fr.js}"></script>
+
+	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.js"
 		th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.js}"></script>
 
-	<script src="../../../resources/js/toggles.js"
-		th:src="@{/resources/js/toggles.js}"></script>
+	<script src="../../../resources/js/autosize.js"
+		th:src="@{/resources/js/autosize.js}"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.js"
 		th:src="@{/webjars/select2/4.0.0/dist/js/select2.js}"></script>
+
+	<script src="../../../resources/js/toggles.js"
+		th:src="@{/resources/js/toggles.js}"></script>
+
+	<script src="../../../resources/js/jquery.mask.js"
+		th:src="@{/resources/js/jquery.mask.js}"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.js"
@@ -472,6 +497,8 @@
 		$(document).ready(
 				function() {
 					'use strict';
+
+					$.datepicker.setDefaults($.datepicker.regional["fr"]);
 
 					// Basic Form
 					$('#basicForm').validate(
@@ -487,7 +514,18 @@
 								}
 							});
 
+					// Date Picker
+					$('#dateCreation').datepicker();
+
 					$('.select2').select2();
+
+					// Textarea Auto Resize
+					autosize($('#description'));
+
+					// Input Masks
+					$("#salaireMin").mask("#.##0,00", {
+						reverse : true
+					});
 
 				});
 	</script>
