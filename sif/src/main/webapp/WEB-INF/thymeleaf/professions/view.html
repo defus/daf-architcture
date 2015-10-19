@@ -347,9 +347,9 @@
 			<div class="contentpanel">
 
 				<ol class="breadcrumb breadcrumb-quirk">
-					<li><a href="index.html"><i class="fa fa-home mr5"></i>
-							Accueil</a></li>
-					<li><a href="general-forms.html">Professions</a></li>
+					<li><a th:href="@{/}" href="../index.html"><i
+							class="fa fa-home mr5"></i> Accueil</a></li>
+					<li><a th:href="@{/professions}" href="list.html">Professions</a></li>
 					<li class="active">View</li>
 				</ol>
 
@@ -357,10 +357,16 @@
 					<div class="col-sm-8 col-md-9 col-lg-10 people-list">
 						<div class="people-options clearfix">
 							<div class="btn-toolbar pull-right ">
-								<button type="button" class="btn btn-danger">
-									<i class="fa fa-trash"></i>
-								</button>
-								<button type="button" class="btn btn-success btn-quirk">Editer</button>
+								<form role="form" class="form-inline" id="formDelete"
+									action="./list.html"
+									th:action="@{${#httpServletRequest.servletPath}}" method="get"
+									th:method="delete">
+									<button type="submit" class="btn btn-danger">
+										<i class="fa fa-trash"></i>
+									</button>
+									<a role="button" th:href="@{|${profession.id}/edit.html|}"
+										href="createOrUpdate.html" class="btn btn-success btn-quirk">Editer</a>
+								</form>
 
 							</div>
 						</div>
@@ -380,7 +386,7 @@
 								<!-- media -->
 								<ul class="panel-options">
 									<li><a class="tooltips" href="" data-toggle="tooltip"
-										title="View Options"><i
+										title="Voir les options"><i
 											class="glyphicon glyphicon-option-vertical"></i></a></li>
 								</ul>
 							</div>
@@ -389,18 +395,20 @@
 							<div class="panel-body people-info">
 								<div class="row">
 									<div class="col-sm-4">
-										<div class="info-group">
-											<label>Libelé</label> Médecin généraliste
+										<div class="info-group" th:inline="text">
+											<label>Libelé</label> [[${profession.libelle}]]
 										</div>
 									</div>
 									<div class="col-sm-4">
-										<div class="info-group">
-											<label>Date de création</label> 25/12/2015
+										<div class="info-group" th:inline="text">
+											<label>Date de création</label>
+											[[${#calendars.format(profession.dateCreation,'dd MMMM
+											yyyy')}]]
 										</div>
 									</div>
-									<div class="col-sm-4">
+									<div class="col-sm-4" th:inline="text">
 										<div class="info-group">
-											<label>Salaire Minimum</label> 1234.67
+											<label>Salaire Minimum</label> [[${profession.salaireMin}]]
 										</div>
 									</div>
 								</div>
@@ -409,16 +417,13 @@
 									<div class="col-sm-4">
 										<div class="info-group">
 											<label>Type de profession</label>
-											<h4>Médecin</h4>
+											<h4 th:inline="text">[[${profession.typeProfession.libelle}]]</h4>
 										</div>
 									</div>
 									<div class="col-sm-8">
 										<div class="info-group">
 											<label>Description</label>
-											<p>dqq qd qsd qdq s qsd q d q dqd q sdqd qsd qsdqd
-												qdqsdqsd q sd qd q d qd qsdqsd sdqsdq qsdqdqd qdqdqsd
-												qdqdqsd qdqdqsdq qdqdqsdqd qsdqdqsd qsdqdqsd qsdqdqsd qsdqdq
-												qsd qdqsdq dqd qsdq sd</p>
+											<p th:inline="text">[[${profession.description}]]</p>
 										</div>
 									</div>
 								</div>
@@ -436,10 +441,12 @@
 							</div>
 							<div class="panel-body">
 								<ul class="folder-list">
-									<li><a href=""><i class="fa fa-folder-open"></i>
-											Professions</a></li>
-									<li><a href=""><i class="fa fa-folder-open"></i> Types
-											de Profession</a></li>
+									<li><a href="@{/professions}"><i
+											class="fa fa-folder-open"></i> Professions</a></li>
+									<li><a href="@{/}"><i class="fa fa-folder-open"></i>
+											Acceuil</a></li>
+									<li><a href="@{/typeprofession}"><i
+											class="fa fa-folder-open"></i> Types de Profession</a></li>
 								</ul>
 							</div>
 						</div>
@@ -489,8 +496,27 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.js"
 		th:src="@{/webjars/jquery-validation/1.13.1/jquery.validate.js}"></script>
 
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.js"
+		th:src="@{/webjars/bootbox/4.4.0/bootbox.js}"></script>
+
 	<script src="../../../resources/js/sif.js"
 		th:src="@{/resources/js/sif.js}"></script>
+
+	<script th:inline="javascript">
+		$('#formDelete').submit(
+				function(e) {
+					var currentForm = this;
+					e.preventDefault();
+					bootbox.confirm(
+							"Souhaitez-vous supprimer cette profession ?",
+							function(result) {
+								if (result) {
+									currentForm.submit();
+								}
+							});
+				});
+	</script>
 
 </body>
 </html>

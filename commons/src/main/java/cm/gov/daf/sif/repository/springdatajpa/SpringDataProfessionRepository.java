@@ -17,4 +17,5 @@ public interface SpringDataProfessionRepository extends ProfessionRepository, Re
 	@Override
 	@Query("SELECT p FROM Profession p WHERE p.id =:id")
 	public Profession findById(@Param("id") Integer id);
+	
 }

@@ -10,8 +10,10 @@ public interface ProfessionRepository {
 
 	Profession findById(Integer id) throws DataAccessException;
 
+	Page<Profession> find(String Search, Pageable pageable) throws DataAccessException;
+	
 	void save(Profession profession) throws DataAccessException;
 
-	Page<Profession> find(String Search, Pageable pageable) throws DataAccessException;
+	void delete(Profession profession);
 
 }

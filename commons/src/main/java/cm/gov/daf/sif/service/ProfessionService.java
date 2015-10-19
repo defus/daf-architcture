@@ -33,5 +33,7 @@ public interface ProfessionService {
 	void saveProfession(Profession profession) throws DataAccessException;
 
 	Page<Profession> find(String search, Pageable pageable) throws DataAccessException;
+	
+	void deleteProfession(Profession profession);
 
 }
