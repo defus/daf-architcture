@@ -35,11 +35,11 @@
 
 	<bean id="conversionService"
 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-		<property name="formatters">
-			<set>
-				<bean class="cm.gov.daf.sif.web.PetTypeFormatter" />
-			</set>
-		</property>
+<!-- 		<property name="formatters"> -->
+<!-- 			<set> -->
+<!-- 				<bean class="cm.gov.daf.sif.web.PetTypeFormatter" /> -->
+<!-- 			</set> -->
+<!-- 		</property> -->
 	</bean>
 
 	<!-- - Message source for this context, loaded from localized "messages_xx" 

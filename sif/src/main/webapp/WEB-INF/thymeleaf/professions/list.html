@@ -58,7 +58,7 @@
 
 			<div class="logopanel">
 				<h2>
-					<a href="index.html">SIF</a>
+					<a href="index.html" th:href="@{/}">SIF</a>
 				</h2>
 			</div>
 			<!-- logopanel -->
@@ -265,7 +265,7 @@
 					<div class="tab-pane active" id="mainmenu">
 						<h5 class="sidebar-title">Favoris</h5>
 						<ul class="nav nav-pills nav-stacked nav-quirk">
-							<li class="active"><a href="index.html"><i
+							<li class="active"><a href="index.html" th:href="@{/}"><i
 									class="fa fa-home"></i> <span>Tableau de bord</span></a></li>
 							<li><a href="widgets.html"><span
 									class="badge pull-right">New</span><i class="fa fa-cube"></i> <span>SIG</span></a></li>
@@ -278,8 +278,10 @@
 							<li class="nav-parent active"><a href=""><i
 									class="fa fa-check-square"></i> <span>Professions</span></a>
 								<ul class="children">
-									<li class="active"><a href="general-forms.html">Professions</a></li>
-									<li><a href="form-validation.html">Type de professions</a></li>
+									<li class="active"><a href="./list.html"
+										th:href="@{/professions}">Professions</a></li>
+									<li><a href="../type_proefssions/list.html"
+										th:href="@{/typeProfessions}">Type de professions</a></li>
 								</ul></li>
 							<li class="nav-parent"><a href=""><i
 									class="fa fa-suitcase"></i> <span>Module 2</span></a>
@@ -347,9 +349,9 @@
 			<div class="contentpanel">
 
 				<ol class="breadcrumb breadcrumb-quirk">
-					<li><a href="index.html"><i class="fa fa-home mr5"></i>
-							Accueil</a></li>
-					<li><a href="basic-tables.html">Professions</a></li>
+					<li><a href="../index.html" th:href="@{/}"><i
+							class="fa fa-home mr5"></i> Accueil</a></li>
+					<li><a href="./list.html" th:href="@{/professions}">Professions</a></li>
 					<li class="active">Liste des professions</li>
 				</ol>
 
@@ -369,6 +371,7 @@
 										<th>Date de création</th>
 										<th>Salaire Minimum</th>
 										<th>Type de profession</th>
+										<th>Actions</th>
 									</tr>
 								</thead>
 							</table>
@@ -416,81 +419,141 @@
 		th:src="@{/resources/js/sif.js}"></script>
 
 	<script th:inline="javascript">
-		$(document).ready(function() {
-			'use strict';
-			
-			var exRowTable = $('#exRowTable').DataTable(
-				{
-					responsive : true,
-					"processing": true,
-			        "serverSide": true,
-					'fnDrawCallback' : function(oSettings) {
-						$('#exRowTable_paginate ul').addClass('pagination-active-success');
-					},
-					/*[- */
-					data : [{"libelle": "Informaticien", "dateCreation":"10/02/2015", "salaireMin": "15000", "typeProfession" : {"libelle" : "Service"}},
-					        {"libelle": "Topographe", "dateCreation":"10/10/2015", "salaireMin": "12000", "typeProfession" : {"libelle" : "Dessin"}}],
-					/* -]*/
-					/*[+
-					'ajax' : {
-						"url": /*[[@{/professions/data}]]*/, 
-						"dataSrc" : "data",
-					},
-					+]*/
-					'columns' : [
-							{
-								'class' : 'details-control',
-								'orderable' : false,
-								'data' : null,
-								'defaultContent' : ''
-							},
-							{
-								'data' : 'libelle'
-							},
-							{
-								'data' : 'dateCreation'
-							},
-							{
-								'data' : 'salaireMin'
-							},
-							{
-								'data' : 'typeProfession.libelle'
-							} ],
-					'order' : [ [ 1, 'asc' ] ]
-				});
+		$(document)
+				.ready(
+						function() {
+							'use strict';
 
-			// Add event listener for opening and closing details
-			$('#exRowTable tbody').on(
-				'click',
-				'td.details-control',
-				function() {
-					var tr = $(this).closest('tr');
-					var row = exRowTable.row(tr);
-	
-					if (row.child.isShown()) {
-						// This row is already open - close it
-						row.child.hide();
-						tr.removeClass('shown');
-					} else {
-						// Open this row
-						row.child(format(row.data()))
-								.show();
-						tr.addClass('shown');
-					}
-				});
+							function getTargetUrl(rowId) {
+								/*[- */
+								return 'view.html';
+								/* -]*/
 
-			function format(d) {
-				// `d` is the original data object for the row
-				return '<h4>' + d.libelle + '<small>' + d.typeProfession.libelle + '</small></h4>'
-						+ '<p class="nomargin">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>';
-			}
+								/*[+
+								return [[@{/professions}]] + '/' + rowId;
+								+]*/
 
-			// Select2
-			$('select').select2({
-				minimumResultsForSearch : Infinity
-			});
+							}
 
-		});
+							var exRowTable = $('#exRowTable')
+									.DataTable(
+											{
+												/*[+
+												"responsive" : true,
+												"processing": true,
+												"serverSide": true,
+												+]*/
+												"fnDrawCallback" : function(
+														oSettings) {
+													$('#exRowTable_paginate ul')
+															.addClass(
+																	'pagination-active-success');
+												},
+												/*[- */
+												data : [
+														{
+															"id" : 1,
+															"libelle" : "Informaticien",
+															"dateCreation" : "10/02/2015",
+															"salaireMin" : "15000",
+															"description" : "qsdqsd sqdqsdqs qsdqsdsd",
+															"typeProfession" : {
+																"libelle" : "Service"
+															}
+														},
+														{
+															"id" : 2,
+															"libelle" : "Topographe",
+															"dateCreation" : "10/10/2015",
+															"salaireMin" : "12000",
+															"description" : "qsdqsd sqdqsdqs qsdqsdsd",
+															"typeProfession" : {
+																"libelle" : "Dessin"
+															}
+														} ],
+												/* -]*/
+												/*[+
+												'ajax' : {
+													"url": [[@{/professions/data}]], 
+													"dataSrc" : "data",
+												},
+												+]*/
+												'columns' : [
+														{
+															'class' : 'details-control',
+															'orderable' : false,
+															'data' : null,
+															'defaultContent' : ''
+														},
+														{
+															'data' : 'libelle'
+														},
+														{
+															'data' : 'dateCreation'
+														},
+														{
+															'data' : 'salaireMin'
+														},
+														{
+															'data' : 'typeProfession.libelle'
+														},
+														{
+															"name" : "Action",
+															"targets" : 5,
+															"searchable" : false,
+															"orderable" : false,
+															"width" : "50px"
+														} ],
+												'columnDefs' : [ {
+													"render" : function(data,
+															type, row) {
+														return '<div class="pull-right">'
+																+ '<a href="'
+																+ getTargetUrl(row.id)
+																+ '" class="btn btn-xs btn-success"> <i class="fa fa-search"></i></a> &nbsp;'
+																+ '</div>';
+													},
+													"type" : "html",
+													"targets" : 5
+												} ],
+												'order' : [ [ 1, 'asc' ] ]
+											});
+
+							// Add event listener for opening and closing details
+							$('#exRowTable tbody').on(
+									'click',
+									'td.details-control',
+									function() {
+										var tr = $(this).closest('tr');
+										var row = exRowTable.row(tr);
+
+										if (row.child.isShown()) {
+											// This row is already open - close it
+											row.child.hide();
+											tr.removeClass('shown');
+										} else {
+											// Open this row
+											row.child(format(row.data()))
+													.show();
+											tr.addClass('shown');
+										}
+									});
+
+							function format(d) {
+								// `d` is the original data object for the row
+								return '<h4>' + d.libelle + '<small>'
+										+ d.typeProfession.libelle
+										+ '</small></h4>'
+										+ '<p class="nomargin">'
+										+ d.description + '</p>';
+							}
+
+							// Select2
+							$('select').select2({
+								minimumResultsForSearch : Infinity
+							});
+
+						});
 	</script>
 </body>
 </html>

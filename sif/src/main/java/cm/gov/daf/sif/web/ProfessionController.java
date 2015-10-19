@@ -63,14 +63,16 @@ public class ProfessionController {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 
-		Pageable pageable = new PageRequest(page, WebConstants.PAGE_SIZE);
+		int pageNumber = (page + 1) / WebConstants.PAGE_SIZE;
+
+		Pageable pageable = new PageRequest(pageNumber, WebConstants.PAGE_SIZE);
 
 		Page<Profession> results = this.professionService.find(search, pageable);
 
 		data.put("data", results.getContent());
 		data.put("draw", draw);
 		data.put("recordsTotal", results.getTotalElements());
-		data.put("recordsFiltered", results.getNumberOfElements());
+		data.put("recordsFiltered", results.getTotalElements());
 
 		return data;
 	}
