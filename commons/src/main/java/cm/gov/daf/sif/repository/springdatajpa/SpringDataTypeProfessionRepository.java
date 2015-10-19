@@ -21,7 +21,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import cm.gov.daf.sif.model.TypeProfession;
-import cm.gov.daf.sif.repository.OwnerRepository;
 import cm.gov.daf.sif.repository.TypeProfessionRepository;
 
 /**

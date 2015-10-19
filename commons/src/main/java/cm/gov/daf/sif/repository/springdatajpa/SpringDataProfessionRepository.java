@@ -11,10 +11,11 @@ import cm.gov.daf.sif.repository.ProfessionRepository;
 public interface SpringDataProfessionRepository extends ProfessionRepository, Repository<Profession, Integer> {
 
 	@Override
-	@Query("SELECT p FROM Profession p WHERE p.libelle LIKE %:search%")
+	@Query("SELECT p FROM Profession p WHERE UPPER(p.libelle) LIKE UPPER(:search)")
 	public Page<Profession> find(@Param("search") String search, Pageable pageable);
 
 	@Override
 	@Query("SELECT p FROM Profession p WHERE p.id =:id")
 	public Profession findById(@Param("id") Integer id);
+
 }

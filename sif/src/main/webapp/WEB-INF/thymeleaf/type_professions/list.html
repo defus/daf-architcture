@@ -56,7 +56,7 @@
 
 			<div class="logopanel">
 				<h2>
-					<a href="index.html">SIF</a>
+					<a href="index.html" th:href="@{/}">SIF</a>
 				</h2>
 			</div>
 			<!-- logopanel -->
@@ -172,7 +172,7 @@
 													class="fa fa-long-arrow-right"></i></a>
 											</div>
 											<!-- tab-pane -->
-											
+
 										</div>
 									</div>
 								</div>
@@ -263,7 +263,7 @@
 					<div class="tab-pane active" id="mainmenu">
 						<h5 class="sidebar-title">Favoris</h5>
 						<ul class="nav nav-pills nav-stacked nav-quirk">
-							<li class="active"><a href="index.html"><i
+							<li class="active"><a href="index.html" th:href="@{/}"><i
 									class="fa fa-home"></i> <span>Tableau de bord</span></a></li>
 							<li><a href="widgets.html"><span
 									class="badge pull-right">New</span><i class="fa fa-cube"></i> <span>SIG</span></a></li>
@@ -276,8 +276,10 @@
 							<li class="nav-parent active"><a href=""><i
 									class="fa fa-check-square"></i> <span>Professions</span></a>
 								<ul class="children">
-									<li class="active"><a href="general-forms.html">Professions</a></li>
-									<li><a href="form-validation.html">Type de professions</a></li>
+									<li><a href="../professions/list.html"
+										th:href="@{/professions}">Professions</a></li>
+									<li class="active"><a href="list.html"
+										th:href="@{/type_profession}">Type de professions</a></li>
 								</ul></li>
 							<li class="nav-parent"><a href=""><i
 									class="fa fa-suitcase"></i> <span>Module 2</span></a>
@@ -288,7 +290,7 @@
 						</ul>
 					</div>
 					<!-- tab-pane -->
-					
+
 					<!-- #################### SETTINGS ################### -->
 
 					<div class="tab-pane" id="settings">
@@ -345,9 +347,10 @@
 			<div class="contentpanel">
 
 				<ol class="breadcrumb breadcrumb-quirk">
-					<li><a href="index.html"><i class="fa fa-home mr5"></i>
-							Accueil</a></li>
-					<li><a href="basic-tables.html">Professions</a></li>
+					<li><a href="../index.html" th:href="@{/}"><i
+							class="fa fa-home mr5"></i> Accueil</a></li>
+					<li><a href="./list.html" th:href="@{/}">Type de
+							Professions</a></li>
 					<li class="active">Liste des professions</li>
 				</ol>
 

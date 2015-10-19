@@ -47,13 +47,25 @@ public class ProfessionServiceImpl implements ProfessionService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
+	public Page<Profession> find(String search, Pageable pageable) throws DataAccessException {
+		if (search == null) {
+			search = "%%";
+		} else {
+			search = "%" + search + "%";
+		}
+		return professionRepository.find(search, pageable);
+	}
+
+	@Override
 	@Transactional
 	public void saveProfession(Profession profession) throws DataAccessException {
 		professionRepository.save(profession);
 	}
 
 	@Override
-	public Page<Profession> find(String search, Pageable pageable) throws DataAccessException {
-		return professionRepository.find(search, pageable);
+	@Transactional
+	public void deleteProfession(Profession profession) {
+		professionRepository.delete(profession);
 	}
 }

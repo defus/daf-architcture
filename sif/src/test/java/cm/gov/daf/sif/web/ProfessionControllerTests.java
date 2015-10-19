@@ -19,6 +19,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
+
+import org.hamcrest.Matchers;
 
 /**
  * Test class for the UserResource REST controller.
@@ -41,6 +44,7 @@ public class ProfessionControllerTests {
 	}
 
 	@Test
+	@Transactional
 	public void testFindProfessionJsonWithResults() throws Exception {
 		ResultActions actions = mockMvc.perform(get("/professions/data").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
@@ -50,15 +54,17 @@ public class ProfessionControllerTests {
 	}
 
 	@Test
+	@Transactional
 	public void testFindProfessionJsonWith2ResultsPaginated() throws Exception {
-		ResultActions actions = mockMvc.perform(get("/professions/data?start=0").accept(MediaType.APPLICATION_JSON))
+		ResultActions actions = mockMvc.perform(get("/professions/data?start=10").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 		actions.andExpect(content().contentType("application/json;charset=UTF-8"))
-				.andExpect(jsonPath("$.data[0].id").value(1)).andExpect(jsonPath("$.recordsTotal").value(6))
-				.andExpect(jsonPath("$.recordsFiltered").value(6));
+				.andExpect(jsonPath("$.data[0].id").value(11)).andExpect(jsonPath("$.recordsTotal").value(15))
+				.andExpect(jsonPath("$.recordsFiltered").value(15)).andExpect(jsonPath("$.data", Matchers.hasSize(5)));
 	}
 
 	@Test
+	@Transactional
 	public void testFindProfessionJsonWith1ResultsSearchedPaginated() throws Exception {
 		ResultActions actions = mockMvc
 				.perform(get("/professions/data?start=0&search[value]=Agriculteur").accept(MediaType.APPLICATION_JSON))
@@ -69,23 +75,26 @@ public class ProfessionControllerTests {
 	}
 
 	@Test
+	@Transactional
 	public void testFindProfession() throws Exception {
 		mockMvc.perform(get("/professions").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
 				.andExpect(view().name("professions/list"));
 	}
 
 	@Test
+	@Transactional
 	public void testCreateProfessionShow() throws Exception {
 		mockMvc.perform(get("/professions/new").accept(MediaType.TEXT_HTML)).andExpect(status().isOk())
 				.andExpect(view().name("professions/createOrUpdate"));
 	}
 
 	@Test
+	@Transactional
 	public void testCreateProfessionWithSuccess() throws Exception {
 		mockMvc.perform(post("/professions/new").accept(MediaType.TEXT_HTML).param("libelle", "Mitoumba")
 				.param("description", "Nana").param("typeProfession.id", "1").param("dateCreation", "23/09/2015")
 				.param("salaireMin", "2390.90")).andExpect(status().is(302))
-				.andExpect(view().name("redirect:/professions/7"));
+				.andExpect(view().name("redirect:/professions/16"));
 	}
 
 }

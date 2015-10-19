@@ -27,6 +27,7 @@ import org.springframework.data.domain.PageRequest;
 
 import cm.gov.daf.sif.model.Profession;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 public abstract class AbstractProfessionServiceTests {
 
@@ -34,25 +35,55 @@ public abstract class AbstractProfessionServiceTests {
 	protected ProfessionService professionService;
 
 	@Test
+	@Transactional
+	public void shouldFindProfessionsAllWithNullLibelle() {
+		Page<Profession> page = this.professionService.find(null, null);
+		assertThat(page.getContent().size()).isEqualTo(15);
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindProfessionsAllWithEmptyLibelle() {
+		Page<Profession> page = this.professionService.find("", null);
+		assertThat(page.getContent().size()).isEqualTo(15);
+	}
+	
+	@Test
+	@Transactional
 	public void shouldFindProfessionsByLibelle() {
-		Page<Profession> page = this.professionService.find("eleveur", null);
+		Page<Profession> page = this.professionService.find("Eleveur", null);
+		assertThat(page.getContent().isEmpty()).isFalse();
 		assertThat(page.getContent().size()).isEqualTo(1);
 
-		page = this.professionService.find("eleveur", null);
-		assertThat(page.getContent().isEmpty());
+		page = this.professionService.find("Eleveur", null);
+		assertThat(page.getContent().size()).isEqualTo(1);
+		assertThat(page.getContent().isEmpty()).isFalse();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldFindProfessionsByLibelleCaseInsensitive() {
+		Page<Profession> page = this.professionService.find("ELEVEUR", null);
+		assertThat(page.getContent().size()).isEqualTo(1);
+
+		page = this.professionService.find("ELEVEUR", null);
+		assertThat(page.getContent().size()).isEqualTo(1);
+		assertThat(page.getContent().isEmpty()).isFalse();
 	}
 
 	@Test
+	@Transactional
 	public void shouldFindProfessionWithPagination() {
-		Page<Profession> page = this.professionService.find("eleveur", new PageRequest(1, 2));
+		Page<Profession> page = this.professionService.find("Eleveur", new PageRequest(0, 2));
 		assertThat(page.getContent().size()).isEqualTo(1);
 		assertThat(page.getNumberOfElements()).isEqualTo(1);
-		assertThat(page.getSize()).isEqualTo(1);
-		assertThat(page.getTotalPages()).isEqualTo(3);
+		assertThat(page.getSize()).isEqualTo(2);
+		assertThat(page.getTotalPages()).isEqualTo(1);
 		assertThat(page.getTotalElements()).isEqualTo(1);
 	}
 
 	@Test
+	@Transactional
 	public void shouldFindProfession() {
 		Profession profession = this.professionService.findById(1);
 		assertThat(profession.getLibelle()).startsWith("Agriculteur");

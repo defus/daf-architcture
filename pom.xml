@@ -54,6 +54,7 @@
 		<webjars-select2.version>4.0.0</webjars-select2.version>
 		<webjars-datatables.version>1.10.9</webjars-datatables.version>
 		<webjars-jquery-validation.version>1.13.1</webjars-jquery-validation.version>
+		<webjars-bootbox.version>4.4.0</webjars-bootbox.version>
 
 		<!-- RSS -->
 		<rome.version>1.0</rome.version>
@@ -320,6 +321,11 @@
 			<artifactId>jquery-validation</artifactId>
 			<version>${webjars-jquery-validation.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>bootbox</artifactId>
+			<version>${webjars-bootbox.version}</version>
+		</dependency>
 
 		<!-- Test Artifacts -->
 		<dependency>
@@ -338,6 +344,16 @@
 			<version>${assertj.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+             <groupId>org.hamcrest</groupId>
+             <artifactId>hamcrest-library</artifactId>
+             <scope>test</scope>
+         </dependency>
+         <dependency>
+             <groupId>org.hamcrest</groupId>
+             <artifactId>hamcrest-core</artifactId>
+             <scope>test</scope>
+         </dependency>
 
 		<!-- Thymeleaf -->
 		<dependency>

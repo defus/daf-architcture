@@ -7,9 +7,12 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<!--<link rel="shortcut icon" href="../images/favicon.png" type="image/png">-->
+<!--<link rel="shortcut icon" href="../images/favicon.png" type="image/png" />-->
 
-<title>SIF :: Liste des professions</title>
+<title>SIF :: Application type</title>
+
+<link href="../../../resources/css/jquery-ui.css"
+	th:href="@{/resources/css/jquery-ui.css}" rel="stylesheet" />
 
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
@@ -23,10 +26,6 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toggles/2.0.4/toggles.css"
 	th:href="@{/webjars/jquery-toggles/3.1.5/css/toggles-full.css}" />
-
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.9/css/dataTables.bootstrap.css"
-	th:href="@{/webjars/datatables/1.10.9/media/css/dataTables.bootstrap.css}" />
 
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.css"
@@ -49,6 +48,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"
 	th:src="@{/webjars/respond/1.4.2/dest/respond.src.js}"></script>
   <![endif]-->
+
 </head>
 
 <body>
@@ -280,7 +280,7 @@
 								<ul class="children">
 									<li class="active"><a href="./list.html"
 										th:href="@{/professions}">Professions</a></li>
-									<li><a href="../type_proefssions/list.html"
+									<li><a href="../type_professions/list.html"
 										th:href="@{/typeProfessions}">Type de professions</a></li>
 								</ul></li>
 							<li class="nav-parent"><a href=""><i
@@ -351,40 +351,119 @@
 				<ol class="breadcrumb breadcrumb-quirk">
 					<li><a href="../index.html" th:href="@{/}"><i
 							class="fa fa-home mr5"></i> Accueil</a></li>
-					<li><a href="./list.html" th:href="@{/professions}">Professions</a></li>
-					<li class="active">Liste des professions</li>
+					<li><a th:href="@{/professions}" href="list.html">Professions</a></li>
+					<li class="active">View</li>
 				</ol>
 
-				<div class="panel">
-					<div class="panel-heading">
-						<h4 class="panel-title">Professions</h4>
-						<p>Affiche la liste des professiosn créées dans la plateforme.</p>
-					</div>
-					<div class="panel-body">
-						<div class="table-responsive">
-							<table id="exRowTable"
-								class="table table-bordered table-striped-col">
-								<thead>
-									<tr>
-										<th></th>
-										<th>Libelé</th>
-										<th>Date de création</th>
-										<th>Salaire Minimum</th>
-										<th>Type de profession</th>
-										<th>Actions</th>
-									</tr>
-								</thead>
-							</table>
+				<div class="row">
+					<div class="col-sm-8 col-md-9 col-lg-10 people-list">
+						<div class="people-options clearfix">
+							<div class="btn-toolbar pull-right ">
+								<form role="form" class="form-inline" id="formDelete"
+									action="./list.html"
+									th:action="@{${#httpServletRequest.servletPath}}" method="get"
+									th:method="delete">
+									<button type="submit" class="btn btn-danger">
+										<i class="fa fa-trash"></i>
+									</button>
+									<a role="button" th:href="@{|${profession.id}/edit.html|}"
+										href="createOrUpdate.html" class="btn btn-success btn-quirk">Editer</a>
+								</form>
+
+							</div>
 						</div>
+						<!-- people-options -->
+
+						<div class="panel panel-profile list-view">
+							<div class="panel-heading">
+								<div class="media">
+									<div class="media-body">
+										<h4 class="media-heading">Informations de la Profession</h4>
+										<p class="media-usermeta">
+											<i class="glyphicon glyphicon-briefcase"></i> Détail des
+											informations sur la profession sélectionnée
+										</p>
+									</div>
+								</div>
+								<!-- media -->
+								<ul class="panel-options">
+									<li><a class="tooltips" href="" data-toggle="tooltip"
+										title="Voir les options"><i
+											class="glyphicon glyphicon-option-vertical"></i></a></li>
+								</ul>
+							</div>
+							<!-- panel-heading -->
+
+							<div class="panel-body people-info">
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="info-group" th:inline="text">
+											<label>Libelé</label> [[${profession.libelle}]]
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="info-group" th:inline="text">
+											<label>Date de création</label>
+											[[${#calendars.format(profession.dateCreation,'dd MMMM
+											yyyy')}]]
+										</div>
+									</div>
+									<div class="col-sm-4" th:inline="text">
+										<div class="info-group">
+											<label>Salaire Minimum</label> [[${profession.salaireMin}]]
+										</div>
+									</div>
+								</div>
+								<!-- row -->
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="info-group">
+											<label>Type de profession</label>
+											<h4 th:inline="text">[[${profession.typeProfession.libelle}]]</h4>
+										</div>
+									</div>
+									<div class="col-sm-8">
+										<div class="info-group">
+											<label>Description</label>
+											<p th:inline="text">[[${profession.description}]]</p>
+										</div>
+									</div>
+								</div>
+								<!-- row -->
+							</div>
+						</div>
+						<!-- panel -->
+
+					</div>
+					<div class="col-sm-4 col-md-3 col-lg-2">
+
+						<div class="panel">
+							<div class="panel-heading">
+								<h4 class="panel-title">Liens Utiles</h4>
+							</div>
+							<div class="panel-body">
+								<ul class="folder-list">
+									<li><a href="@{/professions}"><i
+											class="fa fa-folder-open"></i> Professions</a></li>
+									<li><a href="@{/}"><i class="fa fa-folder-open"></i>
+											Acceuil</a></li>
+									<li><a href="@{/typeprofession}"><i
+											class="fa fa-folder-open"></i> Types de Profession</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- panel -->
+
+
 					</div>
 				</div>
-				<!-- panel -->
+				<!-- row -->
 
 			</div>
 			<!-- contentpanel -->
+
 		</div>
 		<!-- mainpanel -->
-
 	</section>
 
 	<script
@@ -395,165 +474,51 @@
 		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"
 		th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
 
+	<script src="../../../resources/js/datepicker-fr.js"
+		th:src="@{/resources/js/datepicker-fr.js}"></script>
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.js"
 		th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.js}"></script>
 
-	<script src="../../../resources/js/toggles.js"
-		th:src="@{/resources/js/toggles.js}"></script>
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.9/js/jquery.dataTables.js"
-		th:src="@{/webjars/datatables/1.10.9/media/js/jquery.dataTables.js}"></script>
-
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.9/js/dataTables.bootstrap.js"
-		th:src="@{/webjars//datatables/1.10.9/media/js/dataTables.bootstrap.js}"></script>
+	<script src="../../../resources/js/autosize.js"
+		th:src="@{/resources/js/autosize.js}"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.js"
 		th:src="@{/webjars/select2/4.0.0/dist/js/select2.js}"></script>
 
+	<script src="../../../resources/js/toggles.js"
+		th:src="@{/resources/js/toggles.js}"></script>
+
+	<script src="../../../resources/js/jquery.mask.js"
+		th:src="@{/resources/js/jquery.mask.js}"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.js"
+		th:src="@{/webjars/jquery-validation/1.13.1/jquery.validate.js}"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.js"
+		th:src="@{/webjars/bootbox/4.4.0/bootbox.js}"></script>
+
 	<script src="../../../resources/js/sif.js"
 		th:src="@{/resources/js/sif.js}"></script>
 
 	<script th:inline="javascript">
-		$(document)
-				.ready(
-						function() {
-							'use strict';
-
-							function getTargetUrl(rowId) {
-								/*[- */
-								return 'view.html';
-								/* -]*/
-
-								/*[+
-								return [[@{/professions}]] + '/' + rowId;
-								+]*/
-
-							}
-
-							var exRowTable = $('#exRowTable')
-									.DataTable(
-											{
-												/*[+
-												"responsive" : true,
-												"processing": true,
-												"serverSide": true,
-												+]*/
-												"fnDrawCallback" : function(
-														oSettings) {
-													$('#exRowTable_paginate ul')
-															.addClass(
-																	'pagination-active-success');
-												},
-												/*[- */
-												data : [
-														{
-															"id" : 1,
-															"libelle" : "Informaticien",
-															"dateCreation" : "10/02/2015",
-															"salaireMin" : "15000",
-															"description" : "qsdqsd sqdqsdqs qsdqsdsd",
-															"typeProfession" : {
-																"libelle" : "Service"
-															}
-														},
-														{
-															"id" : 2,
-															"libelle" : "Topographe",
-															"dateCreation" : "10/10/2015",
-															"salaireMin" : "12000",
-															"description" : "qsdqsd sqdqsdqs qsdqsdsd",
-															"typeProfession" : {
-																"libelle" : "Dessin"
-															}
-														} ],
-												/* -]*/
-												/*[+
-												'ajax' : {
-													"url": [[@{/professions/data}]], 
-													"dataSrc" : "data",
-												},
-												+]*/
-												'columns' : [
-														{
-															'class' : 'details-control',
-															'orderable' : false,
-															'data' : null,
-															'defaultContent' : ''
-														},
-														{
-															'data' : 'libelle'
-														},
-														{
-															'data' : 'dateCreation'
-														},
-														{
-															'data' : 'salaireMin'
-														},
-														{
-															'data' : 'typeProfession.libelle'
-														},
-														{
-															"name" : "Action",
-															"targets" : 5,
-															"searchable" : false,
-															"orderable" : false,
-															"width" : "50px"
-														} ],
-												'columnDefs' : [ {
-													"render" : function(data,
-															type, row) {
-														return '<div class="pull-right">'
-																+ '<a href="'
-																+ getTargetUrl(row.id)
-																+ '" class="btn btn-xs btn-success"> <i class="fa fa-search"></i></a> &nbsp;'
-																+ '</div>';
-													},
-													"type" : "html",
-													"targets" : 5
-												} ],
-												'order' : [ [ 1, 'asc' ] ]
-											});
-
-							// Add event listener for opening and closing details
-							$('#exRowTable tbody').on(
-									'click',
-									'td.details-control',
-									function() {
-										var tr = $(this).closest('tr');
-										var row = exRowTable.row(tr);
-
-										if (row.child.isShown()) {
-											// This row is already open - close it
-											row.child.hide();
-											tr.removeClass('shown');
-										} else {
-											// Open this row
-											row.child(format(row.data()))
-													.show();
-											tr.addClass('shown');
-										}
-									});
-
-							function format(d) {
-								// `d` is the original data object for the row
-								return '<h4>' + d.libelle + '<small>'
-										+ d.typeProfession.libelle
-										+ '</small></h4>'
-										+ '<p class="nomargin">'
-										+ d.description + '</p>';
-							}
-
-							// Select2
-							$('select').select2({
-								minimumResultsForSearch : Infinity
+		$('#formDelete').submit(
+				function(e) {
+					var currentForm = this;
+					e.preventDefault();
+					bootbox.confirm(
+							"Souhaitez-vous supprimer cette profession ?",
+							function(result) {
+								if (result) {
+									currentForm.submit();
+								}
 							});
-
-						});
+				});
 	</script>
+
 </body>
 </html>

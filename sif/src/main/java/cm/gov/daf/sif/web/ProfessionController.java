@@ -63,14 +63,16 @@ public class ProfessionController {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 
-		Pageable pageable = new PageRequest(page, WebConstants.PAGE_SIZE);
+		int pageNumber = (page + 1) / WebConstants.PAGE_SIZE;
+
+		Pageable pageable = new PageRequest(pageNumber, WebConstants.PAGE_SIZE);
 
 		Page<Profession> results = this.professionService.find(search, pageable);
 
 		data.put("data", results.getContent());
 		data.put("draw", draw);
 		data.put("recordsTotal", results.getTotalElements());
-		data.put("recordsFiltered", results.getNumberOfElements());
+		data.put("recordsFiltered", results.getTotalElements());
 
 		return data;
 	}
@@ -84,7 +86,8 @@ public class ProfessionController {
 	}
 
 	@RequestMapping(value = "/professions/new", method = RequestMethod.POST)
-	public String processCreationForm(Model model, @Valid Profession profession, BindingResult result, SessionStatus status) {
+	public String processCreationForm(Model model, @Valid Profession profession, BindingResult result,
+			SessionStatus status) {
 		if (result.hasErrors()) {
 			model.addAttribute("typeProfessions", typeProfessionService.findAll());
 			return "professions/createOrUpdate";
@@ -115,18 +118,19 @@ public class ProfessionController {
 		}
 	}
 
-	/**
-	 * Custom handler for displaying an owner.
-	 *
-	 * @param professionId
-	 *            the ID of the profession to display
-	 * @return a ModelMap with the model attributes for the view
-	 */
+	@RequestMapping(value = "/professions/{professionId}", method = RequestMethod.DELETE)
+	public String processDeleteProfession(@PathVariable("professionId") int professionId) {
+		Profession profession = professionService.findById(professionId);
+		if (profession != null) {
+			professionService.deleteProfession(profession);
+		}
+		return "redirect:/professions";
+	}
+
 	@RequestMapping("/professions/{professionId}")
 	public ModelAndView showProfession(@PathVariable("professionId") int professionId) {
-		ModelAndView mav = new ModelAndView("professions/professionDetails");
+		ModelAndView mav = new ModelAndView("professions/view");
 		mav.addObject(this.professionService.findById(professionId));
-		mav.addObject("typeProfessions", typeProfessionService.findAll());
 		return mav;
 	}
 
