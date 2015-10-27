@@ -355,31 +355,54 @@
 					<li class="active">Liste des professions</li>
 				</ol>
 
-				<div class="panel">
-					<div class="panel-heading">
-						<h4 class="panel-title">Professions</h4>
-						<p>Affiche la liste des professiosn créées dans la plateforme.</p>
-					</div>
-					<div class="panel-body">
-						<div class="table-responsive">
-							<table id="exRowTable"
-								class="table table-bordered table-striped-col">
-								<thead>
-									<tr>
-										<th></th>
-										<th>Libelé</th>
-										<th>Date de création</th>
-										<th>Salaire Minimum</th>
-										<th>Type de profession</th>
-										<th>Actions</th>
-									</tr>
-								</thead>
-							</table>
+				<div class="row">
+					<div class="col-sm-8 col-md-9 col-lg-10 people-list">
+
+						<div class="panel">
+							<div class="panel-heading">
+								<h4 class="panel-title">Professions</h4>
+								<p>Affiche la liste des professiosn créées dans la
+									plateforme.</p>
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table id="exRowTable"
+										class="table table-bordered table-striped-col">
+										<thead>
+											<tr>
+												<th></th>
+												<th>Libelé</th>
+												<th>Date de création</th>
+												<th>Salaire Minimum</th>
+												<th>Type de profession</th>
+												<th>Actions</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
 						</div>
+						<!-- panel -->
+					</div>
+					<div class="col-sm-4 col-md-3 col-lg-2">
+
+						<div class="panel">
+							<div class="panel-heading">
+								<h4 class="panel-title">Liens Utiles</h4>
+							</div>
+							<div class="panel-body">
+								<ul class="folder-list">
+									<li><a href="createOrUpdate.html"
+										th:href="@{/professions/new}"><i class="fa fa-folder-open"></i>
+											Nouvelle Profession</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- panel -->
+
+
 					</div>
 				</div>
-				<!-- panel -->
-
 			</div>
 			<!-- contentpanel -->
 		</div>
