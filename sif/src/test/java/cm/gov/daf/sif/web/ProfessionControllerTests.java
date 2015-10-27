@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.hamcrest.Matchers;
 
 /**
- * Test class for the UserResource REST controller.
+ * Tests de la profession.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "classpath:spring/business-config.xml", "classpath:spring/tools-config.xml",
