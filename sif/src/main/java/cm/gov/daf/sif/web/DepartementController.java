@@ -122,7 +122,7 @@ public class DepartementController {
 		if (departement != null) {
 			departementService.delete(departement);
 		}
-		return "redirect:/Departements";
+		return "redirect:/departements";
 	}
 
 	@RequestMapping("/departements/{departementId}")
