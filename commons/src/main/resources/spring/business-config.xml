@@ -15,6 +15,7 @@
 	<import resource="datasource-config.xml" />
 
 	<context:component-scan base-package="cm.gov.daf.sif.service" />
+	<context:component-scan base-package="cm.gov.daf.sif.*.service" />
 
 	<!-- Configurer that replaces ${...} placeholders with values from a properties 
 		file -->
@@ -89,5 +90,6 @@
 
 	<beans profile="spring-data-jpa">
 		<jpa:repositories base-package="cm.gov.daf.sif.repository.springdatajpa" />
+		<jpa:repositories base-package="cm.gov.daf.sif.*.repository.springdatajpa" />
 	</beans>
 </beans>

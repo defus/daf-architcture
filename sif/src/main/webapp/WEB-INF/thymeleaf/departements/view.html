@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+
+</head>
+
+<body>
+	<!-- header start-->
+	<div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+	<!-- header end-->
+	<section>
+
+		<!-- left panel start-->
+		<div th:replace="fragments/bodyLeftPanel :: bodyLeftPanel"></div>
+		<!-- left panel end-->
+
+		<div class="mainpanel">
+
+			<div class="contentpanel">
+
+				<ol class="breadcrumb breadcrumb-quirk">
+					<li><a href="../index.html" th:href="@{/}"><i
+							class="fa fa-home mr5"></i> Accueil</a></li>
+					<li><a th:href="@{/departements}" href="list.html">Departements</a></li>
+					<li class="active">View</li>
+				</ol>
+
+				<div class="row">
+					<div class="col-sm-8 col-md-9 col-lg-10 people-list">
+						<div class="people-options clearfix">
+							<div class="btn-toolbar pull-right ">
+								<form role="form" class="form-inline" id="formDelete"
+									action="./list.html"
+									th:action="@{${#httpServletRequest.servletPath}}" method="get"
+									th:method="delete">
+									<button type="submit" class="btn btn-danger">
+										<i class="fa fa-trash"></i>
+									</button>
+									<a role="button" th:href="@{|${departement.id}/edit.html|}"
+										href="createOrUpdate.html" class="btn btn-success btn-quirk">Editer</a>
+								</form>
+
+							</div>
+						</div>
+						<!-- people-options -->
+
+						<div class="panel panel-profile list-view">
+							<div class="panel-heading">
+								<div class="media">
+									<div class="media-body">
+										<h4 class="media-heading">Informations du Departement</h4>
+										<p class="media-usermeta">
+											<i class="glyphicon glyphicon-briefcase"></i> Détail des
+											informations sur le departement sélectionné
+										</p>
+									</div>
+								</div>
+								<!-- media -->
+								<ul class="panel-options">
+									<li><a class="tooltips" href="" data-toggle="tooltip"
+										title="Voir les options"><i
+											class="glyphicon glyphicon-option-vertical"></i></a></li>
+								</ul>
+							</div>
+							<!-- panel-heading -->
+
+							<div class="panel-body people-info">
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="info-group" th:inline="text">
+											<label>Libellé</label> [[${departement.libelle}]]
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="info-group">
+											<label>Région</label>
+											<h4 th:inline="text">[[${departement.region.libelle}]]</h4>
+										</div>
+									</div>
+								</div>
+								<!-- row -->
+							</div>
+						</div>
+						<!-- panel -->
+
+					</div>
+					<div class="col-sm-4 col-md-3 col-lg-2">
+
+						<div class="panel">
+							<div class="panel-heading">
+								<h4 class="panel-title">Liens Utiles</h4>
+							</div>
+							<div class="panel-body">
+								<ul class="folder-list">
+									<li><a href="list.html" th:href="@{/departements}"><i
+											class="fa fa-folder-open"></i> Departements</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- panel -->
+
+
+					</div>
+				</div>
+				<!-- row -->
+
+			</div>
+			<!-- contentpanel -->
+
+		</div>
+		<!-- mainpanel -->
+	</section>
+
+	<!-- footer start-->
+	<div th:replace="fragments/footer :: footer"></div>
+	<!-- footer end-->
+
+	<script th:inline="javascript">
+	$(document)
+	.ready(
+			
+			function() {
+				'use strict';
+				
+				$('#formDelete').submit(
+						function(e) {
+							var currentForm = this;
+							e.preventDefault();
+							bootbox.confirm(
+									"Souhaitez-vous supprimer ce departement ?",
+									function(result) {
+										if (result) {
+											currentForm.submit();
+										}
+									});
+						});
+				
+				$("#li-titre-foncier").addClass("active");
+				$("#li-departement").addClass("active");
+
+			});
+	
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+
+</head>
+
+<body>
+	<!-- header start-->
+	<div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+	<!-- header end-->
+	<section>
+
+		<!-- left panel start-->
+		<div th:replace="fragments/bodyLeftPanel :: bodyLeftPanel"></div>
+		<!-- left panel end-->
+
+		<div class="mainpanel">
+
+			<div class="contentpanel">
+
+				<ol class="breadcrumb breadcrumb-quirk">
+					<li><a href="../index.html" th:href="@{/}"><i
+							class="fa fa-home mr5"></i> Accueil</a></li>
+					<li><a href="./list.html" th:href="@{/departements}">Departements</a></li>
+					<li class="active">Liste des departements</li>
+				</ol>
+
+				<div class="row">
+					<div class="col-sm-8 col-md-9 col-lg-10 people-list">
+
+						<div class="panel">
+							<div class="panel-heading">
+								<h4 class="panel-title">Departements</h4>
+								<p>Affiche la liste des departements créés dans la
+									plateforme.</p>
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table id="exRowTable"
+										class="table table-bordered table-striped-col">
+										<thead>
+											<tr>
+												<th></th>
+												<th>Libellé</th>
+												<th>Région</th>
+												<th>Actions</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- panel -->
+					</div>
+					<div class="col-sm-4 col-md-3 col-lg-2">
+
+						<div class="panel">
+							<div class="panel-heading">
+								<h4 class="panel-title">Liens Utiles</h4>
+							</div>
+							<div class="panel-body">
+								<ul class="folder-list">
+									<li><a href="createOrUpdate.html"
+										th:href="@{/departements/new}"><i class="fa fa-folder-open"></i>
+											Nouveau Departement</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- panel -->
+
+
+					</div>
+				</div>
+			</div>
+			<!-- contentpanel -->
+		</div>
+		<!-- mainpanel -->
+
+	</section>
+
+	<!-- footer start-->
+	<div th:replace="fragments/footer :: footer"></div>
+	<!-- footer end-->
+
+	<script th:inline="javascript">
+		$(document)
+				.ready(
+						
+						function() {
+							'use strict';
+
+							function getTargetUrl(rowId) {
+								/*[- */
+								return 'view.html';
+								/* -]*/
+
+								/*[+
+								return [[@{/departements}]] + '/' + rowId;
+								+]*/
+
+							}
+
+							var exRowTable = $('#exRowTable')
+									.DataTable(
+											{
+												/*[+
+												"responsive" : true,
+												"processing": true,
+												"serverSide": true,
+												+]*/
+												"fnDrawCallback" : function(
+														oSettings) {
+													$('#exRowTable_paginate ul')
+															.addClass(
+																	'pagination-active-success');
+												},
+												/*[- */
+												data : [
+														{
+															"id" : 1,
+															"libelle" : "abc",
+															"region" : 1
+														},
+														{
+															"id" : 2,
+															"libelle" : "abc",
+															"region" : 1
+														} ],
+												/* -]*/
+												/*[+
+												'ajax' : {
+													"url": [[@{/departements/data}]], 
+													"dataSrc" : "data",
+												},
+												+]*/
+												'columns' : [
+														{
+															'class' : 'details-control',
+															'orderable' : false,
+															'data' : null,
+															'defaultContent' : ''
+														},
+														{
+															'data' : 'libelle'
+														},
+														{
+															'data' : 'region.libelle'
+														},
+														{
+															"name" : "Action",
+															"targets" : 3,
+															"searchable" : false,
+															"orderable" : false,
+															"width" : "50px"
+														} ],
+												'columnDefs' : [ {
+													"render" : function(data,
+															type, row) {
+														return '<div class="pull-right">'
+																+ '<a href="'
+																+ getTargetUrl(row.id)
+																+ '" class="btn btn-xs btn-success"> <i class="fa fa-search"></i></a> &nbsp;'
+																+ '</div>';
+													},
+													"type" : "html",
+													"targets" : 3
+												} ],
+												'order' : [ [ 1, 'asc' ] ]
+											});
+
+							// Add event listener for opening and closing details
+							$('#exRowTable tbody').on(
+									'click',
+									'td.details-control',
+									function() {
+										var tr = $(this).closest('tr');
+										var row = exRowTable.row(tr);
+
+										if (row.child.isShown()) {
+											// This row is already open - close it
+											row.child.hide();
+											tr.removeClass('shown');
+										} else {
+											// Open this row
+											row.child(format(row.data()))
+													.show();
+											tr.addClass('shown');
+										}
+									});
+							
+							function format(d) {
+								// `d` is the original data object for the row
+								return '<h4>' + d.libelle + '<small>'
+								+ d.region.libelle
+								+ '</small></h4>';
+							}
+
+
+							// Select2
+							$('select').select2({
+								minimumResultsForSearch : Infinity
+							});
+							
+							$("#li-titre-foncier").addClass("active");
+							$("#li-departement").addClass("active");
+
+						});
+	</script>
+</body>
+</html>
