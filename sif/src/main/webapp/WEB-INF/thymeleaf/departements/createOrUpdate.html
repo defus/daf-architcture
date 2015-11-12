@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+
+</head>
+
+<body>
+	<!-- header start-->
+	<div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+	<!-- header end-->
+	<section>
+
+		<!-- left panel start-->
+		<div th:replace="fragments/bodyLeftPanel :: bodyLeftPanel"></div>
+		<!-- left panel end-->
+
+		<div class="mainpanel">
+
+			<div class="contentpanel">
+
+				<ol class="breadcrumb breadcrumb-quirk">
+					<li><a href="../index.html" th:href="@{/}"><i
+							class="fa fa-home mr5"></i> Accueil</a></li>
+					<li><a href="list.html" th:href="@{/departements}">Departements</a></li>
+					<li class="active">Nouveau</li>
+				</ol>
+
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="panel">
+							<div class="panel-heading nopaddingbottom">
+								<h4 class="panel-title">Nouveau Departement</h4>
+								<p>Veuillez saisir les informations du nouveau
+									departement.</p>
+							</div>
+							<div class="panel-body">
+								<hr />
+
+								<form id="basicForm"
+									th:action="@{${#httpServletRequest.servletPath}}" method="get"
+									class="form-horizontal" th:object="${departement}"
+									th:method="${departement['new']} ? post : put"
+									action="./view.html">
+
+									<div class="form-group"
+										th:classappend="${#fields.hasErrors('libelle')} ? error">
+										<label class="col-sm-3 control-label">Libellé <span
+											class="text-danger">*</span></label>
+										<div class="col-sm-8">
+											<input type="text" name="libelle" th:field="*{libelle}"
+												class="form-control"
+												placeholder="Veuillez saisir le libellé..."
+												title="Le libellé est obligatoire" required="true" />
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Région <span class="text-danger">*</span>
+										</label>
+										<div class="col-sm-8">
+											<select id="region" class="select2"
+												name="region" th:field="*{region.id}"
+												style="width: 100%"
+												data-placeholder="Veuillez saisir une région..."
+												title="La région est obligatoire"
+												required="true">
+												<option value="">&nbsp;</option>
+												<option th:each="item : ${regions}"
+													th:value="${item.id}" th:text="${item.libelle}">Service</option>
+											</select> <label class="error" for="region"></label>
+										</div>
+									</div>
+									<!-- form-group -->
+
+									<hr />
+
+									<div class="row">
+										<div class="col-sm-9 col-sm-offset-3">
+											<button class="btn btn-success btn-quirk btn-wide mr5">Enregistrer</button>
+											<button type="reset"
+												class="btn btn-quirk btn-wide btn-default">Annuler</button>
+										</div>
+									</div>
+
+								</form>
+							</div>
+							<!-- panel-body -->
+						</div>
+						<!-- panel -->
+
+					</div>
+					<!-- col-md-6 -->
+
+				</div>
+				<!--row -->
+
+			</div>
+			<!-- contentpanel -->
+
+		</div>
+		<!-- mainpanel -->
+	</section>
+
+	<!-- footer start-->
+	<div th:replace="fragments/footer :: footer"></div>
+	<!-- footer end-->
+
+	<script th:inline="javascript">
+		$(document)
+				.ready(
+						
+						function() {
+							'use strict';
+							// Basic Form
+							$('#basicForm').validate(
+									{
+										highlight : function(element) {
+											$(element).closest('.form-group')
+													.removeClass('has-success')
+													.addClass('has-error');
+										},
+										success : function(element) {
+											$(element).closest('.form-group')
+													.removeClass('has-error');
+										}
+									});
+							
+							$('.select2').select2();
+							
+							$("#li-titre-foncier").addClass("active");
+							$("#li-departement").addClass("active");
+
+						});
+	</script>
+
+</body>
+</html>
