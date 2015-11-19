@@ -3,10 +3,11 @@ package cm.gov.daf.sif.titrefoncier.model;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -20,7 +21,9 @@ import cm.gov.daf.sif.model.Profession;
  *
  * @author Albert
  */
-@MappedSuperclass
+@Entity
+@Table(name = "proprietaires")
+@DiscriminatorValue(value="P")
 public class PersonnePhysique extends Proprietaire {
 
 	@Column(name = "cni", length = 200)
@@ -42,6 +45,10 @@ public class PersonnePhysique extends Proprietaire {
 	@Column(name = "prenoms", length = 200)
 	@NotEmpty
 	protected String prenoms;
+	
+	@Column(name = "nom_Prenoms", length = 400)
+	@NotEmpty
+	protected String nomPrenoms;
 	
 	@Column(name = "date_naissance")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -115,6 +122,14 @@ public class PersonnePhysique extends Proprietaire {
 
 	public void setPrenoms(String prenoms) {
 		this.prenoms = prenoms;
+	}
+
+	public String getNomPrenoms() {
+		return nomPrenoms;
+	}
+
+	public void setNomPrenoms(String nomPrenoms) {
+		this.nomPrenoms = nomPrenoms;
 	}
 
 	public Date getDateNaissance() {

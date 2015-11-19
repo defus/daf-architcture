@@ -3,10 +3,11 @@ package cm.gov.daf.sif.titrefoncier.model;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -18,25 +19,27 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  * @author Albert
  */
-@MappedSuperclass
+@Entity
+@Table(name = "proprietaires")
+@DiscriminatorValue(value="M")
 public class PersonneMorale extends Proprietaire{
 	
 	@Column(name = "immatriculation", length = 200)
 	@NotEmpty
-	protected String immatriculation;
+	private String immatriculation;
 	
 	@Column(name = "raisonSocial", length = 200)
 	@NotEmpty
-	protected String raisonSociale;
+	private String raisonSociale;
 	
 	@Column(name = "date_creation")
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	protected Date dateCretaion;
+	private Date dateCretaion;
 	
 	@ManyToOne
 	@JoinColumn(name = "secteur_activite_id")
-	protected SecteurActivite secteurActivite;
+	private SecteurActivite secteurActivite;
 
 	public PersonneMorale() {
 		super();

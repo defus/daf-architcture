@@ -1,5 +1,6 @@
 package cm.gov.daf.sif.titrefoncier.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -14,9 +15,16 @@ import cm.gov.daf.sif.model.BaseEntity;
 @Table(name = "adresses")
 public class Adresse extends BaseEntity  {
 	
+	@Column(name = "telephone")
 	private Integer telephone;
+	
+	@Column(name = "bp")
 	private Integer bp;
+	
+	@Column(name = "email", length = 100)
 	private String email;
+	
+	@Column(name = "adresse", length = 400)
 	private String adresse;
 	
 	public Adresse() {

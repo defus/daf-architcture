@@ -29,7 +29,7 @@ public class Arrondissement extends BaseEntity{
 	
 	@ManyToOne
 	@JoinColumn(name = "departement_id")
-	protected Departement departement;
+	private Departement departement;
 
 	public Arrondissement() {
 		super();
@@ -62,7 +62,7 @@ public class Arrondissement extends BaseEntity{
 
 	@Override
 	public String toString() {
-		return "Arrondissement [libelle=" + libelle + ", type=" + type + ", departement=" + departement + ", id=" + id + "]";
+		return "Arrondissement [libelle=" + libelle + ", type=" + type + ", id=" + id + "]";
 	}
 
 }
