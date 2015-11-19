@@ -29,7 +29,7 @@ public class Lot extends BaseEntity{
 	
 	@ManyToOne
 	@JoinColumn(name = "section_id")
-	protected Section section;
+	private Section section;
 
 	public Lot() {
 		super();

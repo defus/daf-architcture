@@ -1,7 +1,12 @@
 package cm.gov.daf.sif.titrefoncier.model;
 
+
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -13,21 +18,26 @@ import cm.gov.daf.sif.model.BaseEntity;
 
 @Entity
 @Table(name = "proprietaires")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+    name="discriminator",
+    discriminatorType=DiscriminatorType.STRING
+)
 public class Proprietaire extends BaseEntity {
 	
 	@Column(name = "code", length = 50)
 	@NotEmpty
-	private String code;
+	protected String code;
 	
 	@ManyToOne
 	@JoinColumn(name = "pays_id")
 	@NotEmpty
-	private Pays pays;
+	protected Pays pays;
 	
 	@OneToOne
 	@JoinColumn(name = "adresse_id")
 	@NotEmpty
-	private Adresse adresse;
+	protected Adresse adresse;
 
 	public Proprietaire() {
 		super();

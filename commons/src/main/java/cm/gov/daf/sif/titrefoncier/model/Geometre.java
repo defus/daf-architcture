@@ -19,8 +19,11 @@ public class Geometre extends PersonnePhysique{
 
 	@Override
 	public String toString() {
-		return "Geometre [id=" + id + "]";
+		return "Geometre [cni=" + cni + ", genre=" + genre + ", status=" + status + ", nom=" + nom + ", prenoms="
+				+ prenoms + ", dateNaissance=" + dateNaissance + ", lieuNaissance=" + lieuNaissance + ", pere=" + pere
+				+ ", mere=" + mere + ", conjoint=" + conjoint + ", nbrEnfant=" + nbrEnfant + ", cellulaire="
+				+ cellulaire + ", profession=" + profession + ", code=" + code + ", pays=" + pays + ", adresse="
+				+ adresse + ", id=" + id + "]";
 	}
-
 	
 }

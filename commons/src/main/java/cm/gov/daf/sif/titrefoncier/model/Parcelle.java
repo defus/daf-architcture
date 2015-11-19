@@ -33,7 +33,7 @@ public class Parcelle extends BaseEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "lot_id")
-	protected Lot lot;
+	private Lot lot;
 	
 	@ManyToOne
 	@JoinColumn(name = "proprietaire_id")

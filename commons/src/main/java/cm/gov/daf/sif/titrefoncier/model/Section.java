@@ -29,7 +29,7 @@ public class Section extends BaseEntity{
 	
 	@ManyToOne
 	@JoinColumn(name = "commune_id")
-	protected Commune commune;
+	private Commune commune;
 
 	public Section() {
 		super();
