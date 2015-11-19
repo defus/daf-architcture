@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+
+</head>
+
+<body>
+	<!-- header start-->
+	<div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+	<!-- header end-->
+	<section>
+
+		<!-- left panel start-->
+		<div th:replace="fragments/bodyLeftPanel :: bodyLeftPanel"></div>
+		<!-- left panel end-->
+
+		<div class="mainpanel">
+
+			<div class="contentpanel">
+
+				<ol class="breadcrumb breadcrumb-quirk">
+					<li><a href="../index.html" th:href="@{/}"><i
+							class="fa fa-home mr5"></i> Accueil</a></li>
+					<li><a href="list.html" th:href="@{/requisitions}">Réquisitions</a></li>
+					<li class="active">Nouveau</li>
+				</ol>
+
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="panel">
+
+							<div class="row tab-side-wrapper">
+								<div class="col-xs-4 col-sm-3 tab-left">
+									<!-- Nav tabs -->
+									<ul class="nav nav-pills nav-stacked">
+										<li class="active"><a href="#requisition"
+											data-toggle="tab" aria-expanded="true"><strong>Demande
+													d'immatriculation</strong></a></li>
+										<li class=""><a href="#recent3" data-toggle="tab"
+											aria-expanded="false"><strong>Opération de
+													bornage</strong></a></li>
+										<li class=""><a href="#comments3" data-toggle="tab"
+											aria-expanded="false"><strong>Les sommets</strong></a></li>
+										<li class=""><a href="#comments3" data-toggle="tab"
+											aria-expanded="false"><strong>Les côtés</strong></a></li>
+										<li class=""><a href="#comments3" data-toggle="tab"
+											aria-expanded="false"><strong>Les riverainss</strong></a></li>
+										<li class=""><a href="#comments3" data-toggle="tab"
+											aria-expanded="false"><strong>Les participants</strong></a></li>
+										<li class=""><a href="#comments3" data-toggle="tab"
+											aria-expanded="false"><strong>Levés
+													topographiques</strong></a></li>
+									</ul>
+								</div>
+								<div
+									class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3 tab-main">
+									<!-- Tab panes -->
+									<div class="tab-content">
+										<div class="tab-pane active" id="requisition">
+
+											<!-- demande immatriculation start-->
+											<div
+												th:replace="requisitions/fragmentRequisition :: fragmentRequisition"></div>
+											<!-- demande immatriculation end-->
+
+										</div>
+										<div class="tab-pane" id="recent3">
+											<div style="height: 400px"></div>
+										</div>
+										<div class="tab-pane" id="comments3">
+											<div style="height: 400px"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<!-- panel -->
+
+					</div>
+					<!-- col-md-6 -->
+
+				</div>
+				<!--row -->
+
+			</div>
+			<!-- contentpanel -->
+
+		</div>
+		<!-- mainpanel -->
+	</section>
+
+
+	<!-- footer start-->
+	<div th:replace="fragments/footer :: footer"></div>
+	<!-- footer end-->
+
+
+
+	<script th:inline="javascript">
+		$(document).ready(
+
+				function() {
+					'use strict';
+					// Basic Form
+					$('#basicForm').validate(
+							{
+								highlight : function(element) {
+									$(element).closest('.form-group')
+											.removeClass('has-success')
+											.addClass('has-error');
+								},
+								success : function(element) {
+									$(element).closest('.form-group')
+											.removeClass('has-error');
+								}
+							});
+
+					// Date Picker
+					$('#dateDemande').datepicker(
+							{
+								beforeShow : function(picker, inst) {
+									$('#dateDemande').datepicker("setDate",
+											$(dateDemande).val());
+								}
+							});
+
+					$('#dateNaissance').datepicker(
+							{
+								beforeShow : function(picker, inst) {
+									$('#dateNaissance').datepicker("setDate",
+											$(dateNaissance).val());
+								}
+							});
+
+					// Input Masks
+					$("#nombreEnfant").mask("##0", {
+						reverse : true
+					});
+
+					$('.select2').select2();
+
+					$("#li-titre-foncier").addClass("active");
+					$("#li-departement").addClass("active");
+
+				});
+	</script>
+
+</body>
+</html>

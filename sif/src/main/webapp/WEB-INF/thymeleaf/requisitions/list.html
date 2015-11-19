@@ -22,8 +22,7 @@
 				<ol class="breadcrumb breadcrumb-quirk">
 					<li><a href="../index.html" th:href="@{/}"><i
 							class="fa fa-home mr5"></i> Accueil</a></li>
-<!-- 					<li><a href="./list.html" th:href="@{/departements}">Departements</a></li> -->
-						<li><a href="./list.html" >Demandes d'immatriculation</a></li>
+					<li><a href="./list.html" th:href="@{/requisitions}">Demandes d'immatriculation</a></li>
 					<li class="active">Liste des demandes</li>
 				</ol>
 
@@ -63,11 +62,8 @@
 							</div>
 							<div class="panel-body">
 								<ul class="folder-list">
-<!-- 									<li><a href="createOrUpdate.html" -->
-<!-- 										th:href="@{/departements/new}"><i class="fa fa-folder-open"></i> -->
-<!-- 											Nouveau Departement</a></li> -->
 									<li><a href="createOrUpdate.html"
-										><i class="fa fa-folder-open"></i>
+										th:href="@{/requisitions/new}"><i class="fa fa-folder-open"></i>
 											Nouvelle Demande</a></li>
 								</ul>
 							</div>
