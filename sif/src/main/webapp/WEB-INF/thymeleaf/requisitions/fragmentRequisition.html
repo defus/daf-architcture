@@ -6,149 +6,130 @@
 </head>
 
 <body th:fragment="fragmentRequisition">
-		<div class="panel-heading nopaddingbottom">
-			<h4 class="panel-title">Demande d'immatriculation</h4>
-			<p>Veuillez saisir les informations sur la demande.</p>
-		</div>
-		<div class="panel-body">
+	<div class="panel-heading nopaddingbottom">
+		<h4 class="panel-title">Demande d'immatriculation</h4>
+		<p>Veuillez saisir les informations sur la demande.</p>
+	</div>
+	<div class="panel-body">
+		<hr />
+
+		<form id="basicForm" th:action="@{${#httpServletRequest.servletPath}}"
+			method="get" class="form-horizontal" th:object="${departement}"
+			th:method="${requisition['new']} ? post : put" action="./view.html">
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Département <span
+					class="text-danger">*</span>
+				</label>
+				<div class="col-sm-8">
+					<select id="departement" class="select2" name="departement"
+						style="width: 100%"
+						data-placeholder="Veuillez saisir un département..."
+						title="Le département est obligatoire" required="true">
+						<option value="">&nbsp;</option>
+						<option>Djérem</option>
+						<option>Faro-et-Déo</option>
+						<option>Mayo-Banyo</option>
+					</select> <label class="error" for="departement"></label>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Date de demande <span
+					class="text-danger">*</span>
+				</label>
+				<div class="col-sm-8">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Date au format dd/mm/yyyy" id="dateDemande"
+							name="dateDemande" title="La date de création de demande"
+							required="true" /> <span class="input-group-addon"><i
+							class="glyphicon glyphicon-calendar"></i></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel-heading nopaddingbottom">
+				<h4 class="panel-title">Information sur le propriétaire</h4>
+			</div>
+
 			<hr />
 
-			<form id="basicForm"
-				th:action="@{${#httpServletRequest.servletPath}}" method="get"
-				class="form-horizontal" th:object="${departement}"
-				th:method="${requisition['new']} ? post : put" action="./view.html">
+			<div class="form-group">
+				<label class="col-sm-3 control-label nopaddingtop">Type
+					personne <span class="text-danger">*</span>
+				</label>
+				<div class="col-sm-9">
+					<label class="rdiobox"> <input id="typePersonne"
+						type="radio" name="typePersonne" value="P" required="true"
+						aria-required="true" /> <span>Physique</span>
+					</label> <label class="rdiobox"> <input type="radio"
+						name="typePersonne" value="M" /> <span>Morale</span>
+					</label> <label class="error" for="typePersonne"></label>
+				</div>
+			</div>
+
+			<div id="personne-physique-panel" style="display: none;">
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Département <span
-						class="text-danger">*</span>
-					</label>
-					<div class="col-sm-8">
-						<select id="departement" class="select2" name="departement"
-							style="width: 100%"
-							data-placeholder="Veuillez saisir un département..."
-							title="Le département est obligatoire" required="true">
-							<option value="">&nbsp;</option>
-							<option>Djérem</option>
-							<option>Faro-et-Déo</option>
-							<option>Mayo-Banyo</option>
-						</select> <label class="error" for="departement"></label>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label class="col-sm-3 control-label">Date de demande <span
-						class="text-danger">*</span>
-					</label>
-					<div class="col-sm-8">
-						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="Date au format dd/mm/yyyy" id="dateDemande"
-								name="dateDemande" title="La date de création de demande"
-								required="true" /> <span class="input-group-addon"><i
-								class="glyphicon glyphicon-calendar"></i></span>
-						</div>
-					</div>
-				</div>
-
-				<div class="panel-heading nopaddingbottom">
-					<h4 class="panel-title">Information sur le propriétaire</h4>
-				</div>
-
-				<hr />
-
-				<div class="form-group">
-					<label class="col-sm-3 control-label nopaddingtop">Type personne
-						<span class="text-danger">*</span>
-					</label>
-					<div class="col-sm-9">
-						<label class="rdiobox"> 
-							<input id="typePersonne" type="radio"
-							name="typePersonne" value="P" required="true" aria-required="true"/>
-							<span>Physique</span>
-						</label>
-						<label class="rdiobox">
-							<input type="radio"
-							name="typePersonne" value="M"/> 
-							<span>Morale</span>
-						</label>
-						<label class="error" for="typePersonne"></label>
-					</div>
-				</div>
-
-				<div class="form-group" >
 					<label class="col-sm-3 control-label">Cni <span
 						class="text-danger">*</span></label>
 					<div class="col-sm-8">
-						<input type="text" name="libelle" 
-							class="form-control" placeholder="Veuillez saisir le numéro de la carte d'identité..."
+						<input type="text" name="libelle" class="form-control"
+							placeholder="Veuillez saisir le numéro de la carte d'identité..."
 							title="Le numéro est obligatoire" required="true" />
 					</div>
 				</div>
-				
-				
+
+
 				<div class="form-group">
-					<label class="col-sm-3 control-label nopaddingtop">Genre
-						<span class="text-danger">*</span>
+					<label class="col-sm-3 control-label nopaddingtop">Genre <span
+						class="text-danger">*</span>
 					</label>
 					<div class="col-sm-9">
-						<label class="rdiobox"> 
-							<input id="genre" type="radio"
-							name="genre" value="M" required="true" aria-required="true"/>
-							<span>Homme</span>
-						</label>
-						<label class="rdiobox">
-							<input type="radio"
-							name="genre" value="F"/> 
-							<span>Femme</span>
-						</label>
-						<label class="error" for="genre"></label>
+						<label class="rdiobox"> <input id="genre" type="radio"
+							name="genre" value="M" required="true" aria-required="true" /> <span>Homme</span>
+						</label> <label class="rdiobox"> <input type="radio" name="genre"
+							value="F" /> <span>Femme</span>
+						</label> <label class="error" for="genre"></label>
 					</div>
 				</div>
-				
+
 				<div class="form-group">
-					<label class="col-sm-3 control-label nopaddingtop">Status
-						<span class="text-danger">*</span>
+					<label class="col-sm-3 control-label nopaddingtop">Status <span
+						class="text-danger">*</span>
 					</label>
 					<div class="col-sm-9">
-						<label class="rdiobox"> 
-							<input id="status" type="radio"
-							name="status" value="C" required="true" aria-required="true"/>
-							<span>Célibataire</span>
-						</label>
-						<label class="rdiobox">
-							<input type="radio"
-							name="status" value="M"/> 
-							<span>Marié(e)</span>
-						</label>
-						<label class="rdiobox">
-							<input type="radio"
-							name="status" value="M"/> 
-							<span>Veuf/Veuve</span>
-						</label>
-						<label class="error" for="status"></label>
+						<label class="rdiobox"> <input id="status" type="radio"
+							name="status" value="C" required="true" aria-required="true" /> <span>Célibataire</span>
+						</label> <label class="rdiobox"> <input type="radio" name="status"
+							value="M" /> <span>Marié(e)</span>
+						</label> <label class="rdiobox"> <input type="radio" name="status"
+							value="M" /> <span>Veuf/Veuve</span>
+						</label> <label class="error" for="status"></label>
 					</div>
 				</div>
-				
-				<div class="form-group" >
+
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Nom <span
 						class="text-danger">*</span></label>
 					<div class="col-sm-8">
-						<input type="text" name="nom" 
-							class="form-control" placeholder="Veuillez saisir le nom..."
+						<input type="text" name="nom" class="form-control"
+							placeholder="Veuillez saisir le nom..."
 							title="Le nom est obligatoire" required="true" />
 					</div>
 				</div>
-				
-				<div class="form-group" >
+
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Prénoms <span
 						class="text-danger">*</span></label>
 					<div class="col-sm-8">
-						<input type="text" name="prenom" 
-							class="form-control" placeholder="Veuillez saisir le prénom..."
+						<input type="text" name="prenom" class="form-control"
+							placeholder="Veuillez saisir le prénom..."
 							title="Le prénom est obligatoire" required="true" />
 					</div>
 				</div>
-				
+
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Date de naissance <span
 						class="text-danger">*</span>
@@ -163,116 +144,152 @@
 						</div>
 					</div>
 				</div>
-				
-				<div class="form-group" >
+
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Lieu de naissance <span
 						class="text-danger">*</span></label>
 					<div class="col-sm-8">
-						<input type="text" name="lieuNaissance" 
-							class="form-control" placeholder="Veuillez saisir le lieu de naissance..."
+						<input type="text" name="lieuNaissance" class="form-control"
+							placeholder="Veuillez saisir le lieu de naissance..."
 							title="Le lieu de naissance est obligatoire" required="true" />
 					</div>
 				</div>
-				
-				<div class="form-group" >
+
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Nom du conjoint(e) </label>
 					<div class="col-sm-8">
-						<input type="text" name="conjoint" 
-							class="form-control" placeholder="Veuillez saisir le nom du conjoint(e) ..."
-							/>
+						<input type="text" name="conjoint" class="form-control"
+							placeholder="Veuillez saisir le nom du conjoint(e) ..." />
 					</div>
 				</div>
-				
-				
-				<div class="form-group" >
+
+
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombre d'enfants </label>
 					<div class="col-sm-8">
-						<input type="text" name="nombreEnfant" 
-							class="form-control" placeholder="Veuillez saisir le nombre d'enfants ..."
-							/>
+						<input type="text" name="nombreEnfant" class="form-control"
+							placeholder="Veuillez saisir le nombre d'enfants ..." />
 					</div>
 				</div>
 
-				<div class="form-group" >
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Nom du père </label>
 					<div class="col-sm-8">
-						<input type="text" name="pere" 
-							class="form-control" placeholder="Veuillez saisir le nom du père..."
-							/>
+						<input type="text" name="pere" class="form-control"
+							placeholder="Veuillez saisir le nom du père..." />
 					</div>
 				</div>
-				
-				<div class="form-group" >
+
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Nom de la mère </label>
 					<div class="col-sm-8">
-						<input type="text" name="mere" 
-							class="form-control" placeholder="Veuillez saisir le nom de la mère..."
-							/>
+						<input type="text" name="mere" class="form-control"
+							placeholder="Veuillez saisir le nom de la mère..." />
 					</div>
-				</div>
-				
-				
-				<div class="panel-heading nopaddingbottom">
-					<h4 class="panel-title">Information sur l'adresse</h4>
 				</div>
 
-				<hr />
-				
-				<div class="form-group" >
-					<label class="col-sm-3 control-label">Téléphone <span
+			</div>
+
+			<div id="personne-morale-panel" style="display: none;">
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Numéro matricule <span
 						class="text-danger">*</span></label>
 					<div class="col-sm-8">
-						<input type="text" name="telephone" 
-							class="form-control" placeholder="Veuillez saisir le numéro de téléphone..."
-							title="Le numéro de téléphone est obligatoire" required="true" />
-					</div>
-				</div>
-				
-				<div class="form-group" >
-					<label class="col-sm-3 control-label">Boîte postale </label>
-					<div class="col-sm-8">
-						<input type="text" name="bp" 
-							class="form-control" placeholder="Veuillez saisir la boîte postale..."
-							 required="true" />
+						<input type="text" name="immatriculation" class="form-control"
+							placeholder="Veuillez saisir le numéro matricule..."
+							title="Le numéro matricule est obligatoire" required="true" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label">E-mail </label>
+					<label class="col-sm-3 control-label">Raison sociale <span
+						class="text-danger">*</span></label>
 					<div class="col-sm-8">
-						<div class="input-group mb15">
-							<span class="input-group-addon">@</span> <input type="text"
-								name="email" placeholder="Veuillez saisir l'adresse e-mail..."
-								class="form-control" />
-						</div>
+						<input type="text" name="raisonSociale" class="form-control"
+							placeholder="Veuillez saisir la raison sociale..."
+							title="La raison sociale est obligatoire" required="true" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Adresse <span
-						class="text-danger">*</span></label>
+					<label class="col-sm-3 control-label">Secteur d'activité <span
+						class="text-danger">*</span>
+					</label>
 					<div class="col-sm-8">
-						<textarea rows="5" class="form-control"
-							placeholder="Veuillez saisir l'adresse..."
-							name="adresse"  id="description"
-							title="L'adresse est obligatoire" required="true"></textarea>
+						<select id="secteurActivite" class="select2" name="secteurActivite"
+							style="width: 100%"
+							data-placeholder="Veuillez saisir un secteur d'activite..."
+							title="Le secteur d'activite est obligatoire" required="true">
+							<option value="">&nbsp;</option>
+							<option>Informatique</option>
+							<option>Topographie</option>
+							<option>Vente</option>
+						</select> <label class="error" for="secteurActivite"></label>
 					</div>
 				</div>
 
-				<!-- form-group -->
+			</div>
 
-				<hr />
+			<div class="panel-heading nopaddingbottom">
+				<h4 class="panel-title">Information sur l'adresse</h4>
+			</div>
 
-				<div class="row">
-					<div class="col-sm-9 col-sm-offset-3">
-						<button class="btn btn-success btn-quirk btn-wide mr5">Enregistrer</button>
-						<button type="reset" class="btn btn-quirk btn-wide btn-default">Annuler</button>
+			<hr />
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Téléphone <span
+					class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<input type="text" name="telephone" class="form-control"
+						placeholder="Veuillez saisir le numéro de téléphone..."
+						title="Le numéro de téléphone est obligatoire" required="true" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Boîte postale </label>
+				<div class="col-sm-8">
+					<input type="text" name="bp" class="form-control"
+						placeholder="Veuillez saisir la boîte postale..." required="true" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">E-mail </label>
+				<div class="col-sm-8">
+					<div class="input-group mb15">
+						<input type="text" name="email"
+							placeholder="Veuillez saisir l'adresse e-mail..."
+							class="form-control" /> <span class="input-group-addon">@</span>
 					</div>
 				</div>
+			</div>
 
-			</form>
-		</div>
-		<!-- panel-body -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Adresse <span
+					class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<textarea rows="5" class="form-control"
+						placeholder="Veuillez saisir l'adresse..." name="adresse"
+						id="description" title="L'adresse est obligatoire" required="true"></textarea>
+				</div>
+			</div>
+
+			<!-- form-group -->
+
+			<hr />
+
+			<div class="row">
+				<div class="col-sm-9 col-sm-offset-3">
+					<button class="btn btn-success btn-quirk btn-wide mr5">Enregistrer</button>
+					<button type="reset" class="btn btn-quirk btn-wide btn-default">Annuler</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<!-- panel-body -->
 
 
 </body>
