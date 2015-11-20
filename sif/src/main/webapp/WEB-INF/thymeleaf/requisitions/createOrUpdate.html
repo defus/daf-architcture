@@ -38,11 +38,11 @@
 										<li class="active"><a href="#requisition"
 											data-toggle="tab" aria-expanded="true"><strong>Demande
 													d'immatriculation</strong></a></li>
-										<li class=""><a href="#recent3" data-toggle="tab"
+										<li class=""><a href="#bornage" data-toggle="tab"
 											aria-expanded="false"><strong>Opération de
 													bornage</strong></a></li>
-										<li class=""><a href="#comments3" data-toggle="tab"
-											aria-expanded="false"><strong>Les sommets</strong></a></li>
+										<li class=""><a href="#sommet" data-toggle="tab"
+											aria-expanded="false"><strong>Coordonnées des sommets</strong></a></li>
 										<li class=""><a href="#comments3" data-toggle="tab"
 											aria-expanded="false"><strong>Les côtés</strong></a></li>
 										<li class=""><a href="#comments3" data-toggle="tab"
@@ -66,8 +66,21 @@
 											<!-- demande immatriculation end-->
 
 										</div>
-										<div class="tab-pane" id="recent3">
-											<div style="height: 400px"></div>
+										<div class="tab-pane" id="bornage">
+										
+											<!-- opération de bornage start-->
+											<div
+												th:replace="requisitions/fragmentBornage :: fragmentBornage"></div>
+											<!-- opération de bornage end-->
+
+										</div>
+										<div class="tab-pane" id="sommet">
+											
+											<!-- coordonnées des sommets start-->
+											<div
+												th:replace="requisitions/fragmentSommet :: fragmentSommet"></div>
+											<!-- coordonnées des sommets end-->
+
 										</div>
 										<div class="tab-pane" id="comments3">
 											<div style="height: 400px"></div>
@@ -138,9 +151,37 @@
 											$(dateNaissance).val());
 								}
 							});
+					
+					$('#dateTravauxCom').datepicker(
+							{
+								beforeShow : function(picker, inst) {
+									$('#dateTravauxCom').datepicker("setDate",
+											$(dateTravauxCom).val());
+								}
+							});
+
+					$('#dateProcesVerbal').datepicker(
+							{
+								beforeShow : function(picker, inst) {
+									$('#dateProcesVerbal').datepicker("setDate",
+											$(dateProcesVerbal).val());
+								}
+							});
 
 					// Input Masks
 					$("#nombreEnfant").mask("##0", {
+						reverse : true
+					});
+					
+					$("#superficie").mask("##0.00", {
+						reverse : true
+					});
+					
+					$("#coordonneeX").mask("##0.00", {
+						reverse : true
+					});
+
+					$("#coordonneeY").mask("##0.00", {
 						reverse : true
 					});
 
@@ -159,7 +200,7 @@
 							$("#personne-morale-panel").show();
 						}
 					});
-
+				
 				});
 	</script>
 
