@@ -14,7 +14,7 @@
 		<hr />
 
 		<form id="basicForm" th:action="@{${#httpServletRequest.servletPath}}"
-			method="get" class="form-horizontal" th:object="${departement}"
+			method="get" class="form-horizontal" th:object="${requisition}"
 			th:method="${requisition['new']} ? post : put" action="./view.html">
 
 			<div class="form-group">

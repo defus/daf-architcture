@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+<body th:fragment="fragmentBornage">
+	<div class="panel-heading nopaddingbottom">
+		<h4 class="panel-title">Opération de bornage</h4>
+		<p>Veuillez saisir les informations sur les travaux de la
+			commission.</p>
+	</div>
+	<div class="panel-body">
+		<hr />
+
+		<form id="basicForm" th:action="@{${#httpServletRequest.servletPath}}"
+			method="get" class="form-horizontal" th:object="${bornage}"
+			th:method="${requisition['new']} ? post : put" action="./view.html">
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Référence décision <span
+					class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<input type="text" name="refDecision" class="form-control"
+						placeholder="Veuillez saisir le numéro de la référence..."
+						title="La référence est obligatoire" required="true" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Date des travaux <span
+					class="text-danger">*</span>
+				</label>
+				<div class="col-sm-8">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Date au format dd/mm/yyyy" id="dateTravauxCom"
+							name="dateTravauxCom"
+							title="La date des travaux de la commission" required="true" />
+						<span class="input-group-addon"><i
+							class="glyphicon glyphicon-calendar"></i></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Chef service dep. <span
+					class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<input type="text" name="chefServiceDep" class="form-control"
+						placeholder="Veuillez saisir le nom du chef service..."
+						title="Le nom du chef sercvice départemental est obligatoire"
+						required="true" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Chef du village <span
+					class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<input type="text" name="chefVillage" class="form-control"
+						placeholder="Veuillez saisir le nom du chef du village..."
+						title="Le nom du chef du village est obligatoire" required="true" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Superficie <span
+					class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<input type="text" name="superficie" 
+						id="superficie" class="form-control"
+						placeholder="Nombre avec deux chiffres après la virgule..." 
+						title="La superficie est obligatoire" required="true" />
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Géomètre <span
+					class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<input type="text" name="geometre" class="form-control"
+						placeholder="Veuillez saisir le géomètre..."
+						title="Le nom du géomètre est obligatoire" required="true" />
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Date procès verbal 
+				</label>
+				<div class="col-sm-8">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Date au format dd/mm/yyyy" id="dateProcesVerbal"
+							name="dateTravauxCom"
+							title="La date du procès verbal" />
+						<span class="input-group-addon"><i
+							class="glyphicon glyphicon-calendar"></i></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- form-group -->
+
+			<hr />
+
+			<div class="row">
+				<div class="col-sm-9 col-sm-offset-3">
+					<button class="btn btn-success btn-quirk btn-wide mr5">Enregistrer</button>
+					<button type="reset" class="btn btn-quirk btn-wide btn-default">Annuler</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<!-- panel-body -->
+
+
+</body>
+</html>
