@@ -104,6 +104,10 @@
 
 				function() {
 					'use strict';
+					
+					$.datepicker.setDefaults($.datepicker.regional["fr"]);
+					$.datepicker.setDefaults({});
+					
 					// Basic Form
 					$('#basicForm').validate(
 							{
@@ -144,6 +148,17 @@
 
 					$("#li-titre-foncier").addClass("active");
 					$("#li-departement").addClass("active");
+					
+					$(".rdiobox").change(function () {
+						if ($('input[name=typePersonne]:checked', '#basicForm').val() === "P"){
+							$("#personne-physique-panel").show();
+							$("#personne-morale-panel").hide();
+						}
+						else if ($('input[name=typePersonne]:checked', '#basicForm').val() === "M"){
+							$("#personne-physique-panel").hide();
+							$("#personne-morale-panel").show();
+						}
+					});
 
 				});
 	</script>
