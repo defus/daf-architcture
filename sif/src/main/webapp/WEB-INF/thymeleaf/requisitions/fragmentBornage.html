@@ -14,7 +14,7 @@
 	<div class="panel-body">
 		<hr />
 
-		<form id="basicForm" th:action="@{${#httpServletRequest.servletPath}}"
+		<form id="basicFormBornage" th:action="@{${#httpServletRequest.servletPath}}"
 			method="get" class="form-horizontal" th:object="${bornage}"
 			th:method="${requisition['new']} ? post : put" action="./view.html">
 
@@ -117,5 +117,60 @@
 	<!-- panel-body -->
 
 
+
+
+	<script th:inline="javascript">
+		$(document).ready(
+
+				function() {
+					'use strict';
+					
+					$.datepicker.setDefaults($.datepicker.regional["fr"]);
+					$.datepicker.setDefaults({});
+					
+					// Basic Form
+					$('#basicFormBornage').validate(
+							{
+								highlight : function(element) {
+									$(element).closest('.form-group')
+											.removeClass('has-success')
+											.addClass('has-error');
+								},
+								success : function(element) {
+									$(element).closest('.form-group')
+											.removeClass('has-error');
+								}
+							});
+
+					$('#dateTravauxCom').datepicker(
+							{
+								beforeShow : function(picker, inst) {
+									$('#dateTravauxCom').datepicker("setDate",
+											$(dateTravauxCom).val());
+								}
+							});
+
+					$('#dateProcesVerbal').datepicker(
+							{
+								beforeShow : function(picker, inst) {
+									$('#dateProcesVerbal').datepicker("setDate",
+											$(dateProcesVerbal).val());
+								}
+							});
+
+					// Input Masks
+					
+					$("#superficie").mask("##0.00", {
+						reverse : true
+					});
+					
+					$('.select2').select2();
+
+					$("#li-titre-foncier").addClass("active");
+					$("#li-departement").addClass("active");
+					
+				
+				});
+	</script>
 </body>
 </html>

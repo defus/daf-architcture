@@ -5,11 +5,11 @@
 
 </head>
 
-<body th:fragment="fragmentSommet">
+<body th:fragment="fragmentCote">
 	<div class="col-sm-8 col-md-9 col-lg-10 people-list">
 		<div class="panel-heading nopaddingbottom">
-			<h4 class="panel-title">Coordonnées des sommets</h4>
-			<p>Veuillez saisir les informations sur les sommets.</p>
+			<h4 class="panel-title">Informations sur les côtés</h4>
+			<p>Affiche la liste des sommets créés dans la plateforme.</p>
 		</div>
 	</div>
 	<div class="col-sm-4 col-md-3 col-lg-2">
@@ -17,21 +17,18 @@
 		<div class="panel">
 			<div class="panel-body">
 				<ul class="folder-list">
-					<li><a href="#" data-toggle="modal" data-target="#sommetModal"><i class="fa fa-folder-open"></i>
-							Nouveau sommet</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#coteModal"><i
+							class="fa fa-folder-open"></i> Nouveau côté</a></li>
 				</ul>
 			</div>
 		</div>
 		<!-- panel -->
 	</div>
-	<div class="panel-body">
+	<div class="panel-body" >
 		<hr />
 
-		<div class="row">
+		<div class="row" style="min-height: 400px">
 			<div class="panel">
-				<div class="panel-heading">
-					<p>Affiche la liste des sommets créés dans la plateforme.</p>
-				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
 						<table id="exRowTable"
@@ -39,9 +36,9 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th>Code</th>
-									<th>Coordonnée X</th>
-									<th>Coordonnée Y</th>
+									<th>Sommet A</th>
+									<th>Sommet B</th>
+									<th>Longueur</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
@@ -55,12 +52,12 @@
 	</div>
 	<!-- panel-body -->
 
-	<div class="modal bounceIn animated" id="sommetModal" tabindex="-1"
+	<div class="modal bounceIn animated" id="coteModal" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
 		style="display: none;">
-		<form id="basicFormSommet"
+		<form id="basicFormCote"
 			th:action="@{${#httpServletRequest.servletPath}}" method="get"
-			class="form-horizontal" th:object="${sommet}"
+			class="form-horizontal" th:object="${cote}"
 			th:method="${requisition['new']} ? post : put" action="./view.html">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -73,34 +70,58 @@
 					<div class="modal-body">
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Code <span
-								class="text-danger">*</span></label>
+							<label class="col-sm-3 control-label">Sommet A <span
+								class="text-danger">*</span>
+							</label>
 							<div class="col-sm-8">
-								<input type="text" name="num" class="form-control"
-									placeholder="Veuillez saisir le code du sommet..."
-									title="Le code du sommet est obligatoire" required="true" />
+								<select id="sommetA" class="select2" name="sommetA"
+									style="width: 100%"
+									data-placeholder="Veuillez saisir un sommet..."
+									title="Le sommet est obligatoire" required="true">
+									<option value="">&nbsp;</option>
+									<option>PO74PML</option>
+									<option>MP58LOK</option>
+									<option>UJ74DDZ</option>
+								</select> <label class="error" for="sommetA"></label>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Coordonnée X <span
-								class="text-danger">*</span></label>
+							<label class="col-sm-3 control-label">Sommet B <span
+								class="text-danger">*</span>
+							</label>
 							<div class="col-sm-8">
-								<input type="text" name="coordonneeX" id="coordonneeX"
-									class="form-control"
-									placeholder="Nombre avec deux chiffres après la virgule..."
-									title="La coordonnée X est obligatoire" required="true" />
+								<select id="sommetB" class="select2" name="sommetB"
+									style="width: 100%"
+									data-placeholder="Veuillez saisir un sommet..."
+									title="Le sommet est obligatoire" required="true">
+									<option value="">&nbsp;</option>
+									<option>PO74PML</option>
+									<option>MP58LOK</option>
+									<option>UJ74DDZ</option>
+								</select> <label class="error" for="sommetB"></label>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Coordonnée Y <span
+							<label class="col-sm-3 control-label">Longueur <span
 								class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="coordonneeY" id="coordonneeY"
+								<input type="text" name="longueur" id="longueur"
 									class="form-control"
 									placeholder="Nombre avec deux chiffres après la virgule..."
-									title="La coordonnée Y est obligatoire" required="true" />
+									title="La longueur est obligatoire" required="true" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Description <span
+								class="text-danger">*</span></label>
+							<div class="col-sm-8">
+								<textarea rows="5" class="form-control"
+									placeholder="Veuillez saisir la description..." name="description"
+									id="description" title="La description est obligatoire"
+									required="true"></textarea>
 							</div>
 						</div>
 						<!-- form-group -->
@@ -115,19 +136,17 @@
 			</div>
 			<!-- modal-dialog -->
 		</form>
-
+		
 	</div>
+
 	<script th:inline="javascript">
 		$(document).ready(
 
 				function() {
 					'use strict';
 
-					$.datepicker.setDefaults($.datepicker.regional["fr"]);
-					$.datepicker.setDefaults({});
-
 					// Basic Form
-					$('#basicFormSommet').validate(
+					$('#basicFormCote').validate(
 							{
 								highlight : function(element) {
 									$(element).closest('.form-group')
@@ -142,33 +161,13 @@
 
 					// Input Masks
 
-					$("#coordonneeX").mask("##0.00", {
+					$("#longueur").mask("##0.00", {
 						reverse : true
 					});
-
-					$("#coordonneeY").mask("##0.00", {
-						reverse : true
-					});
-
 					$('.select2').select2();
 
 					$("#li-titre-foncier").addClass("active");
 					$("#li-departement").addClass("active");
-
-					$(".rdiobox").change(
-							function() {
-								if ($('input[name=typePersonne]:checked',
-										'#basicForm').val() === "P") {
-									$("#personne-physique-panel").show();
-									$("#personne-morale-panel").hide();
-								} else if ($(
-										'input[name=typePersonne]:checked',
-										'#basicForm').val() === "M") {
-									$("#personne-physique-panel").hide();
-									$("#personne-morale-panel").show();
-								}
-							});
-
 				});
 	</script>
 </body>

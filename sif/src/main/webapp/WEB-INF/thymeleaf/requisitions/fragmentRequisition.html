@@ -13,7 +13,7 @@
 	<div class="panel-body">
 		<hr />
 
-		<form id="basicForm" th:action="@{${#httpServletRequest.servletPath}}"
+		<form id="basicFormRequisition" th:action="@{${#httpServletRequest.servletPath}}"
 			method="get" class="form-horizontal" th:object="${requisition}"
 			th:method="${requisition['new']} ? post : put" action="./view.html">
 
@@ -272,7 +272,7 @@
 				<div class="col-sm-8">
 					<textarea rows="5" class="form-control"
 						placeholder="Veuillez saisir l'adresse..." name="adresse"
-						id="description" title="L'adresse est obligatoire" required="true"></textarea>
+						id="adresse" title="L'adresse est obligatoire" required="true"></textarea>
 				</div>
 			</div>
 
@@ -291,6 +291,72 @@
 	</div>
 	<!-- panel-body -->
 
+
+
+
+	<script th:inline="javascript">
+		$(document).ready(
+
+				function() {
+					'use strict';
+					
+					$.datepicker.setDefaults($.datepicker.regional["fr"]);
+					$.datepicker.setDefaults({});
+					
+					// Basic Form
+					$('#basicFormRequisition').validate(
+							{
+								highlight : function(element) {
+									$(element).closest('.form-group')
+											.removeClass('has-success')
+											.addClass('has-error');
+								},
+								success : function(element) {
+									$(element).closest('.form-group')
+											.removeClass('has-error');
+								}
+							});
+
+					// Date Picker
+					$('#dateDemande').datepicker(
+							{
+								beforeShow : function(picker, inst) {
+									$('#dateDemande').datepicker("setDate",
+											$(dateDemande).val());
+								}
+							});
+
+					$('#dateNaissance').datepicker(
+							{
+								beforeShow : function(picker, inst) {
+									$('#dateNaissance').datepicker("setDate",
+											$(dateNaissance).val());
+								}
+							});
+
+					// Input Masks
+					$("#nombreEnfant").mask("##0", {
+						reverse : true
+					});
+					
+					$('.select2').select2();
+
+					$("#li-titre-foncier").addClass("active");
+					$("#li-departement").addClass("active");
+					
+					$(".rdiobox").change(function () {
+						if ($('input[name=typePersonne]:checked', '#basicFormRequisition').val() === "P"){
+							$("#personne-physique-panel").show();
+							$("#personne-morale-panel").hide();
+						}
+						else if ($('input[name=typePersonne]:checked', '#basicFormRequisition').val() === "M"){
+							$("#personne-physique-panel").hide();
+							$("#personne-morale-panel").show();
+						}
+					});
+				
+				});
+	</script>
 
 </body>
 </html>
